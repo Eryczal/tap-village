@@ -41,10 +41,11 @@ class MouseManager {
 	onMouseMove(event) {
 		if (this.mouseLastPos !== null) {
 			if (event.buttons == 1) {
-				this.game.sceneManager.onMouseMove(this.mouseLastPos, event);
+				this.game.sceneManager.onMouseDrag(this.mouseLastPos, event);
 			}
 		} else {
 			this.game.canvas.style.cursor = "default";
+			this.game.sceneManager.onMouseMove(this.mouseLastPos, event);
 			this.game.sceneManager.onHover(event.clientX, event.clientY);
 		}
 	}

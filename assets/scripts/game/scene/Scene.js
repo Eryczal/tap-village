@@ -38,6 +38,8 @@ class Scene {
 		this.elementsHolder.onClick(mouseX, mouseY);
 	}
 
+	onMouseDrag() {}
+
 	onMouseMove() {}
 
 	onMouseDown() {}

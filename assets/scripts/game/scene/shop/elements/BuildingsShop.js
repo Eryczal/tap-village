@@ -146,7 +146,7 @@ class Building extends Element {
 
 		console.log(x + size / 2 - size / 4, y + this.MAX_IMAGE_SIZE + 240, size / 2, size / 12);
 
-		this.buyButton = new BuyButton(game, x + size / 2 - size / 4, y + this.MAX_IMAGE_SIZE + 240, size / 2, size / 12);
+		this.buyButton = new BuyButton(game, x + size / 2 - size / 4, y + this.MAX_IMAGE_SIZE + 240, size / 2, size / 12, this);
 	}
 
 	draw() {
@@ -225,7 +225,7 @@ class Building extends Element {
 }
 
 class BuyButton extends Element {
-	constructor(game, x, y, width, height) {
+	constructor(game, x, y, width, height, that) {
 		super(game);
 
 		this.width = width;
@@ -235,6 +235,8 @@ class BuyButton extends Element {
 		this.y = y;
 
 		this.clickable = true;
+
+		this.parent = that;
 	}
 
 	draw() {
@@ -244,9 +246,21 @@ class BuyButton extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			// this.game.sceneManager.changeScene("shop");
+			let building = buildings[this.parent.id];
+			if (
+				this.game.playerManager.wood >= building.cost.wood &&
+				this.game.playerManager.stone >= building.cost.stone &&
+				this.game.playerManager.gold >= building.cost.gold
+			) {
+				this.game.playerManager.wood -= building.cost.wood;
+				this.game.playerManager.stone -= building.cost.stone;
+				this.game.playerManager.gold -= building.cost.gold;
+
+				this.game.constructionManager.setConstruction(building.id);
+				this.game.sceneManager.changeScene("main");
+			}
 		}
 	}
 }
 
-export { BuildingsShop };
+export { buildings, BuildingsShop };

@@ -21,6 +21,10 @@ class MainScene extends Scene {
 		super.init();
 	}
 
+	onMouseDrag(mouseLastPos, event) {
+		this.elementsHolder.elements.map?.onMouseDrag(mouseLastPos, event);
+	}
+
 	onMouseMove(mouseLastPos, event) {
 		this.elementsHolder.elements.map?.onMouseMove(mouseLastPos, event);
 	}

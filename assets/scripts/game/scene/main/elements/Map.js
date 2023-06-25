@@ -1,4 +1,5 @@
 import { Element } from "../../../element/Element.js";
+import { buildings } from "../../shop/elements/BuildingsShop.js";
 
 const map = [
 	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -81,6 +82,11 @@ class Map extends Element {
 			y: 0,
 		};
 
+		this.selectedTile = {
+			x: 0,
+			y: 0,
+		};
+
 		this.targetScroll = {};
 	}
 
@@ -94,6 +100,31 @@ class Map extends Element {
 				let size = this.TILE_SIZE + overlap;
 				this.game.ctx.drawImage(this.getTileImage(map[y][x]), xPos, yPos, size, size);
 			}
+		}
+
+		if (this.game.constructionManager.constructionState === 0) {
+			this.game.ctx.drawImage(
+				this.game.assetsManager.images[buildings[this.game.constructionManager.buildingId].image],
+				this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
+				this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
+				buildings[this.game.constructionManager.buildingId].size.x * this.TILE_SIZE,
+				buildings[this.game.constructionManager.buildingId].size.y * this.TILE_SIZE
+			);
+			this.game.ctx.globalCompositeOperation = "source-atop";
+			if (this.checkBuildingPos(this.game.constructionManager.buildingId)) {
+				this.game.ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
+			} else {
+				this.game.ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+			}
+
+			this.game.ctx.fillRect(
+				this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
+				this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
+				buildings[this.game.constructionManager.buildingId].size.x * this.TILE_SIZE,
+				buildings[this.game.constructionManager.buildingId].size.y * this.TILE_SIZE
+			);
+
+			this.game.ctx.globalCompositeOperation = "source-over";
 		}
 	}
 
@@ -133,7 +164,7 @@ class Map extends Element {
 		}
 	}
 
-	onMouseMove(mouseLastPos, event) {
+	onMouseDrag(mouseLastPos, event) {
 		if (this.scrollable) {
 			let mapPosition = {
 				x: this.oldMapScroll.x + (event.clientX - mouseLastPos.x) / this.zoom,
@@ -149,6 +180,17 @@ class Map extends Element {
 			}
 			if (mapPosition.y <= 0 && mapPosition.y >= maxScroll.y) {
 				this.mapScroll.y = mapPosition.y;
+			}
+		}
+	}
+
+	onMouseMove(mouseLastPos, event) {
+		if (this.game.constructionManager.constructionState === 0) {
+			if (event.clientX >= this.MENU_SIZE) {
+				this.selectedTile = {
+					x: Math.floor((event.clientX - this.mapScroll.x - this.MENU_SIZE) / this.TILE_SIZE),
+					y: Math.floor((event.clientY - this.mapScroll.y) / this.TILE_SIZE),
+				};
 			}
 		}
 	}
@@ -196,6 +238,24 @@ class Map extends Element {
 
 			this.zoom = newZoom;
 			this.TILE_SIZE = 50 * this.zoom;
+		}
+	}
+
+	checkBuildingPos(buildingId) {
+		let buildingSize = {
+			x: buildings[buildingId].size.x - 1,
+			y: buildings[buildingId].size.y - 1,
+		};
+
+		if (
+			map[this.selectedTile.y]?.[this.selectedTile.x] === 0 &&
+			map[this.selectedTile.y + buildingSize.y]?.[this.selectedTile.x] === 0 &&
+			map[this.selectedTile.y]?.[this.selectedTile.x + buildingSize.x] === 0 &&
+			map[this.selectedTile.y + buildingSize.y]?.[this.selectedTile.x + buildingSize.x] === 0
+		) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

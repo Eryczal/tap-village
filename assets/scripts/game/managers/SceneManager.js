@@ -48,6 +48,10 @@ class SceneManager {
 		this.currentScene?.onClick(mouseX, mouseY);
 	}
 
+	onMouseDrag(mouseLastPos, event) {
+		this.currentScene?.onMouseDrag(mouseLastPos, event);
+	}
+
 	onMouseMove(mouseLastPos, event) {
 		this.currentScene?.onMouseMove(mouseLastPos, event);
 	}
