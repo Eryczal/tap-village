@@ -1,0 +1,45 @@
+import { Scene } from "../Scene.js";
+import { Map } from "./elements/Map.js";
+import { Menu } from "./elements/Menu.js";
+import { Wood, Stone, Gold, Gem } from "./elements/Resource.js";
+
+class MainScene extends Scene {
+	constructor(game) {
+		super(game);
+	}
+
+	init() {
+		let menu = new Menu(this.game);
+
+		this.elementsHolder.addElement("map", new Map(this.game, menu));
+		this.elementsHolder.addElement("menu", menu);
+		this.elementsHolder.addElement("wood", new Wood(this.game));
+		this.elementsHolder.addElement("stone", new Stone(this.game));
+		this.elementsHolder.addElement("gold", new Gold(this.game));
+		this.elementsHolder.addElement("gem", new Gem(this.game));
+
+		super.init();
+	}
+
+	onMouseMove(mouseLastPos, event) {
+		this.elementsHolder.elements.map?.onMouseMove(mouseLastPos, event);
+	}
+
+	onMouseDown(mouseX, mouseY) {
+		this.elementsHolder.elements.map?.onMouseDown(mouseX);
+	}
+
+	onMouseUp(mouseX, mouseY) {
+		this.elementsHolder.elements.map?.onMouseUp();
+	}
+
+	onRightClick(mouseX, mouseY) {
+		this.elementsHolder.elements.map?.onRightClick(mouseX, mouseY);
+	}
+
+	onScroll(event) {
+		this.elementsHolder.elements.map?.onScroll(event);
+	}
+}
+
+export { MainScene };
