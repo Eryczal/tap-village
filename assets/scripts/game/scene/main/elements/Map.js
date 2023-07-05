@@ -92,6 +92,7 @@ class Map extends Element {
 
 	draw() {
 		let overlap = 1 / this.zoom;
+		let construction = this.game.constructionManager;
 
 		for (let y = 0; y < map.length; y++) {
 			for (let x = 0; x < map[y].length; x++) {
@@ -102,16 +103,16 @@ class Map extends Element {
 			}
 		}
 
-		if (this.game.constructionManager.constructionState === 0) {
+		if (construction.constructionState === 0) {
 			this.game.ctx.drawImage(
-				this.game.assetsManager.images[buildings[this.game.constructionManager.buildingId].image],
+				this.game.assetsManager.images[buildings[construction.buildingId].image],
 				this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
 				this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
-				buildings[this.game.constructionManager.buildingId].size.x * this.TILE_SIZE,
-				buildings[this.game.constructionManager.buildingId].size.y * this.TILE_SIZE
+				buildings[construction.buildingId].size.x * this.TILE_SIZE,
+				buildings[construction.buildingId].size.y * this.TILE_SIZE
 			);
 			this.game.ctx.globalCompositeOperation = "source-atop";
-			if (this.checkBuildingPos(this.game.constructionManager.buildingId)) {
+			if (this.checkBuildingPos(construction.buildingId)) {
 				this.game.ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
 			} else {
 				this.game.ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
@@ -120,11 +121,44 @@ class Map extends Element {
 			this.game.ctx.fillRect(
 				this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
 				this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
-				buildings[this.game.constructionManager.buildingId].size.x * this.TILE_SIZE,
-				buildings[this.game.constructionManager.buildingId].size.y * this.TILE_SIZE
+				buildings[construction.buildingId].size.x * this.TILE_SIZE,
+				buildings[construction.buildingId].size.y * this.TILE_SIZE
 			);
 
 			this.game.ctx.globalCompositeOperation = "source-over";
+		} else if (construction.constructionState === 1) {
+			this.game.ctx.drawImage(
+				this.game.assetsManager.images[buildings[construction.buildingId].image],
+				this.MENU_SIZE + this.mapScroll.x + construction.constructionX * this.TILE_SIZE,
+				this.mapScroll.y + construction.constructionY * this.TILE_SIZE,
+				buildings[construction.buildingId].size.x * this.TILE_SIZE,
+				buildings[construction.buildingId].size.y * this.TILE_SIZE
+			);
+
+			this.game.writeText(
+				construction.clickProgress + "/" + buildings[construction.buildingId].clicks,
+				this.MENU_SIZE + this.mapScroll.x + construction.constructionX * this.TILE_SIZE + (buildings[construction.buildingId].size.x * this.TILE_SIZE) / 2,
+				this.mapScroll.y + construction.constructionY * this.TILE_SIZE + (buildings[construction.buildingId].size.y * this.TILE_SIZE) / 2,
+				this.TILE_SIZE
+			);
+		}
+
+		for (let i = 0; i < this.game.buildingsManager.buildings.length; i++) {
+			let building = this.game.buildingsManager.buildings[i];
+			this.game.ctx.drawImage(
+				this.game.assetsManager.images[buildings[building.buildingId].image],
+				this.MENU_SIZE + this.mapScroll.x + building.posX * this.TILE_SIZE,
+				this.mapScroll.y + building.posY * this.TILE_SIZE,
+				buildings[building.buildingId].size.x * this.TILE_SIZE,
+				buildings[building.buildingId].size.y * this.TILE_SIZE
+			);
+
+			this.game.writeText(
+				"Poziom " + building.lvl,
+				this.MENU_SIZE + this.mapScroll.x + building.posX * this.TILE_SIZE + (buildings[building.buildingId].size.x * this.TILE_SIZE) / 2,
+				this.mapScroll.y + building.posY * this.TILE_SIZE + (buildings[building.buildingId].size.y * this.TILE_SIZE) / 2,
+				this.TILE_SIZE
+			);
 		}
 	}
 
@@ -200,6 +234,29 @@ class Map extends Element {
 		this.oldMapScroll.y = this.mapScroll.y;
 
 		this.scrollable = false;
+	}
+
+	onClick(mouseX, mouseY) {
+		if (mouseX >= this.MENU_SIZE) {
+			let tileX = Math.floor((mouseX - this.mapScroll.x - this.MENU_SIZE) / this.TILE_SIZE);
+			let tileY = Math.floor((mouseY - this.mapScroll.y) / this.TILE_SIZE);
+
+			if (this.game.constructionManager.constructionState === 0) {
+				this.selectedTile = {
+					x: tileX,
+					y: tileY,
+				};
+				if (this.checkBuildingPos(this.game.constructionManager.buildingId)) {
+					this.game.constructionManager.setBuild(this.selectedTile.x, this.selectedTile.y);
+					this.selectedTile.x = 0;
+					this.selectedTile.y = 0;
+				}
+			} else if (this.game.constructionManager.constructionState === 1) {
+				if (this.game.constructionManager.isClicked(tileX, tileY)) {
+					this.game.constructionManager.addProgress(1); // -----------------------------------------------
+				}
+			}
+		}
 	}
 
 	onRightClick(mouseX, mouseY) {

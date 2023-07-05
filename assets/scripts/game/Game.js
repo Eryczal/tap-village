@@ -1,5 +1,5 @@
 import { GlobalElementsHolder } from "./element/GlobalElementsHolder.js";
-import { AssetsManager, ResizeManager, MouseManager, SceneManager, PlayerManager, ConstructionManager } from "./managers/index.js";
+import { AssetsManager, ResizeManager, MouseManager, SceneManager, PlayerManager, ConstructionManager, BuildingsManager } from "./managers/index.js";
 
 class Game {
 	constructor() {
@@ -12,6 +12,7 @@ class Game {
 		this.mouseManager = new MouseManager(this);
 		this.playerManager = new PlayerManager(this);
 		this.constructionManager = new ConstructionManager(this);
+		this.buildingsManager = new BuildingsManager(this);
 	}
 
 	get ctx() {

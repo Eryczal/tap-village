@@ -15,6 +15,7 @@ const buildings = [
 			stone: 100,
 			gold: 0,
 		},
+		clicks: 100,
 		upgrades: [],
 	},
 	{
@@ -31,6 +32,7 @@ const buildings = [
 			stone: 100,
 			gold: 0,
 		},
+		clicks: 200,
 		upgrades: [],
 	},
 ];

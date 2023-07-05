@@ -23,7 +23,9 @@ class Menu extends Element {
 	}
 
 	onClick(mouseX, mouseY) {
-		this.button.onClick(mouseX, mouseY);
+		if (this.game.constructionManager.constructionState !== 0) {
+			this.button.onClick(mouseX, mouseY);
+		}
 	}
 }
 
