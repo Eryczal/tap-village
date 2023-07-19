@@ -1,8 +1,11 @@
 import { buildings } from "../scene/shop/elements/BuildingsShop.js";
+import { Element } from "../element/Element.js";
+import { map } from "../scene/main/elements/Map.js";
 
-class ConstructionManager {
+class ConstructionManager extends Element {
 	constructor(game) {
-		this.game = game;
+		super(game);
+
 		this.constructionState = null;
 	}
 
@@ -18,6 +21,13 @@ class ConstructionManager {
 		this.constructionX = posX;
 		this.constructionY = posY;
 		this.clickProgress = 0;
+		this.clickable = true;
+
+		for (let y = posY; y < posY + buildings[this.buildingId].size.y; y++) {
+			for (let x = posX; x < posX + buildings[this.buildingId].size.x; x++) {
+				map[y][x] = 5;
+			}
+		}
 	}
 
 	addProgress(progress) {
@@ -26,16 +36,8 @@ class ConstructionManager {
 		if (this.clickProgress >= buildings[this.buildingId].clicks) {
 			this.game.buildingsManager.addBuilding(this.buildingId, this.constructionX, this.constructionY);
 			this.constructionState = null;
+			this.clickable = false;
 		}
-	}
-
-	isClicked(tileX, tileY) {
-		return !(
-			this.constructionY + buildings[this.buildingId].size.y < tileY ||
-			this.constructionY > tileY ||
-			this.constructionX + buildings[this.buildingId].size.x < tileX ||
-			this.constructionX > tileX
-		);
 	}
 }
 

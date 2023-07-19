@@ -2,10 +2,12 @@ class PlayerManager {
 	constructor(game) {
 		this.game = game;
 
-		this.wood = 100;
-		this.stone = 100;
+		this.wood = 0;
+		this.stone = 0;
 		this.gold = 0;
 		this.gem = 0;
+
+		this.preferedZoom = 1;
 	}
 
 	get wood() {

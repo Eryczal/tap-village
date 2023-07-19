@@ -20,6 +20,10 @@ class ShopScene extends Scene {
 
 		super.init();
 	}
+
+	onScroll(event) {
+		this.elementsHolder.elements.buildingsShop.onScroll(event);
+	}
 }
 
 export { ShopScene };

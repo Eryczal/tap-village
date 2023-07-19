@@ -98,7 +98,7 @@ class Game {
 			sizes[i] = this.ctx.measureText(lines[i]);
 		}
 
-		return sizes;
+		return { sizes, lines: lines.length };
 	}
 }
 

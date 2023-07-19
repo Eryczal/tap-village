@@ -11,11 +11,12 @@ const buildings = [
 			y: 5,
 		},
 		cost: {
-			wood: 100,
-			stone: 100,
+			wood: 30,
+			stone: 0,
 			gold: 0,
 		},
 		clicks: 100,
+		maxOnMap: 1,
 		upgrades: [],
 	},
 	{
@@ -28,11 +29,30 @@ const buildings = [
 			y: 2,
 		},
 		cost: {
-			wood: 100,
-			stone: 100,
+			wood: 50,
+			stone: 10,
 			gold: 0,
 		},
 		clicks: 200,
+		maxOnMap: 3,
+		upgrades: [],
+	},
+	{
+		id: 2,
+		image: "mine",
+		name: "Kopalnia",
+		description: "Pozwala zbierać kamień potrzebny do budowy.",
+		size: {
+			x: 3,
+			y: 3,
+		},
+		cost: {
+			wood: 300,
+			stone: 50,
+			gold: 0,
+		},
+		clicks: 300,
+		maxOnMap: 3,
 		upgrades: [],
 	},
 ];
@@ -44,6 +64,7 @@ class BuildingsShop extends Element {
 		this.MENU_SIZE = menu.MENU_SIZE;
 		this.MAX_PER_ROW = 2;
 		this.SIZE = canvas.width - this.MENU_SIZE;
+		this.scroll = 0;
 	}
 
 	init() {
@@ -51,12 +72,12 @@ class BuildingsShop extends Element {
 		let row = 0;
 
 		for (let i = 0; i < buildings.length; i++) {
-			console.log(column);
 			this[buildings[i].image] = new Building(
 				this.game,
+				this,
 				i,
 				(this.SIZE / this.MAX_PER_ROW) * column + this.MENU_SIZE,
-				row * 500 + 150,
+				row * 700 + 150, //zmienić 700 na dynamiczne
 				this.SIZE / this.MAX_PER_ROW
 			);
 
@@ -88,6 +109,14 @@ class BuildingsShop extends Element {
 	onClick(mouseX, mouseY) {
 		for (let i = 0; i < buildings.length; i++) {
 			this[buildings[i].image].onClick(mouseX, mouseY);
+		}
+	}
+
+	onScroll(event) {
+		this.scroll += event.deltaY;
+		this.scroll = Math.min(Math.floor(buildings.length / 2) * 700, Math.max(0, this.scroll)); //zmienić 700 na dynamiczne
+		for (let i = 0; i < buildings.length; i++) {
+			this[buildings[i].image].updateScroll(this.scroll);
 		}
 	}
 
@@ -134,8 +163,11 @@ class BuildingsShop extends Element {
 }
 
 class Building extends Element {
-	constructor(game, id, x, y, size) {
+	constructor(game, parent, id, x, y, size) {
 		super(game);
+
+		this.parent = parent;
+		this.scroll = parent.scroll;
 
 		this.id = id;
 		this.x = x;
@@ -145,74 +177,65 @@ class Building extends Element {
 		this.IMAGE_SIZE_X = buildings[id].size.x * 50;
 		this.IMAGE_SIZE_Y = buildings[id].size.y * 50;
 		this.ICON_SIZE = 50;
-
-		console.log(x + size / 2 - size / 4, y + this.MAX_IMAGE_SIZE + 240, size / 2, size / 12);
+		this.TEXT_SPACING = 10;
+		this.ICON_SPACING = 20;
 
 		this.buyButton = new BuyButton(game, x + size / 2 - size / 4, y + this.MAX_IMAGE_SIZE + 240, size / 2, size / 12, this);
+	}
+
+	updateScroll(scroll) {
+		this.scroll = scroll;
+		this.buyButton.y = this.buyButton.iY - scroll;
 	}
 
 	draw() {
 		this.game.ctx.drawImage(
 			this.game.assetsManager.images[buildings[this.id].image],
 			this.x + this.size / 2 - this.IMAGE_SIZE_X / 2,
-			this.y + (this.MAX_IMAGE_SIZE - this.IMAGE_SIZE_Y) / 2,
+			this.y + (this.MAX_IMAGE_SIZE - this.IMAGE_SIZE_Y) / 2 - this.scroll,
 			this.IMAGE_SIZE_X,
 			this.IMAGE_SIZE_Y
 		);
 
-		this.game.writeText(buildings[this.id].name, this.x + this.size / 2, this.y + this.MAX_IMAGE_SIZE, 56, "#000", "center", "top");
-		this.game.writeText(buildings[this.id].description, this.x + this.size / 2, this.y + this.MAX_IMAGE_SIZE + 60, 40, "#000", "center", "top");
+		let textY = this.y + this.MAX_IMAGE_SIZE - this.scroll;
 
-		this.game.ctx.drawImage(
-			this.game.assetsManager.images.woodIcon,
-			this.x + this.MAX_IMAGE_SIZE / 2,
-			this.y + this.MAX_IMAGE_SIZE + 160,
-			this.ICON_SIZE,
-			this.ICON_SIZE
-		);
+		this.game.writeText(buildings[this.id].name, this.x + this.size / 2, textY, 56, "#000", "center", "top");
+		textY += 56 + this.TEXT_SPACING;
+
+		let descSize = this.game.writeText(buildings[this.id].description, this.x + this.size / 2, textY, 40, "#000", "center", "top");
+		textY += descSize.lines * 40 + this.TEXT_SPACING;
+
+		let iconX = this.x + this.MAX_IMAGE_SIZE / 2;
+
+		this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, iconX, textY, this.ICON_SIZE, this.ICON_SIZE);
 
 		let woodSize = this.game.writeText(
 			buildings[this.id].cost.wood,
-			this.x + this.MAX_IMAGE_SIZE / 2 + this.ICON_SIZE + 10,
-			this.y + this.MAX_IMAGE_SIZE + 160 + this.ICON_SIZE / 2,
+			iconX + this.ICON_SIZE + this.TEXT_SPACING,
+			textY + this.ICON_SIZE / 2,
 			40,
 			"#000",
 			"left"
 		);
 
-		this.game.ctx.drawImage(
-			this.game.assetsManager.images.stoneIcon,
-			this.x + this.MAX_IMAGE_SIZE / 2 + woodSize[0].width + 10 + this.ICON_SIZE + 20,
-			this.y + this.MAX_IMAGE_SIZE + 160,
-			this.ICON_SIZE,
-			this.ICON_SIZE
-		);
+		iconX += woodSize.sizes[0].width + this.ICON_SPACING + this.ICON_SIZE;
+
+		this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, iconX, textY, this.ICON_SIZE, this.ICON_SIZE);
 
 		let stoneSize = this.game.writeText(
 			buildings[this.id].cost.stone,
-			this.x + this.MAX_IMAGE_SIZE / 2 + woodSize[0].width + 10 + this.ICON_SIZE * 2 + 30,
-			this.y + this.MAX_IMAGE_SIZE + 160 + this.ICON_SIZE / 2,
+			iconX + this.ICON_SIZE + this.TEXT_SPACING,
+			textY + this.ICON_SIZE / 2,
 			40,
 			"#000",
 			"left"
 		);
 
-		this.game.ctx.drawImage(
-			this.game.assetsManager.images.goldIcon,
-			this.x + this.MAX_IMAGE_SIZE / 2 + woodSize[0].width + stoneSize[0].width + 20 + (this.ICON_SIZE + 20) * 2,
-			this.y + this.MAX_IMAGE_SIZE + 160,
-			this.ICON_SIZE,
-			this.ICON_SIZE
-		);
+		iconX += stoneSize.sizes[0].width + this.ICON_SPACING + this.ICON_SIZE;
 
-		this.game.writeText(
-			buildings[this.id].cost.gold,
-			this.x + this.MAX_IMAGE_SIZE / 2 + woodSize[0].width + stoneSize[0].width + 20 + this.ICON_SIZE * 3 + 50,
-			this.y + this.MAX_IMAGE_SIZE + 160 + this.ICON_SIZE / 2,
-			40,
-			"#000",
-			"left"
-		);
+		this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, iconX, textY, this.ICON_SIZE, this.ICON_SIZE);
+
+		this.game.writeText(buildings[this.id].cost.gold, iconX + this.ICON_SIZE + this.TEXT_SPACING, textY + this.ICON_SIZE / 2, 40, "#000", "left");
 
 		this.buyButton.draw();
 	}
@@ -227,39 +250,44 @@ class Building extends Element {
 }
 
 class BuyButton extends Element {
-	constructor(game, x, y, width, height, that) {
+	constructor(game, x, y, width, height, parent) {
 		super(game);
 
 		this.width = width;
 		this.height = height;
 
 		this.x = x;
+		this.iY = y;
 		this.y = y;
 
-		this.clickable = true;
+		this.clickable = this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap;
 
-		this.parent = that;
+		this.parent = parent;
+
+		this.color = this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap ? "#000" : "#999";
 	}
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
-		this.game.writeText("Kup", this.x + this.width / 2, this.y + this.height / 2, 56);
+		this.game.writeText("Kup", this.x + this.width / 2, this.y + this.height / 2, 56, this.color);
 	}
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			let building = buildings[this.parent.id];
-			if (
-				this.game.playerManager.wood >= building.cost.wood &&
-				this.game.playerManager.stone >= building.cost.stone &&
-				this.game.playerManager.gold >= building.cost.gold
-			) {
-				this.game.playerManager.wood -= building.cost.wood;
-				this.game.playerManager.stone -= building.cost.stone;
-				this.game.playerManager.gold -= building.cost.gold;
+			if (this.game.constructionManager.constructionState === null) {
+				let building = buildings[this.parent.id];
+				if (
+					this.game.playerManager.wood >= building.cost.wood &&
+					this.game.playerManager.stone >= building.cost.stone &&
+					this.game.playerManager.gold >= building.cost.gold
+				) {
+					this.game.playerManager.wood -= building.cost.wood;
+					this.game.playerManager.stone -= building.cost.stone;
+					this.game.playerManager.gold -= building.cost.gold;
 
-				this.game.constructionManager.setConstruction(building.id);
-				this.game.sceneManager.changeScene("main");
+					this.game.constructionManager.setConstruction(building.id);
+					this.game.sceneManager.changeScene("main");
+				}
 			}
 		}
 	}

@@ -2,6 +2,8 @@ const imagesPath = {
 	grassTile: "assets/images/tiles/grass.png",
 	waterTile: "assets/images/tiles/water.png",
 	waterTile2: "assets/images/tiles/water2.png",
+	treeTile: "assets/images/tiles/tree.png",
+	stoneTile: "assets/images/tiles/stone.png",
 
 	woodIcon: "assets/images/icons/wood.png",
 	stoneIcon: "assets/images/icons/stone.png",
@@ -10,11 +12,14 @@ const imagesPath = {
 
 	castle: "assets/images/buildings/castle.png",
 	sawmill: "assets/images/buildings/sawmill.png",
+	mine: "assets/images/buildings/mine.png",
 
 	menu: "assets/images/ui/menu.png",
 	shopButton: "assets/images/ui/shop-button.png",
 	shop: "assets/images/ui/shop.png",
 	buyButton: "assets/images/ui/buy-button.png",
+
+	redButton: "assets/images/ui/red-button.png",
 };
 
 class AssetsManager {

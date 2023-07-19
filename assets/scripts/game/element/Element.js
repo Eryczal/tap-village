@@ -18,6 +18,7 @@ class Element {
 		if (this.clickable) {
 			if (this.isMouseOver(mouseX, mouseY)) {
 				this.game.canvas.style.cursor = "pointer";
+				return true;
 			}
 		}
 	}

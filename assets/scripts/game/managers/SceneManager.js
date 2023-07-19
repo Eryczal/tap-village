@@ -1,5 +1,6 @@
 import { MainScene } from "../scene/main/MainScene.js";
 import { ShopScene } from "../scene/shop/ShopScene.js";
+import { BuildingScene } from "../scene/building/BuildingScene.js";
 
 class SceneManager {
 	constructor(game) {
@@ -31,6 +32,9 @@ class SceneManager {
 			case "shop":
 				this.currentScene = new ShopScene(this.game);
 				break;
+
+			case "building":
+				this.currentScene = new BuildingScene(this.game);
 		}
 
 		this.currentScene?.init();
