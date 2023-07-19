@@ -23,7 +23,7 @@ class BackButton extends Element {
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
-		this.game.writeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, 40, "#fff");
+		this.game.writeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, 48);
 	}
 }
 

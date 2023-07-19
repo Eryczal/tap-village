@@ -1,4 +1,5 @@
 import { Scene } from "../Scene.js";
+import { BuildingBackground } from "./elements/BuildingBackground.js";
 import { BuildingName } from "./elements/BuildingName.js";
 import { BackButton } from "./elements/BackButton.js";
 import { Stats } from "./elements/0/Stats.js";
@@ -10,6 +11,8 @@ class BuildingScene extends Scene {
 	}
 
 	init() {
+		this.elementsHolder.addElement("BuildingBackground", new BuildingBackground(this.game));
+
 		switch (this.game.buildingsManager.clickedBuilding.buildingId) {
 			case 0:
 				this.elementsHolder.addElement("Stats", new Stats(this.game));
