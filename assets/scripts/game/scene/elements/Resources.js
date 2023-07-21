@@ -1,4 +1,4 @@
-import { Element } from "../../../element/Element.js";
+import { Element } from "../../element/Element.js";
 
 class Resource extends Element {
 	constructor(game, x, y, text, image) {

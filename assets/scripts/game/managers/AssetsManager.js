@@ -17,8 +17,9 @@ const imagesPath = {
 	menu: "assets/images/ui/menu.png",
 	shopButton: "assets/images/ui/shop-button.png",
 	shop: "assets/images/ui/shop.png",
+	building: "assets/images/ui/building.png",
 	buyButton: "assets/images/ui/buy-button.png",
-
+	upgradeButton: "assets/images/ui/upgrade-button.png",
 	redButton: "assets/images/ui/red-button.png",
 };
 

@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-import { buildings } from "../../shop/elements/BuildingsShop.js";
+import { buildings } from "../../shop/elements/buildings.js";
 import { MapObject } from "./MapObject.js";
 
 var map = [

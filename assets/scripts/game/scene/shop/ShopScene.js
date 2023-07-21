@@ -1,7 +1,7 @@
 import { Scene } from "../Scene.js";
-import { Menu } from "./elements/Menu.js";
+import { Menu } from "../elements/Menu.js";
 import { BuildingsShop } from "./elements/BuildingsShop.js";
-import { Wood, Stone, Gold, Gem } from "./elements/Resource.js";
+import { Wood, Stone, Gold, Gem } from "../elements/Resources.js";
 
 class ShopScene extends Scene {
 	constructor(game) {
@@ -9,7 +9,7 @@ class ShopScene extends Scene {
 	}
 
 	init() {
-		let menu = new Menu(this.game);
+		let menu = new Menu(this.game, "open");
 
 		this.elementsHolder.addElement("buildingsShop", new BuildingsShop(this.game, menu));
 		this.elementsHolder.addElement("menu", menu);
