@@ -21,6 +21,7 @@ const imagesPath = {
 	buyButton: "assets/images/ui/buy-button.png",
 	upgradeButton: "assets/images/ui/upgrade-button.png",
 	redButton: "assets/images/ui/red-button.png",
+	buildingClick: "assets/images/ui/building-click.png",
 };
 
 class AssetsManager {

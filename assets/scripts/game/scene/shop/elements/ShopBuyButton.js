@@ -25,13 +25,14 @@ class ShopBuyButton extends Element {
 	}
 
 	onClick(mouseX, mouseY) {
-		if (this.isMouseOver(mouseX, mouseY)) {
+		if (this.isMouseOver(mouseX, mouseY) && this.clickable) {
 			if (this.game.constructionManager.constructionState === null) {
 				let building = buildings[this.parent.id];
 				if (
 					this.game.playerManager.wood >= building.cost.wood &&
 					this.game.playerManager.stone >= building.cost.stone &&
-					this.game.playerManager.gold >= building.cost.gold
+					this.game.playerManager.gold >= building.cost.gold &&
+					(this.parent.id === 0 || this.game.buildingsManager.countBuilding(0) === 1)
 				) {
 					this.game.playerManager.wood -= building.cost.wood;
 					this.game.playerManager.stone -= building.cost.stone;

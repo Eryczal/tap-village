@@ -23,7 +23,7 @@ class Element {
 		}
 	}
 
-	onClick(mouseX, mouseY) {}
+	onClick() {}
 
 	isMouseOver(mouseX, mouseY) {
 		return !(this.y + this.height < mouseY || this.y > mouseY || this.x + this.width < mouseX || this.x > mouseX);

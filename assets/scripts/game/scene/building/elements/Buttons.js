@@ -1,4 +1,5 @@
 import { Element } from "../../../element/Element.js";
+import { buildings } from "../../shop/elements/buildings.js";
 
 class BackButton extends Element {
 	constructor(game, menu) {
@@ -37,18 +38,67 @@ class UpgradeButton extends BackButton {
 
 		this.y = canvas.height - canvas.height / 4;
 
-		this.clickable = true;
+		this.offset = canvas.width / 200;
+		this.iconY = this.y - this.height / 3 - this.height / 4;
+
+		this.building = this.game.buildingsManager.clickedBuilding;
+		this.cost = buildings[this.building.buildingId].upgrades[this.building.lvl - 1]?.cost;
+		this.clickable = this.cost !== undefined;
 	}
 
 	onClick(mouseX, mouseY) {
-		if (this.isMouseOver(mouseX, mouseY)) {
-			this.game.sceneManager.changeScene("upgrade");
+		let player = this.game.playerManager;
+		if (this.isMouseOver(mouseX, mouseY) && this.cost !== undefined) {
+			if (
+				player.wood >= this.cost.wood &&
+				player.stone >= this.cost.stone &&
+				player.gold >= this.cost.gold &&
+				(this.building.buildingId === 0 || this.game.buildingsManager.buildings[0].lvl > this.building.lvl)
+			) {
+				player.wood -= this.cost.wood;
+				player.stone -= this.cost.stone;
+				player.gold -= this.cost.gold;
+
+				this.building.lvl++;
+				this.cost = buildings[this.building.buildingId].upgrades[this.building.lvl - 1]?.cost;
+				this.clickable = this.cost !== undefined;
+			}
 		}
 	}
 
 	draw() {
+		let textX = this.x + this.offset;
+
 		this.game.ctx.drawImage(this.game.assetsManager.images.upgradeButton, this.x, this.y, this.width, this.height);
-		this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, 48);
+
+		if (this.cost !== undefined) {
+			this.game.ctx.beginPath();
+			this.game.ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
+			this.game.ctx.rect(this.x, this.y - this.height / 1.5, this.width, this.height / 1.5);
+			this.game.ctx.fill();
+
+			this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, 48);
+
+			this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
+			textX += this.height / 2 + this.offset * 2;
+
+			let woodSize = this.game.writeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2);
+			textX += woodSize.sizes[0].width + this.offset * 2;
+
+			this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
+			textX += this.height / 2 + this.offset * 2;
+
+			let stoneSize = this.game.writeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2);
+			textX += stoneSize.sizes[0].width + this.offset * 2;
+
+			this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
+			textX += this.height / 2 + this.offset * 2;
+
+			let goldSize = this.game.writeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2);
+			textX += goldSize.sizes[0].width + this.offset * 2;
+		} else {
+			this.game.writeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, 48);
+		}
 	}
 }
 

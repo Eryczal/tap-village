@@ -10,6 +10,8 @@ class BuildingName extends Element {
 
 	draw() {
 		let building = this.game.buildingsManager.clickedBuilding;
+
+		this.game.ctx.drawImage(this.game.assetsManager.images.building, this.MENU_SIZE, 0, this.game.canvas.width - this.MENU_SIZE, this.game.canvas.height);
 		this.game.writeText(buildings[building.buildingId].name, (canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE, 56, 56);
 		this.game.writeText("Poziom " + building.lvl, (canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE, 100, 40);
 	}

@@ -128,7 +128,7 @@ class BuildingsButton extends Button {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			// this.game.sceneManager.changeScene("main");
+			this.game.sceneManager.changeScene("shop");
 		}
 	}
 }
