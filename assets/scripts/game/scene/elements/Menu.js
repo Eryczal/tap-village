@@ -4,7 +4,7 @@ class Menu extends Element {
 	constructor(game, state = "closed") {
 		super(game);
 
-		this.MENU_SIZE = 250;
+		this.MENU_SIZE = this.game.canvas.width / 8;
 		this.state = state;
 
 		if (state === "open") {
@@ -25,6 +25,7 @@ class Menu extends Element {
 	}
 
 	onResize() {
+		this.MENU_SIZE = this.game.canvas.width / 8;
 		this.button?.onResize();
 		this.backButton?.onResize();
 		this.resourcesButton?.onResize();

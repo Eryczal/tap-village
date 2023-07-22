@@ -59,7 +59,7 @@ class Map extends Element {
 	constructor(game, menu) {
 		super(game);
 
-		this.TILE_SIZE = 50 * this.game.playerManager.preferedZoom;
+		this.TILE_SIZE = (this.game.canvas.width / 32) * this.game.playerManager.preferedZoom;
 		this.MENU_SIZE = menu.MENU_SIZE;
 
 		this.mapObjects = [];
@@ -218,12 +218,9 @@ class Map extends Element {
 					x: (this.TILE_SIZE * map[0].length - window.innerWidth + this.MENU_SIZE) * -1,
 					y: (this.TILE_SIZE * map.length - window.innerHeight) * -1,
 				};
-				if (mapPosition.x <= 0 && mapPosition.x >= maxScroll.x) {
-					this.mapScroll.x = mapPosition.x;
-				}
-				if (mapPosition.y <= 0 && mapPosition.y >= maxScroll.y) {
-					this.mapScroll.y = mapPosition.y;
-				}
+
+				this.mapScroll.x = Math.max(Math.min(mapPosition.x, 0), maxScroll.x);
+				this.mapScroll.y = Math.max(Math.min(mapPosition.y, 0), maxScroll.y);
 			}
 		}
 
@@ -319,7 +316,7 @@ class Map extends Element {
 
 			this.zoom = newZoom;
 			this.game.playerManager.preferedZoom = this.zoom;
-			this.TILE_SIZE = 50 * this.zoom;
+			this.TILE_SIZE = (this.game.canvas.width / 32) * this.zoom;
 
 			this.updateSizes();
 		}
@@ -369,9 +366,9 @@ class Map extends Element {
 
 	handleDestroyedObject(type, x, y) {
 		if (type === 2) {
-			this.game.playerManager.wood += 30; //1
+			this.game.playerManager.wood += 300; //1
 		} else {
-			this.game.playerManager.stone += 30; //1 --------------------------------------------------------
+			this.game.playerManager.stone += 300; //1 --------------------------------------------------------
 		}
 
 		this.mapObjects = this.mapObjects.filter((obj) => obj.id !== y + "_" + x);

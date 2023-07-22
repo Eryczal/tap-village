@@ -1,4 +1,5 @@
 import { Element } from "../element/Element.js";
+import { buildings } from "../scene/shop/elements/buildings.js";
 
 class Building extends Element {
 	constructor(game, buildingId, posX, posY) {
@@ -14,6 +15,37 @@ class Building extends Element {
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
 			return true;
+		}
+	}
+}
+
+class SawmillBuilding extends Building {
+	static stats = {};
+	static statsCost = {};
+
+	constructor(game, buildingId, posX, posY, stats, statsCost) {
+		super(game, buildingId, posX, posY);
+
+		let pStats = JSON.parse(JSON.stringify(stats));
+
+		this.workers = pStats.workers;
+		this.workersSpeed = pStats.workersSpeed;
+
+		if (Object.keys(SawmillBuilding.stats).length === 0) {
+			SawmillBuilding.stats = pStats;
+			delete SawmillBuilding.stats.workers;
+			delete SawmillBuilding.stats.workersSpeed;
+		}
+
+		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+
+		this.workersCost = pStatsCost.workers;
+		this.workersSpeedCost = pStatsCost.workersSpeed;
+
+		if (Object.keys(SawmillBuilding.statsCost).length === 0) {
+			SawmillBuilding.statsCost = pStatsCost;
+			delete SawmillBuilding.statsCost.workers;
+			delete SawmillBuilding.statsCost.workersSpeed;
 		}
 	}
 }
@@ -46,7 +78,16 @@ class BuildingsManager {
 	}
 
 	addBuilding(buildingId, posX, posY) {
-		this.buildings.push(new Building(this.game, buildingId, posX, posY));
+		switch (buildingId) {
+			case 1:
+				this.buildings.push(new SawmillBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
+				console.log(SawmillBuilding.stats);
+				break;
+
+			default:
+				this.buildings.push(new Building(this.game, buildingId, posX, posY));
+				break;
+		}
 	}
 
 	onClick(mouseX, mouseY) {
@@ -60,4 +101,4 @@ class BuildingsManager {
 	}
 }
 
-export { BuildingsManager };
+export { BuildingsManager, SawmillBuilding };

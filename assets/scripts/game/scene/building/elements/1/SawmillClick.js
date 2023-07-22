@@ -1,4 +1,5 @@
 import { Element } from "../../../../element/Element.js";
+import { SawmillBuilding } from "../../../../managers/BuildingsManager.js";
 
 class SawmillClick extends Element {
 	constructor(game, menu) {
@@ -27,7 +28,10 @@ class SawmillClick extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			this.game.playerManager.wood += 30; // zmienić!!!!
+			if (Math.random() < SawmillBuilding.stats.gatheringChance / 100) {
+				let critic = Math.random() < SawmillBuilding.stats.criticalChance / 100;
+				this.game.playerManager.wood += critic ? SawmillBuilding.stats.criticalPower : SawmillBuilding.stats.gatheringPower;
+			}
 		}
 	}
 }
