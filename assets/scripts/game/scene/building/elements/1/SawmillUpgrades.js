@@ -142,10 +142,6 @@ class GatheringPower extends SawmillButton {
 			}
 		}
 	}
-
-	updateMaxStats() {
-		super.updateMaxStats();
-	}
 }
 
 class GatheringChance extends SawmillButton {

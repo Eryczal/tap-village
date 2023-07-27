@@ -66,7 +66,11 @@ class UpgradeButton extends BackButton {
 				switch (this.building.buildingId) {
 					case 1:
 						this.game.sceneManager.currentScene.elementsHolder.list["GatheringPower"].updateMaxStats();
-						break;
+						this.game.sceneManager.currentScene.elementsHolder.list["GatheringChance"].updateMaxStats();
+						this.game.sceneManager.currentScene.elementsHolder.list["CriticPower"].updateMaxStats();
+						this.game.sceneManager.currentScene.elementsHolder.list["CriticChance"].updateMaxStats();
+						this.game.sceneManager.currentScene.elementsHolder.list["SawmillWorkers"].updateMaxStats();
+						this.game.sceneManager.currentScene.elementsHolder.list["SawmillWorkersSpeed"].updateMaxStats();
 				}
 			}
 		}
