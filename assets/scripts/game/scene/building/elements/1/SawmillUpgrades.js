@@ -22,6 +22,13 @@ class SawmillButton extends Element {
 		this.text = text;
 		this.stat = stat;
 		this.building = this.game.buildingsManager.clickedBuilding;
+
+		if (this.building.lvl > 1) {
+			this.maxStat = buildings[this.building.buildingId].upgrades[this.building.lvl - 2].maxStats[stat];
+		} else {
+			this.maxStat = buildings[this.building.buildingId].maxStats[stat];
+		}
+
 		if (stat !== "workers" && stat !== "workersSpeed") {
 			this[stat] = SawmillBuilding.stats[stat];
 			this.cost = SawmillBuilding.statsCost[stat];
@@ -33,7 +40,13 @@ class SawmillButton extends Element {
 		this.state = 0;
 	}
 
-	updateValues() {
+	updateMaxStats() {
+		if (this.building.lvl > 1) {
+			this.maxStat = buildings[this.building.buildingId].upgrades[this.building.lvl - 2].maxStats[this.stat];
+		}
+	}
+
+	updateValues(mouseX, mouseY) {
 		if (this.stat !== "workers" && this.stat !== "workersSpeed") {
 			this[this.stat] = SawmillBuilding.stats[this.stat];
 			this.cost = SawmillBuilding.statsCost[this.stat];
@@ -41,13 +54,15 @@ class SawmillButton extends Element {
 			this[this.stat] = this.building[this.stat];
 			this.cost = this.building[this.stat + "Cost"];
 		}
+
+		this.onHover(mouseX, mouseY);
 	}
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
 		if (this.state === 0) {
-			this.game.writeText(`${this.text} `, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
-		} else {
+			this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
+		} else if (this.state === 1) {
 			let textX = this.x + this.offset;
 
 			this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
@@ -67,6 +82,8 @@ class SawmillButton extends Element {
 
 			let goldSize = this.game.writeText(this.cost.gold, textX, this.y + this.height / 2, this.height / 2);
 			textX += goldSize.sizes[0].width + this.offset * 2;
+		} else {
+			this.game.writeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 		}
 	}
 
@@ -94,7 +111,11 @@ class GatheringPower extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.gatheringPower < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -102,7 +123,7 @@ class GatheringPower extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.gatheringPower < buildings[this.building.buildingId].maxStats.gatheringPower) {
+			if (this.gatheringPower < this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&
@@ -116,10 +137,14 @@ class GatheringPower extends SawmillButton {
 					this.cost.stone = Math.round(this.cost.stone * 1.3);
 					this.cost.gold = Math.round(this.cost.gold * 1.3);
 
-					this.updateValues();
+					this.updateValues(mouseX, mouseY);
 				}
 			}
 		}
+	}
+
+	updateMaxStats() {
+		super.updateMaxStats();
 	}
 }
 
@@ -142,7 +167,11 @@ class GatheringChance extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.gatheringChance < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -150,7 +179,7 @@ class GatheringChance extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.gatheringChance < buildings[this.building.buildingId].maxStats.gatheringChance) {
+			if (this.gatheringChance < this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&
@@ -190,7 +219,11 @@ class CriticPower extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.criticalPower < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -198,7 +231,7 @@ class CriticPower extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.criticalPower < buildings[this.building.buildingId].maxStats.criticalPower) {
+			if (this.criticalPower < this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&
@@ -238,7 +271,11 @@ class CriticChance extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.criticalChance < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -246,7 +283,7 @@ class CriticChance extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.criticalChance < buildings[this.building.buildingId].maxStats.criticalChance) {
+			if (this.criticalChance < this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&
@@ -281,7 +318,11 @@ class SawmillWorkers extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.workers < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -289,7 +330,7 @@ class SawmillWorkers extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.workers < buildings[this.building.buildingId].maxStats.workers) {
+			if (this.workers < this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&
@@ -340,7 +381,11 @@ class SawmillWorkersSpeed extends SawmillButton {
 
 	onHover(mouseX, mouseY) {
 		if (super.onHover(mouseX, mouseY)) {
-			this.state = 1;
+			if (this.workersSpeed > this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
 		} else {
 			this.state = 0;
 		}
@@ -348,7 +393,7 @@ class SawmillWorkersSpeed extends SawmillButton {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (this.workersSpeed > buildings[this.building.buildingId].maxStats.workersSpeed) {
+			if (this.workersSpeed > this.maxStat) {
 				if (
 					this.game.playerManager.wood >= this.cost.wood &&
 					this.game.playerManager.stone >= this.cost.stone &&

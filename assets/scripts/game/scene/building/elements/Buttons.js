@@ -26,7 +26,7 @@ class BackButton extends Element {
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
-		this.game.writeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, 48);
+		this.game.writeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 	}
 }
 
@@ -62,6 +62,12 @@ class UpgradeButton extends BackButton {
 				this.building.lvl++;
 				this.cost = buildings[this.building.buildingId].upgrades[this.building.lvl - 1]?.cost;
 				this.clickable = this.cost !== undefined;
+
+				switch (this.building.buildingId) {
+					case 1:
+						this.game.sceneManager.currentScene.elementsHolder.list["GatheringPower"].updateMaxStats();
+						break;
+				}
 			}
 		}
 	}
@@ -71,33 +77,37 @@ class UpgradeButton extends BackButton {
 
 		this.game.ctx.drawImage(this.game.assetsManager.images.upgradeButton, this.x, this.y, this.width, this.height);
 
-		if (this.cost !== undefined) {
-			this.game.ctx.beginPath();
-			this.game.ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
-			this.game.ctx.rect(this.x, this.y - this.height / 1.5, this.width, this.height / 1.5);
-			this.game.ctx.fill();
+		if (this.building.buildingId === 0 || this.building.lvl < this.game.buildingsManager.buildings[0].lvl) {
+			if (this.cost !== undefined) {
+				this.game.ctx.beginPath();
+				this.game.ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
+				this.game.ctx.rect(this.x, this.y - this.height / 1.5, this.width, this.height / 1.5);
+				this.game.ctx.fill();
 
-			this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, 48);
+				this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 
-			this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
-			textX += this.height / 2 + this.offset * 2;
+				this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
+				textX += this.height / 2 + this.offset * 2;
 
-			let woodSize = this.game.writeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2);
-			textX += woodSize.sizes[0].width + this.offset * 2;
+				let woodSize = this.game.writeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2);
+				textX += woodSize.sizes[0].width + this.offset * 2;
 
-			this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
-			textX += this.height / 2 + this.offset * 2;
+				this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
+				textX += this.height / 2 + this.offset * 2;
 
-			let stoneSize = this.game.writeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2);
-			textX += stoneSize.sizes[0].width + this.offset * 2;
+				let stoneSize = this.game.writeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2);
+				textX += stoneSize.sizes[0].width + this.offset * 2;
 
-			this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
-			textX += this.height / 2 + this.offset * 2;
+				this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
+				textX += this.height / 2 + this.offset * 2;
 
-			let goldSize = this.game.writeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2);
-			textX += goldSize.sizes[0].width + this.offset * 2;
+				let goldSize = this.game.writeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2);
+				textX += goldSize.sizes[0].width + this.offset * 2;
+			} else {
+				this.game.writeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
+			}
 		} else {
-			this.game.writeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, 48);
+			this.game.writeText("Wymaga ulepszenia zamku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 		}
 	}
 }

@@ -38,6 +38,7 @@ class BuildingScene extends Scene {
 				this.elementsHolder.addElement("CriticChance", new CriticChance(this.game, menu));
 				this.elementsHolder.addElement("SawmillWorkers", new SawmillWorkers(this.game, menu));
 				this.elementsHolder.addElement("SawmillWorkersSpeed", new SawmillWorkersSpeed(this.game, menu));
+				break;
 		}
 
 		this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));

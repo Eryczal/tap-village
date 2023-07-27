@@ -22,7 +22,7 @@ const buildings = [
 					stone: 30,
 					gold: 0,
 				},
-				clicks: 300,
+				clicks: 200,
 			},
 		],
 	},
@@ -88,7 +88,7 @@ const buildings = [
 				gold: 0,
 			},
 		},
-		clicks: 200,
+		clicks: 150,
 		maxOnMap: 3,
 		upgrades: [
 			{
@@ -97,7 +97,7 @@ const buildings = [
 					stone: 50,
 					gold: 0,
 				},
-				clicks: 300,
+				clicks: 250,
 				maxStats: {
 					gatheringPower: 3,
 					gatheringChance: 15,
@@ -119,11 +119,11 @@ const buildings = [
 			y: 3,
 		},
 		cost: {
-			wood: 300,
-			stone: 50,
+			wood: 30,
+			stone: 30,
 			gold: 0,
 		},
-		clicks: 300,
+		clicks: 200,
 		maxOnMap: 3,
 		upgrades: [],
 	},

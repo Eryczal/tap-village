@@ -35,6 +35,7 @@ class SceneManager {
 
 			case "building":
 				this.currentScene = new BuildingScene(this.game);
+				break;
 		}
 
 		this.currentScene?.init();
