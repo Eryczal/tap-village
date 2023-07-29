@@ -1,8 +1,8 @@
 import { Element } from "../../../../element/Element.js";
-import { SawmillBuilding } from "../../../../managers/BuildingsManager.js";
+import { QuarryBuilding } from "../../../../managers/BuildingsManager.js";
 import { ResourceClick as Click } from "../ResourceClick.js";
 
-class SawmillClick extends Element {
+class QuarryClick extends Element {
 	constructor(game, menu) {
 		super(game);
 
@@ -30,9 +30,9 @@ class SawmillClick extends Element {
 
 	draw() {
 		let diff = (this.iconSize - this.cIconSize) / 2;
-		this.game.writeText("Zdobądź drewno", this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24);
+		this.game.writeText("Zdobądź kamień", this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24);
 		this.game.ctx.drawImage(this.game.assetsManager.images.buildingClick, this.x, this.y, this.width, this.height);
-		this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, this.iconX + diff, this.iconY + diff, this.cIconSize, this.cIconSize);
+		this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, this.iconX + diff, this.iconY + diff, this.cIconSize, this.cIconSize);
 
 		for (let i = this.clicks.length - 1; i >= 0; i--) {
 			this.clicks[i].draw();
@@ -49,10 +49,10 @@ class SawmillClick extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (Math.random() < SawmillBuilding.stats.gatheringChance / 100) {
-				let critic = Math.random() < SawmillBuilding.stats.criticalChance / 100;
-				let amount = critic ? SawmillBuilding.stats.criticalPower : SawmillBuilding.stats.gatheringPower;
-				this.game.playerManager.wood += amount;
+			if (Math.random() < QuarryBuilding.stats.gatheringChance / 100) {
+				let critic = Math.random() < QuarryBuilding.stats.criticalChance / 100;
+				let amount = critic ? QuarryBuilding.stats.criticalPower : QuarryBuilding.stats.gatheringPower;
+				this.game.playerManager.stone += amount;
 				this.addClick(critic, amount, mouseX, mouseY);
 			}
 			this.cIconSize = this.game.canvas.width / 20;
@@ -60,4 +60,4 @@ class SawmillClick extends Element {
 	}
 }
 
-export { SawmillClick };
+export { QuarryClick };

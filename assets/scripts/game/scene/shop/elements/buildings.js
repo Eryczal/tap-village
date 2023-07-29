@@ -111,8 +111,8 @@ const buildings = [
 	},
 	{
 		id: 2,
-		image: "mine",
-		name: "Kopalnia",
+		image: "quarry",
+		name: "Kamieniołom",
 		description: "Pozwala zbierać kamień potrzebny do budowy.",
 		size: {
 			x: 3,
@@ -123,9 +123,157 @@ const buildings = [
 			stone: 30,
 			gold: 0,
 		},
+		stats: {
+			gatheringPower: 1,
+			gatheringChance: 1,
+			criticalPower: 3,
+			criticalChance: 0,
+			workers: 0,
+			workersSpeed: 15,
+		},
+		maxStats: {
+			gatheringPower: 1,
+			gatheringChance: 5,
+			criticalPower: 3,
+			criticalChance: 5,
+			workers: 1,
+			workersSpeed: 13,
+		},
+		statsCost: {
+			gatheringPower: {
+				wood: 20,
+				stone: 10,
+				gold: 0,
+			},
+			gatheringChance: {
+				wood: 3,
+				stone: 3,
+				gold: 0,
+			},
+			criticalPower: {
+				wood: 7,
+				stone: 5,
+				gold: 0,
+			},
+			criticalChance: {
+				wood: 2,
+				stone: 3,
+				gold: 0,
+			},
+			workers: {
+				wood: 15,
+				stone: 30,
+				gold: 0,
+			},
+			workersSpeed: {
+				wood: 7,
+				stone: 20,
+				gold: 0,
+			},
+		},
 		clicks: 200,
 		maxOnMap: 3,
-		upgrades: [],
+		upgrades: [
+			{
+				cost: {
+					wood: 100,
+					stone: 100,
+					gold: 0,
+				},
+				clicks: 250,
+				maxStats: {
+					gatheringPower: 2,
+					gatheringChance: 10,
+					criticalPower: 5,
+					criticalChance: 10,
+					workers: 2,
+					workersSpeed: 10,
+				},
+			},
+		],
+	},
+	{
+		id: 3,
+		image: "mine",
+		name: "Kopalnia",
+		description: "Pozwala zbierać złoto potrzebne do budowy.",
+		size: {
+			x: 3,
+			y: 3,
+		},
+		cost: {
+			wood: 50,
+			stone: 50,
+			gold: 0,
+		},
+		stats: {
+			gatheringPower: 1,
+			gatheringChance: 0,
+			criticalPower: 2,
+			criticalChance: 0,
+			workers: 0,
+			workersSpeed: 20,
+		},
+		maxStats: {
+			gatheringPower: 1,
+			gatheringChance: 3,
+			criticalPower: 3,
+			criticalChance: 3,
+			workers: 1,
+			workersSpeed: 18,
+		},
+		statsCost: {
+			gatheringPower: {
+				wood: 20,
+				stone: 10,
+				gold: 1,
+			},
+			gatheringChance: {
+				wood: 7,
+				stone: 5,
+				gold: 0,
+			},
+			criticalPower: {
+				wood: 10,
+				stone: 5,
+				gold: 0,
+			},
+			criticalChance: {
+				wood: 7,
+				stone: 3,
+				gold: 0,
+			},
+			workers: {
+				wood: 20,
+				stone: 35,
+				gold: 5,
+			},
+			workersSpeed: {
+				wood: 10,
+				stone: 20,
+				gold: 1,
+			},
+		},
+		clicks: 300,
+		maxOnMap: 3,
+		upgrades: [
+			{
+				cost: {
+					wood: 100,
+					stone: 100,
+					gold: 30,
+				},
+				clicks: 300,
+				maxStats: {
+					gatheringPower: 2,
+					gatheringChance: 7,
+					criticalPower: 5,
+					criticalChance: 7,
+					workers: 2,
+					workersSpeed: 16,
+				},
+			},
+		],
 	},
 ];
 

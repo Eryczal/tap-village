@@ -1,8 +1,8 @@
-import { Element } from "../../../../element/Element.js";
-import { buildings } from "../../../shop/elements/buildings.js";
-import { SawmillBuilding } from "../../../../managers/BuildingsManager.js";
+import { Element } from "../../../element/Element.js";
+import { buildings } from "../../shop/elements/buildings.js";
+import { MineBuilding, QuarryBuilding, SawmillBuilding } from "../../../managers/BuildingsManager.js";
 
-class SawmillButton extends Element {
+class BuildingButton extends Element {
 	constructor(game, menu, text, stat, y = 0) {
 		super(game);
 
@@ -30,8 +30,22 @@ class SawmillButton extends Element {
 		}
 
 		if (stat !== "workers" && stat !== "workersSpeed") {
-			this[stat] = SawmillBuilding.stats[stat];
-			this.cost = SawmillBuilding.statsCost[stat];
+			switch (this.building.buildingId) {
+				case 1:
+					this[stat] = SawmillBuilding.stats[stat];
+					this.cost = SawmillBuilding.statsCost[stat];
+					break;
+
+				case 2:
+					this[stat] = QuarryBuilding.stats[stat];
+					this.cost = QuarryBuilding.statsCost[stat];
+					break;
+
+				case 3:
+					this[stat] = MineBuilding.stats[stat];
+					this.cost = MineBuilding.statsCost[stat];
+					break;
+			}
 		} else {
 			this[stat] = this.building[stat];
 			this.cost = this.building[stat + "Cost"];
@@ -48,8 +62,22 @@ class SawmillButton extends Element {
 
 	updateValues(mouseX, mouseY) {
 		if (this.stat !== "workers" && this.stat !== "workersSpeed") {
-			this[this.stat] = SawmillBuilding.stats[this.stat];
-			this.cost = SawmillBuilding.statsCost[this.stat];
+			switch (this.building.buildingId) {
+				case 1:
+					this[this.stat] = SawmillBuilding.stats[this.stat];
+					this.cost = SawmillBuilding.statsCost[this.stat];
+					break;
+
+				case 2:
+					this[this.stat] = QuarryBuilding.stats[this.stat];
+					this.cost = QuarryBuilding.statsCost[this.stat];
+					break;
+
+				case 3:
+					this[this.stat] = MineBuilding.stats[this.stat];
+					this.cost = MineBuilding.statsCost[this.stat];
+					break;
+			}
 		} else {
 			this[this.stat] = this.building[this.stat];
 			this.cost = this.building[this.stat + "Cost"];
@@ -92,7 +120,7 @@ class SawmillButton extends Element {
 	}
 }
 
-class GatheringPower extends SawmillButton {
+class GatheringPower extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "gatheringPower");
 	}
@@ -132,7 +160,21 @@ class GatheringPower extends SawmillButton {
 					this.game.playerManager.wood -= this.cost.wood;
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
-					SawmillBuilding.stats.gatheringPower += 1;
+
+					switch (this.building.buildingId) {
+						case 1:
+							SawmillBuilding.stats.gatheringPower += 1;
+							break;
+
+						case 2:
+							QuarryBuilding.stats.gatheringPower += 1;
+							break;
+
+						case 3:
+							MineBuilding.stats.gatheringPower += 1;
+							break;
+					}
+
 					this.cost.wood = Math.round(this.cost.wood * 1.3);
 					this.cost.stone = Math.round(this.cost.stone * 1.3);
 					this.cost.gold = Math.round(this.cost.gold * 1.3);
@@ -144,7 +186,7 @@ class GatheringPower extends SawmillButton {
 	}
 }
 
-class GatheringChance extends SawmillButton {
+class GatheringChance extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "gatheringChance", 2);
 	}
@@ -184,7 +226,21 @@ class GatheringChance extends SawmillButton {
 					this.game.playerManager.wood -= this.cost.wood;
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
-					SawmillBuilding.stats.gatheringChance += 1;
+
+					switch (this.building.buildingId) {
+						case 1:
+							SawmillBuilding.stats.gatheringChance += 1;
+							break;
+
+						case 2:
+							QuarryBuilding.stats.gatheringChance += 1;
+							break;
+
+						case 3:
+							MineBuilding.stats.gatheringChance += 1;
+							break;
+					}
+
 					this.cost.wood = Math.round(this.cost.wood * 1.2);
 					this.cost.stone = Math.round(this.cost.stone * 1.2);
 					this.cost.gold = Math.round(this.cost.gold * 1.2);
@@ -196,7 +252,7 @@ class GatheringChance extends SawmillButton {
 	}
 }
 
-class CriticPower extends SawmillButton {
+class CriticPower extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "criticalPower", 4);
 	}
@@ -236,7 +292,21 @@ class CriticPower extends SawmillButton {
 					this.game.playerManager.wood -= this.cost.wood;
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
-					SawmillBuilding.stats.criticalPower += 1;
+
+					switch (this.building.buildingId) {
+						case 1:
+							SawmillBuilding.stats.criticalPower += 1;
+							break;
+
+						case 2:
+							QuarryBuilding.stats.criticalPower += 1;
+							break;
+
+						case 3:
+							MineBuilding.stats.criticalPower += 1;
+							break;
+					}
+
 					this.cost.wood = Math.round(this.cost.wood * 1.1);
 					this.cost.stone = Math.round(this.cost.stone * 1.1);
 					this.cost.gold = Math.round(this.cost.gold * 1.1);
@@ -248,7 +318,7 @@ class CriticPower extends SawmillButton {
 	}
 }
 
-class CriticChance extends SawmillButton {
+class CriticChance extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "criticalChance", 6);
 	}
@@ -288,7 +358,21 @@ class CriticChance extends SawmillButton {
 					this.game.playerManager.wood -= this.cost.wood;
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
-					SawmillBuilding.stats.criticalChance += 1;
+
+					switch (this.building.buildingId) {
+						case 1:
+							SawmillBuilding.stats.criticalChance += 1;
+							break;
+
+						case 2:
+							QuarryBuilding.stats.criticalChance += 1;
+							break;
+
+						case 3:
+							MineBuilding.stats.criticalChance += 1;
+							break;
+					}
+
 					this.cost.wood = Math.round(this.cost.wood * 1.3);
 					this.cost.stone = Math.round(this.cost.stone * 1.3);
 					this.cost.gold = Math.round(this.cost.gold * 1.3);
@@ -300,7 +384,7 @@ class CriticChance extends SawmillButton {
 	}
 }
 
-class SawmillWorkers extends SawmillButton {
+class Workers extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Zatrudnij", "workers");
 
@@ -336,7 +420,6 @@ class SawmillWorkers extends SawmillButton {
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
 					this.building.workers += 1;
-					console.log(this.building);
 					this.cost.wood = Math.round(this.cost.wood * 2.2);
 					this.cost.stone = Math.round(this.cost.stone * 2.2);
 					this.cost.gold = Math.round(this.cost.gold * 2.2);
@@ -348,7 +431,7 @@ class SawmillWorkers extends SawmillButton {
 	}
 }
 
-class SawmillWorkersSpeed extends SawmillButton {
+class WorkersSpeed extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "workersSpeed", 2);
 
@@ -366,7 +449,7 @@ class SawmillWorkersSpeed extends SawmillButton {
 	draw() {
 		super.draw();
 		this.game.writeText(
-			`Prędkość pracowników ${this.workersSpeed} -> ${this.workersSpeedUpgrade}`,
+			`Prędkość pracowników ${this.workersSpeed}s -> ${this.workersSpeedUpgrade}s`,
 			this.x,
 			this.y - this.height / 4,
 			this.height / 2,
@@ -398,7 +481,27 @@ class SawmillWorkersSpeed extends SawmillButton {
 					this.game.playerManager.wood -= this.cost.wood;
 					this.game.playerManager.stone -= this.cost.stone;
 					this.game.playerManager.gold -= this.cost.gold;
+
 					this.building.workersSpeed = this.workersSpeedUpgrade;
+
+					clearInterval(this.building.workersTimer);
+
+					this.building.workersTimer = setInterval(() => {
+						switch (this.building.buildingId) {
+							case 1:
+								this.game.playerManager.wood += this.building.workers;
+								break;
+
+							case 2:
+								this.game.playerManager.stone += this.building.workers;
+								break;
+
+							case 3:
+								this.game.playerManager.gold += this.building.workers;
+								break;
+						}
+					}, this.building.workersSpeed * 1000);
+
 					this.cost.wood = Math.round(this.cost.wood * 1.2);
 					this.cost.stone = Math.round(this.cost.stone * 1.2);
 					this.cost.gold = Math.round(this.cost.gold * 1.2);
@@ -410,4 +513,4 @@ class SawmillWorkersSpeed extends SawmillButton {
 	}
 }
 
-export { GatheringPower, GatheringChance, CriticPower, CriticChance, SawmillWorkers, SawmillWorkersSpeed };
+export { GatheringPower, GatheringChance, CriticPower, CriticChance, Workers, WorkersSpeed };

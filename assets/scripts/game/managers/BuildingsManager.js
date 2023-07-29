@@ -47,6 +47,80 @@ class SawmillBuilding extends Building {
 			delete SawmillBuilding.statsCost.workers;
 			delete SawmillBuilding.statsCost.workersSpeed;
 		}
+
+		this.workersTimer = setInterval(() => {
+			this.game.playerManager.wood += this.workers;
+		}, this.workersSpeed * 1000);
+	}
+}
+
+class QuarryBuilding extends Building {
+	static stats = {};
+	static statsCost = {};
+
+	constructor(game, buildingId, posX, posY, stats, statsCost) {
+		super(game, buildingId, posX, posY);
+
+		let pStats = JSON.parse(JSON.stringify(stats));
+
+		this.workers = pStats.workers;
+		this.workersSpeed = pStats.workersSpeed;
+
+		if (Object.keys(QuarryBuilding.stats).length === 0) {
+			QuarryBuilding.stats = pStats;
+			delete QuarryBuilding.stats.workers;
+			delete QuarryBuilding.stats.workersSpeed;
+		}
+
+		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+
+		this.workersCost = pStatsCost.workers;
+		this.workersSpeedCost = pStatsCost.workersSpeed;
+
+		if (Object.keys(QuarryBuilding.statsCost).length === 0) {
+			QuarryBuilding.statsCost = pStatsCost;
+			delete QuarryBuilding.statsCost.workers;
+			delete QuarryBuilding.statsCost.workersSpeed;
+		}
+
+		this.workersTimer = setInterval(() => {
+			this.game.playerManager.stone += this.workers;
+		}, this.workersSpeed * 1000);
+	}
+}
+
+class MineBuilding extends Building {
+	static stats = {};
+	static statsCost = {};
+
+	constructor(game, buildingId, posX, posY, stats, statsCost) {
+		super(game, buildingId, posX, posY);
+
+		let pStats = JSON.parse(JSON.stringify(stats));
+
+		this.workers = pStats.workers;
+		this.workersSpeed = pStats.workersSpeed;
+
+		if (Object.keys(MineBuilding.stats).length === 0) {
+			MineBuilding.stats = pStats;
+			delete MineBuilding.stats.workers;
+			delete MineBuilding.stats.workersSpeed;
+		}
+
+		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+
+		this.workersCost = pStatsCost.workers;
+		this.workersSpeedCost = pStatsCost.workersSpeed;
+
+		if (Object.keys(MineBuilding.statsCost).length === 0) {
+			MineBuilding.statsCost = pStatsCost;
+			delete MineBuilding.statsCost.workers;
+			delete MineBuilding.statsCost.workersSpeed;
+		}
+
+		this.workersTimer = setInterval(() => {
+			this.game.playerManager.gold += this.workers;
+		}, this.workersSpeed * 1000);
 	}
 }
 
@@ -81,7 +155,14 @@ class BuildingsManager {
 		switch (buildingId) {
 			case 1:
 				this.buildings.push(new SawmillBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
-				console.log(SawmillBuilding.stats);
+				break;
+
+			case 2:
+				this.buildings.push(new QuarryBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
+				break;
+
+			case 3:
+				this.buildings.push(new MineBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
 				break;
 
 			default:
@@ -101,4 +182,4 @@ class BuildingsManager {
 	}
 }
 
-export { BuildingsManager, SawmillBuilding };
+export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding };
