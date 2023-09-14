@@ -10,6 +10,7 @@ class Building extends Element {
 		this.posY = posY;
 		this.lvl = 1;
 		this.clickable = true;
+		this.upgrading = false;
 	}
 
 	onClick(mouseX, mouseY) {

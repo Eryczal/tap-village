@@ -53,28 +53,19 @@ class UpgradeButton extends BackButton {
 				player.wood >= this.cost.wood &&
 				player.stone >= this.cost.stone &&
 				player.gold >= this.cost.gold &&
-				(this.building.buildingId === 0 || this.game.buildingsManager.buildings[0].lvl > this.building.lvl)
+				(this.building.buildingId === 0 || this.game.buildingsManager.buildings[0].lvl > this.building.lvl) &&
+				this.game.constructionManager.constructionState === null
 			) {
 				player.wood -= this.cost.wood;
 				player.stone -= this.cost.stone;
 				player.gold -= this.cost.gold;
 
-				this.building.lvl++;
 				this.cost = buildings[this.building.buildingId].upgrades[this.building.lvl - 1]?.cost;
 				this.clickable = this.cost !== undefined;
 
-				switch (this.building.buildingId) {
-					case 1:
-					case 2:
-					case 3:
-						this.game.sceneManager.currentScene.elementsHolder.list["GatheringPower"].updateMaxStats();
-						this.game.sceneManager.currentScene.elementsHolder.list["GatheringChance"].updateMaxStats();
-						this.game.sceneManager.currentScene.elementsHolder.list["CriticPower"].updateMaxStats();
-						this.game.sceneManager.currentScene.elementsHolder.list["CriticChance"].updateMaxStats();
-						this.game.sceneManager.currentScene.elementsHolder.list["Workers"].updateMaxStats();
-						this.game.sceneManager.currentScene.elementsHolder.list["WorkersSpeed"].updateMaxStats();
-						break;
-				}
+				this.game.constructionManager.setConstruction(this.building.buildingId, "upgrade", this.game.buildingsManager.clickedBuilding);
+				this.game.constructionManager.setBuild();
+				this.game.sceneManager.changeScene("main");
 			}
 		}
 	}

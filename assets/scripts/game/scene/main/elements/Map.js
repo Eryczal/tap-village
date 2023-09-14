@@ -150,7 +150,7 @@ class Map extends Element {
 			);
 
 			this.game.writeText(
-				construction.clickProgress + "/" + buildings[construction.buildingId].clicks,
+				construction.clickProgress + "/" + construction.neededClicks,
 				this.MENU_SIZE + this.mapScroll.x + construction.constructionX * this.TILE_SIZE + (buildings[construction.buildingId].size.x * this.TILE_SIZE) / 2,
 				this.mapScroll.y + construction.constructionY * this.TILE_SIZE + (buildings[construction.buildingId].size.y * this.TILE_SIZE) / 2,
 				this.TILE_SIZE
@@ -160,9 +160,11 @@ class Map extends Element {
 		for (let i = 0; i < this.game.buildingsManager.buildings.length; i++) {
 			let building = this.game.buildingsManager.buildings[i];
 
-			this.game.ctx.drawImage(this.game.assetsManager.images[buildings[building.buildingId].image], building.x, building.y, building.width, building.height);
+			if (building.upgrading === false) {
+				this.game.ctx.drawImage(this.game.assetsManager.images[buildings[building.buildingId].image], building.x, building.y, building.width, building.height);
 
-			this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
+				this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
+			}
 		}
 	}
 

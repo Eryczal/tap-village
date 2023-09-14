@@ -24,6 +24,22 @@ const buildings = [
 				},
 				clicks: 200,
 			},
+			{
+				cost: {
+					wood: 150,
+					stone: 75,
+					gold: 20,
+				},
+				clicks: 350,
+			},
+			{
+				cost: {
+					wood: 350,
+					stone: 200,
+					gold: 100,
+				},
+				clicks: 500,
+			},
 		],
 	},
 	{
@@ -105,6 +121,22 @@ const buildings = [
 					criticalChance: 10,
 					workers: 2,
 					workersSpeed: 8,
+				},
+			},
+			{
+				cost: {
+					wood: 150,
+					stone: 50,
+					gold: 0,
+				},
+				clicks: 400,
+				maxStats: {
+					gatheringPower: 5,
+					gatheringChance: 20,
+					criticalPower: 15,
+					criticalChance: 15,
+					workers: 3,
+					workersSpeed: 7,
 				},
 			},
 		],
@@ -190,6 +222,22 @@ const buildings = [
 					workersSpeed: 10,
 				},
 			},
+			{
+				cost: {
+					wood: 150,
+					stone: 200,
+					gold: 0,
+				},
+				clicks: 400,
+				maxStats: {
+					gatheringPower: 3,
+					gatheringChance: 15,
+					criticalPower: 7,
+					criticalChance: 10,
+					workers: 3,
+					workersSpeed: 9,
+				},
+			},
 		],
 	},
 	{
@@ -273,6 +321,22 @@ const buildings = [
 					workersSpeed: 16,
 				},
 			},
+			{
+				cost: {
+					wood: 200,
+					stone: 200,
+					gold: 50,
+				},
+				clicks: 550,
+				maxStats: {
+					gatheringPower: 3,
+					gatheringChance: 10,
+					criticalPower: 7,
+					criticalChance: 13,
+					workers: 3,
+					workersSpeed: 15,
+				},
+			},
 		],
 	},
 	{
@@ -348,6 +412,21 @@ const buildings = [
 					workersSpeed: 16,
 				},
 			},
+			{
+				cost: {
+					wood: 100,
+					stone: 150,
+					gold: 100,
+				},
+				clicks: 350,
+				maxStats: {
+					buildingPower: 5,
+					criticalPower: 10,
+					criticalChance: 15,
+					workers: 3,
+					workersSpeed: 14,
+				},
+			},
 		],
 	},
 	{
@@ -375,6 +454,14 @@ const buildings = [
 					gold: 100,
 				},
 				clicks: 500,
+			},
+			{
+				cost: {
+					wood: 250,
+					stone: 200,
+					gold: 200,
+				},
+				clicks: 750,
 			},
 		],
 	},
