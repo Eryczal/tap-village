@@ -275,6 +275,118 @@ const buildings = [
 			},
 		],
 	},
+	{
+		id: 4,
+		image: "workshop",
+		name: "Warsztat",
+		description: "Pozwala zwiększać prędkość budowy.",
+		size: {
+			x: 2,
+			y: 2,
+		},
+		cost: {
+			wood: 50,
+			stone: 40,
+			gold: 30,
+		},
+		stats: {
+			buildingPower: 1,
+			criticalPower: 1,
+			criticalChance: 0,
+			workers: 0,
+			workersSpeed: 20,
+		},
+		maxStats: {
+			buildingPower: 2,
+			criticalPower: 3,
+			criticalChance: 3,
+			workers: 1,
+			workersSpeed: 18,
+		},
+		statsCost: {
+			buildingPower: {
+				wood: 30,
+				stone: 20,
+				gold: 10,
+			},
+			criticalPower: {
+				wood: 25,
+				stone: 15,
+				gold: 5,
+			},
+			criticalChance: {
+				wood: 2,
+				stone: 2,
+				gold: 2,
+			},
+			workers: {
+				wood: 30,
+				stone: 30,
+				gold: 30,
+			},
+			workersSpeed: {
+				wood: 20,
+				stone: 20,
+				gold: 15,
+			},
+		},
+		clicks: 200,
+		maxOnMap: 2,
+		upgrades: [
+			{
+				cost: {
+					wood: 75,
+					stone: 100,
+					gold: 50,
+				},
+				clicks: 250,
+				maxStats: {
+					buildingPower: 3,
+					criticalPower: 5,
+					criticalChance: 10,
+					workers: 2,
+					workersSpeed: 16,
+				},
+			},
+		],
+	},
+	{
+		id: 5,
+		image: "vault",
+		name: "Skarbiec",
+		description: "Pozwala na kupowanie skrzyń z kartami.",
+		size: {
+			x: 3,
+			y: 3,
+		},
+		cost: {
+			wood: 70,
+			stone: 50,
+			gold: 40,
+		},
+		cards: {},
+		clicks: 500,
+		maxOnMap: 1,
+		upgrades: [
+			{
+				cost: {
+					wood: 100,
+					stone: 100,
+					gold: 100,
+				},
+				clicks: 500,
+			},
+		],
+	},
+
+	//budynek dekoracyjny pozwala stawiać dekoracje na mapie
+	//budynek ze skrzynkami, kartami i ich ulepszeniami
+	//handlarz - pozwala na zamienianie surowców na monety. Monety można zdobyć tylko od handlarza
+	//budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach
+	//lochy - mini gra 2d, gdzie jakiś potwór atakuje. gracz musi unikać strzałów potwora i strzelać do potworów
+	//labolatorium - pozwala stale ulepszać niektóre umiejętności gracza za pomocą monet
+	//muzeum - pokazuje osiągnięcia i postępy gracza
+	//budynek z eliksirami - dają one tymczasowe bonusy dla gracza, np. do zbierania drewna
 ];
 
 export { buildings };

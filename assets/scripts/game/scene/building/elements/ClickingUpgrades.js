@@ -1,6 +1,6 @@
 import { Element } from "../../../element/Element.js";
 import { buildings } from "../../shop/elements/buildings.js";
-import { MineBuilding, QuarryBuilding, SawmillBuilding } from "../../../managers/BuildingsManager.js";
+import { MineBuilding, QuarryBuilding, SawmillBuilding, WorkshopBuilding } from "../../../managers/BuildingsManager.js";
 
 class BuildingButton extends Element {
 	constructor(game, menu, text, stat, y = 0) {
@@ -45,6 +45,11 @@ class BuildingButton extends Element {
 					this[stat] = MineBuilding.stats[stat];
 					this.cost = MineBuilding.statsCost[stat];
 					break;
+
+				case 4:
+					this[stat] = WorkshopBuilding.stats[stat];
+					this.cost = WorkshopBuilding.statsCost[stat];
+					break;
 			}
 		} else {
 			this[stat] = this.building[stat];
@@ -76,6 +81,11 @@ class BuildingButton extends Element {
 				case 3:
 					this[this.stat] = MineBuilding.stats[this.stat];
 					this.cost = MineBuilding.statsCost[this.stat];
+					break;
+
+				case 4:
+					this[this.stat] = WorkshopBuilding.stats[this.stat];
+					this.cost = WorkshopBuilding.statsCost[this.stat];
 					break;
 			}
 		} else {
@@ -252,6 +262,53 @@ class GatheringChance extends BuildingButton {
 	}
 }
 
+class BuildingPower extends BuildingButton {
+	constructor(game, menu) {
+		super(game, menu, "Ulepsz", "buildingPower", 2);
+	}
+
+	draw() {
+		super.draw();
+		this.game.writeText(`Moc budowania ${this.buildingPower} -> ${this.buildingPower + 1}`, this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+	}
+
+	onHover(mouseX, mouseY) {
+		if (super.onHover(mouseX, mouseY)) {
+			if (this.buildingPower < this.maxStat) {
+				this.state = 1;
+			} else {
+				this.state = 2;
+			}
+		} else {
+			this.state = 0;
+		}
+	}
+
+	onClick(mouseX, mouseY) {
+		if (this.isMouseOver(mouseX, mouseY)) {
+			if (this.buildingPower < this.maxStat) {
+				if (
+					this.game.playerManager.wood >= this.cost.wood &&
+					this.game.playerManager.stone >= this.cost.stone &&
+					this.game.playerManager.gold >= this.cost.gold
+				) {
+					this.game.playerManager.wood -= this.cost.wood;
+					this.game.playerManager.stone -= this.cost.stone;
+					this.game.playerManager.gold -= this.cost.gold;
+
+					WorkshopBuilding.stats.buildingPower += 1;
+
+					this.cost.wood = Math.round(this.cost.wood * 1.3);
+					this.cost.stone = Math.round(this.cost.stone * 1.3);
+					this.cost.gold = Math.round(this.cost.gold * 1.3);
+
+					this.updateValues(mouseX, mouseY);
+				}
+			}
+		}
+	}
+}
+
 class CriticPower extends BuildingButton {
 	constructor(game, menu) {
 		super(game, menu, "Ulepsz", "criticalPower", 4);
@@ -304,6 +361,10 @@ class CriticPower extends BuildingButton {
 
 						case 3:
 							MineBuilding.stats.criticalPower += 1;
+							break;
+
+						case 4:
+							WorkshopBuilding.stats.criticalPower += 1;
 							break;
 					}
 
@@ -370,6 +431,10 @@ class CriticChance extends BuildingButton {
 
 						case 3:
 							MineBuilding.stats.criticalChance += 1;
+							break;
+
+						case 4:
+							WorkshopBuilding.stats.criticalChance += 1;
 							break;
 					}
 
@@ -499,6 +564,12 @@ class WorkersSpeed extends BuildingButton {
 							case 3:
 								this.game.playerManager.gold += this.building.workers;
 								break;
+
+							case 4:
+								if (this.game.constructionManager.constructionState === 1) {
+									this.game.constructionManager.addProgress(this.building.workers);
+								}
+								break;
 						}
 					}, this.building.workersSpeed * 1000);
 
@@ -513,4 +584,4 @@ class WorkersSpeed extends BuildingButton {
 	}
 }
 
-export { GatheringPower, GatheringChance, CriticPower, CriticChance, Workers, WorkersSpeed };
+export { GatheringPower, GatheringChance, BuildingPower, CriticPower, CriticChance, Workers, WorkersSpeed };

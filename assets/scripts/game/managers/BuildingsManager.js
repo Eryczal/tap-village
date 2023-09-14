@@ -124,6 +124,43 @@ class MineBuilding extends Building {
 	}
 }
 
+class WorkshopBuilding extends Building {
+	static stats = {};
+	static statsCost = {};
+
+	constructor(game, buildingId, posX, posY, stats, statsCost) {
+		super(game, buildingId, posX, posY);
+
+		let pStats = JSON.parse(JSON.stringify(stats));
+
+		this.workers = pStats.workers;
+		this.workersSpeed = pStats.workersSpeed;
+
+		if (Object.keys(WorkshopBuilding.stats).length === 0) {
+			WorkshopBuilding.stats = pStats;
+			delete WorkshopBuilding.stats.workers;
+			delete WorkshopBuilding.stats.workersSpeed;
+		}
+
+		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+
+		this.workersCost = pStatsCost.workers;
+		this.workersSpeedCost = pStatsCost.workersSpeed;
+
+		if (Object.keys(WorkshopBuilding.statsCost).length === 0) {
+			WorkshopBuilding.statsCost = pStatsCost;
+			delete WorkshopBuilding.statsCost.workers;
+			delete WorkshopBuilding.statsCost.workersSpeed;
+		}
+
+		this.workersTimer = setInterval(() => {
+			if (this.game.constructionManager.constructionState === 1) {
+				this.game.constructionManager.addProgress(this.workers);
+			}
+		}, this.workersSpeed * 1000);
+	}
+}
+
 class BuildingsManager {
 	constructor(game) {
 		this.game = game;
@@ -165,6 +202,10 @@ class BuildingsManager {
 				this.buildings.push(new MineBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
 				break;
 
+			case 4:
+				this.buildings.push(new WorkshopBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
+				break;
+
 			default:
 				this.buildings.push(new Building(this.game, buildingId, posX, posY));
 				break;
@@ -182,4 +223,4 @@ class BuildingsManager {
 	}
 }
 
-export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding };
+export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding };

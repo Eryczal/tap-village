@@ -6,7 +6,7 @@ import { Wood, Stone, Gold, Gem } from "../elements/Resources.js";
 import { Stats } from "./elements/0/Stats.js";
 import { RemoveProgress, RemoveAccount } from "./elements/0/RemoveButtons.js";
 import { SawmillClick } from "./elements/1/SawmillClick.js";
-import { GatheringChance, GatheringPower, CriticChance, CriticPower, Workers, WorkersSpeed } from "./elements/ClickingUpgrades.js";
+import { GatheringChance, GatheringPower, BuildingPower, CriticChance, CriticPower, Workers, WorkersSpeed } from "./elements/ClickingUpgrades.js";
 import { QuarryClick } from "./elements/2/QuarryClick.js";
 import { MineClick } from "./elements/3/MineClick.js";
 
@@ -56,6 +56,14 @@ class BuildingScene extends Scene {
 				this.elementsHolder.addElement("BuildingClick", new MineClick(this.game, menu));
 				this.elementsHolder.addElement("GatheringPower", new GatheringPower(this.game, menu));
 				this.elementsHolder.addElement("GatheringChance", new GatheringChance(this.game, menu));
+				this.elementsHolder.addElement("CriticPower", new CriticPower(this.game, menu));
+				this.elementsHolder.addElement("CriticChance", new CriticChance(this.game, menu));
+				this.elementsHolder.addElement("Workers", new Workers(this.game, menu));
+				this.elementsHolder.addElement("WorkersSpeed", new WorkersSpeed(this.game, menu));
+				break;
+
+			case 4:
+				this.elementsHolder.addElement("BuildingPower", new BuildingPower(this.game, menu));
 				this.elementsHolder.addElement("CriticPower", new CriticPower(this.game, menu));
 				this.elementsHolder.addElement("CriticChance", new CriticChance(this.game, menu));
 				this.elementsHolder.addElement("Workers", new Workers(this.game, menu));

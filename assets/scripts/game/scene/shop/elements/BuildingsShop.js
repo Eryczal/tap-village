@@ -59,7 +59,7 @@ class BuildingsShop extends Element {
 
 	onScroll(event) {
 		this.scroll += event.deltaY;
-		this.scroll = Math.min(Math.floor(buildings.length / 2) * 700, Math.max(0, this.scroll)); //zmienić 700 na dynamiczne
+		this.scroll = Math.min(Math.floor((buildings.length - 1) / 2) * 700, Math.max(0, this.scroll)); //zmienić 700 na dynamiczne
 		for (let i = 0; i < buildings.length; i++) {
 			this[buildings[i].image].updateScroll(this.scroll);
 		}
