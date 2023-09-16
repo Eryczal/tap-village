@@ -16,6 +16,7 @@ const imagesPath = {
 	mine: "assets/images/buildings/mine.png",
 	workshop: "assets/images/buildings/workshop.png",
 	vault: "assets/images/buildings/vault.png",
+	trader: "assets/images/buildings/trader.png",
 
 	menu: "assets/images/ui/menu.png",
 	shopButton: "assets/images/ui/shop-button.png",

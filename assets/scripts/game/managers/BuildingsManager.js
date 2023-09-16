@@ -180,7 +180,7 @@ class BuildingsManager {
 			}
 		}
 
-		if (this.game.constructionManager.constructionState === 1) {
+		if (this.game.constructionManager.constructionState === 1 && this.game.constructionManager.constructionType === "build") {
 			if (this.game.constructionManager.buildingId === id) {
 				count++;
 			}

@@ -465,6 +465,42 @@ const buildings = [
 			},
 		],
 	},
+	{
+		id: 6,
+		image: "trader",
+		name: "Handlarz",
+		description: "Wymienia surowce na monety.",
+		size: {
+			x: 2,
+			y: 2,
+		},
+		cost: {
+			wood: 125,
+			stone: 100,
+			gold: 25,
+		},
+		cards: {},
+		clicks: 350,
+		maxOnMap: 1,
+		upgrades: [
+			{
+				cost: {
+					wood: 150,
+					stone: 125,
+					gold: 75,
+				},
+				clicks: 500,
+			},
+			{
+				cost: {
+					wood: 275,
+					stone: 175,
+					gold: 75,
+				},
+				clicks: 750,
+			},
+		],
+	},
 
 	//budynek dekoracyjny pozwala stawiać dekoracje na mapie
 	//budynek ze skrzynkami, kartami i ich ulepszeniami
