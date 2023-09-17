@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-import { buildings } from "../../shop/elements/buildings.js";
+import { buildings } from "../../../data/buildings.js";
 import { MineBuilding, QuarryBuilding, SawmillBuilding, WorkshopBuilding } from "../../../managers/BuildingsManager.js";
 
 class BuildingButton extends Element {

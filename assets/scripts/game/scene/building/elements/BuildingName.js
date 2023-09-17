@@ -1,4 +1,4 @@
-import { buildings } from "../../shop/elements/buildings.js";
+import { buildings } from "../../../data/buildings.js";
 import { Element } from "../../../element/Element.js";
 
 class BuildingName extends Element {

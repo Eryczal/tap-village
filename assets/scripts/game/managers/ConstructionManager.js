@@ -1,4 +1,4 @@
-import { buildings } from "../scene/shop/elements/buildings.js";
+import { buildings } from "../data/buildings.js";
 import { Element } from "../element/Element.js";
 import { map } from "../scene/main/elements/Map.js";
 

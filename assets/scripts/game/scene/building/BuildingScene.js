@@ -9,6 +9,7 @@ import { SawmillClick } from "./elements/1/SawmillClick.js";
 import { GatheringChance, GatheringPower, BuildingPower, CriticChance, CriticPower, Workers, WorkersSpeed } from "./elements/ClickingUpgrades.js";
 import { QuarryClick } from "./elements/2/QuarryClick.js";
 import { MineClick } from "./elements/3/MineClick.js";
+import { Offers } from "./elements/6/Offers.js";
 
 class BuildingScene extends Scene {
 	constructor(game) {
@@ -69,6 +70,9 @@ class BuildingScene extends Scene {
 				this.elementsHolder.addElement("Workers", new Workers(this.game, menu));
 				this.elementsHolder.addElement("WorkersSpeed", new WorkersSpeed(this.game, menu));
 				break;
+
+			case 6:
+				this.elementsHolder.addElement("Offers", new Offers(this.game));
 		}
 
 		this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));

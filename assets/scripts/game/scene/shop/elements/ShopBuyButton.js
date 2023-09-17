@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-import { buildings } from "./buildings.js";
+import { buildings } from "../../../data/buildings.js";
 
 class ShopBuyButton extends Element {
 	constructor(game, x, y, width, height, parent) {

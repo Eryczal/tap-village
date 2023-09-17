@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-import { buildings } from "../../shop/elements/buildings.js";
+import { buildings } from "../../../data/buildings.js";
 
 class BackButton extends Element {
 	constructor(game, menu) {

@@ -1,5 +1,6 @@
 import { Element } from "../element/Element.js";
-import { buildings } from "../scene/shop/elements/buildings.js";
+import { buildings } from "../data/buildings.js";
+import { offers } from "../data/offers.js";
 
 class Building extends Element {
 	constructor(game, buildingId, posX, posY) {
@@ -36,6 +37,8 @@ class SawmillBuilding extends Building {
 			SawmillBuilding.stats = pStats;
 			delete SawmillBuilding.stats.workers;
 			delete SawmillBuilding.stats.workersSpeed;
+
+			offers[0].upgrades = SawmillBuilding.stats.gatheringPower;
 		}
 
 		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
@@ -71,6 +74,8 @@ class QuarryBuilding extends Building {
 			QuarryBuilding.stats = pStats;
 			delete QuarryBuilding.stats.workers;
 			delete QuarryBuilding.stats.workersSpeed;
+
+			offers[1].upgrades = QuarryBuilding.stats.gatheringPower;
 		}
 
 		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
@@ -106,6 +111,8 @@ class MineBuilding extends Building {
 			MineBuilding.stats = pStats;
 			delete MineBuilding.stats.workers;
 			delete MineBuilding.stats.workersSpeed;
+
+			offers[2].upgrades = MineBuilding.stats.gatheringPower;
 		}
 
 		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
@@ -162,6 +169,44 @@ class WorkshopBuilding extends Building {
 	}
 }
 
+class TraderBuilding extends Building {
+	constructor(game, buildingId, posX, posY) {
+		super(game, buildingId, posX, posY);
+
+		this.offers = [];
+
+		this.changeOffers("all");
+	}
+
+	changeOffers(offer) {
+		if (offer === "all") {
+			for (let i = 0; i < 3; i++) {
+				this.generateOffer(i);
+			}
+		} else {
+			this.generateOffer(offer);
+		}
+	}
+
+	generateOffer(id) {
+		let offer = offers[Math.floor(Math.random() * offers.length)];
+		let amountOffset = Math.floor(Math.random() * (offer.amountOffset * (offer.upgrades + 1) + 1));
+		console.log(offer.amountOffset, offer.upgrades);
+		amountOffset = Math.random() < 0.5 ? -amountOffset : amountOffset;
+		let costOffset = Math.random() < 0.5 ? -offer.costOffset : offer.costOffset;
+
+		let traderOffer = {
+			type: offer.type,
+			amount: offer.amount * (offer.upgrades + 1) + amountOffset,
+			cost: 1,
+		};
+
+		traderOffer.cost = Math.floor(traderOffer.amount * (offer.cost + costOffset)) + 1;
+
+		this.offers[id] = traderOffer;
+	}
+}
+
 class BuildingsManager {
 	constructor(game) {
 		this.game = game;
@@ -207,6 +252,10 @@ class BuildingsManager {
 				this.buildings.push(new WorkshopBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
 				break;
 
+			case 6:
+				this.buildings.push(new TraderBuilding(this.game, buildingId, posX, posY));
+				break;
+
 			default:
 				this.buildings.push(new Building(this.game, buildingId, posX, posY));
 				break;
@@ -224,4 +273,4 @@ class BuildingsManager {
 	}
 }
 
-export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding };
+export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding, TraderBuilding };

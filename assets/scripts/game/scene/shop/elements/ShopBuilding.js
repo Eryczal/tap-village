@@ -1,6 +1,6 @@
 import { Element } from "../../../element/Element.js";
 import { ShopBuyButton } from "./ShopBuyButton.js";
-import { buildings } from "./buildings.js";
+import { buildings } from "../../../data/buildings.js";
 
 class ShopBuilding extends Element {
 	constructor(game, parent, id, x, y, size) {
