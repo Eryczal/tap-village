@@ -191,17 +191,16 @@ class TraderBuilding extends Building {
 	generateOffer(id) {
 		let offer = offers[Math.floor(Math.random() * offers.length)];
 		let amountOffset = Math.floor(Math.random() * (offer.amountOffset * (offer.upgrades + 1) + 1));
-		console.log(offer.amountOffset, offer.upgrades);
 		amountOffset = Math.random() < 0.5 ? -amountOffset : amountOffset;
 		let costOffset = Math.random() < 0.5 ? -offer.costOffset : offer.costOffset;
 
 		let traderOffer = {
 			type: offer.type,
 			amount: offer.amount * (offer.upgrades + 1) + amountOffset,
-			cost: 1,
+			reward: 1,
 		};
 
-		traderOffer.cost = Math.floor(traderOffer.amount * (offer.cost + costOffset)) + 1;
+		traderOffer.reward = Math.floor(traderOffer.amount * (offer.cost + costOffset)) + 1;
 
 		this.offers[id] = traderOffer;
 	}

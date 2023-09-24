@@ -42,12 +42,10 @@ class Game {
 
 			this.resizeManager.init();
 
-			//init global elements
 			for (let element in this.elements) {
 				element?.init();
 			}
 
-			//init currentScene elements
 			this.sceneManager.init();
 
 			this.mouseManager.init();
@@ -63,24 +61,20 @@ class Game {
 
 		this.ctx.imageSmoothingEnabled = false;
 
-		//draw global elements
 		for (let element in this.elements) {
 			element?.init();
 		}
 
-		//draw currentScene elements
 		this.sceneManager.draw();
 
 		requestAnimationFrame(() => this.draw());
 	}
 
 	update() {
-		//update global elements
 		for (let element in this.elements) {
 			element?.update();
 		}
 
-		//update scene elements
 		this.sceneManager.update();
 	}
 

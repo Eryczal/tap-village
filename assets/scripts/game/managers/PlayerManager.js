@@ -6,6 +6,7 @@ class PlayerManager {
 		this.stone = 5550;
 		this.gold = 5550;
 		this.gem = 0;
+		this.coin = 0;
 
 		this.preferedZoom = 1;
 	}
@@ -46,6 +47,16 @@ class PlayerManager {
 
 	set gem(gem) {
 		this._gem = gem;
+
+		this.game.update();
+	}
+
+	get coin() {
+		return this._coin;
+	}
+
+	set coin(coin) {
+		this._coin = coin;
 
 		this.game.update();
 	}

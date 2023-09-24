@@ -72,7 +72,7 @@ class BuildingScene extends Scene {
 				break;
 
 			case 6:
-				this.elementsHolder.addElement("Offers", new Offers(this.game));
+				this.elementsHolder.addElement("Offers", new Offers(this.game, menu));
 		}
 
 		this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));

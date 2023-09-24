@@ -1,12 +1,113 @@
 import { Element } from "../../../../element/Element.js";
 
 class Offers extends Element {
-	constructor(game) {
+	constructor(game, menu) {
 		super(game);
+
+		this.MENU_SIZE = menu.MENU_SIZE;
+		this.offers = [];
+
+		for (let i = 0; i < this.game.buildingsManager.clickedBuilding.offers.length; i++) {
+			this.offers[i] = new Offer(this.game, i, menu, this.game.buildingsManager.clickedBuilding.offers[i]);
+		}
 	}
 
 	draw() {
-		console.log(this.game.buildingsManager.clickedBuilding.offers);
+		this.offers.forEach((offer) => offer.draw());
+	}
+
+	onClick(mouseX, mouseY) {
+		this.offers.forEach((offer) => offer.onClick(mouseX, mouseY));
+	}
+
+	onHover(mouseX, mouseY) {
+		this.offers.forEach((offer) => offer.onHover(mouseX, mouseY));
+	}
+}
+
+class Offer extends Element {
+	constructor(game, num, menu, offer) {
+		super(game);
+
+		this.MENU_SIZE = menu.MENU_SIZE;
+		this.SCENE_SIZE = this.game.canvas.width - menu.MENU_SIZE;
+
+		this.num = num;
+		this.offer = offer;
+
+		this.width = this.game.canvas.width / 6;
+		this.height = this.game.canvas.width / 6;
+
+		this.MARGIN_SIZE = (this.SCENE_SIZE - 3 * this.width) / 4;
+
+		this.x = (this.game.canvas.width / 6 + this.MARGIN_SIZE) * this.num + this.MENU_SIZE + this.MARGIN_SIZE;
+		this.y = this.game.canvas.height / 2 - this.height / 2;
+
+		this.clickable = true;
+
+		this.resource = {
+			icon: this.offer.type + "Icon",
+			x: this.x + this.width / 2,
+			y: this.y + this.height / 4,
+			width: this.width / 6,
+			height: this.height / 6,
+		};
+
+		this.resource.x -= (this.resource.width * 1.2 + this.game.writeText(this.offer.amount, 0, 0, this.resource.width, "transparent").sizes[0].width) / 2;
+
+		this.reward = {
+			icon: "coinIcon",
+			x: this.x + this.width / 2,
+			y: this.y + (this.height / 4) * 3 - this.height / 6,
+			width: this.width / 6,
+			height: this.height / 6,
+		};
+
+		this.reward.x -= (this.reward.width * 1.2 + this.game.writeText(this.offer.reward, 0, 0, this.reward.width, "transparent").sizes[0].width) / 2;
+	}
+
+	draw() {
+		this.game.ctx.drawImage(this.game.assetsManager.images.buildingClick, this.x, this.y, this.width, this.height);
+
+		this.game.ctx.drawImage(this.game.assetsManager.images[this.resource.icon], this.resource.x, this.resource.y, this.resource.width, this.resource.height);
+		this.game.writeText(
+			this.offer.amount,
+			this.resource.x + this.resource.width * 1.2,
+			this.resource.y + this.resource.height / 2,
+			this.resource.width,
+			"#000",
+			"left"
+		);
+
+		this.game.ctx.drawImage(this.game.assetsManager.images[this.reward.icon], this.reward.x, this.reward.y, this.reward.width, this.reward.height);
+		this.game.writeText(this.offer.reward, this.reward.x + this.reward.width * 1.2, this.reward.y + this.reward.height / 2, this.reward.width, "#000", "left");
+	}
+
+	onClick(mouseX, mouseY) {
+		if (this.isMouseOver(mouseX, mouseY)) {
+			if (this.game.playerManager[this.offer.type] >= this.offer.amount) {
+				this.game.playerManager[this.offer.type] -= this.offer.amount;
+				this.game.playerManager.coin += this.offer.reward;
+
+				this.game.buildingsManager.clickedBuilding.changeOffers(this.num);
+
+				this.refreshOffer();
+			}
+		}
+	}
+
+	refreshOffer() {
+		this.offer = this.game.buildingsManager.clickedBuilding.offers[this.num];
+
+		this.resource.icon = this.offer.type + "Icon";
+
+		this.resource.x =
+			this.x +
+			this.width / 2 -
+			(this.resource.width * 1.2 + this.game.writeText(this.offer.amount, 0, 0, this.resource.width, "transparent").sizes[0].width) / 2;
+
+		this.reward.x =
+			this.x + this.width / 2 - (this.reward.width * 1.2 + this.game.writeText(this.offer.reward, 0, 0, this.reward.width, "transparent").sizes[0].width) / 2;
 	}
 }
 

@@ -9,6 +9,7 @@ const imagesPath = {
 	stoneIcon: "assets/images/icons/stone.png",
 	goldIcon: "assets/images/icons/gold.png",
 	gemIcon: "assets/images/icons/gem.png",
+	coinIcon: "assets/images/icons/coin.png",
 
 	castle: "assets/images/buildings/castle.png",
 	sawmill: "assets/images/buildings/sawmill.png",
