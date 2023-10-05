@@ -46,7 +46,9 @@ class Scene {
 
 	onMouseUp() {}
 
-	onRightClick() {}
+	onRightClick(mouseX, mouseY) {
+		this.elementsHolder.onRightClick(mouseX, mouseY);
+	}
 
 	onScroll() {}
 }

@@ -50,14 +50,16 @@ class Menu extends Element {
 }
 
 class Button extends Element {
-	constructor(game, menu, text = "Sklep") {
+	constructor(game, menu, text = "Sklep", num = 1) {
 		super(game);
 
+		this.menu = menu;
+		this.num = num;
 		this.width = menu.MENU_SIZE;
-		this.height = 100;
+		this.height = game.canvas.height / 10;
 
 		this.x = 0;
-		this.y = game.canvas.height - this.height;
+		this.y = game.canvas.height - this.height * num;
 
 		this.text = text;
 
@@ -66,11 +68,13 @@ class Button extends Element {
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.shopButton, this.x, this.y, this.width, this.height);
-		this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, 56, "#000");
+		this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6, "#000");
 	}
 
 	onResize() {
-		this.y = this.game.canvas.height - this.height;
+		this.width = this.menu.MENU_SIZE;
+		this.height = this.game.canvas.height / 10;
+		this.y = this.game.canvas.height - this.height * this.num;
 	}
 
 	onClick(mouseX, mouseY) {
@@ -82,13 +86,9 @@ class Button extends Element {
 
 class BackButton extends Button {
 	constructor(game, menu) {
-		super(game, menu, "Cofnij");
+		super(game, menu, "Cofnij", 1);
 
 		this.y = game.canvas.height - this.height;
-	}
-
-	onResize() {
-		this.y = this.game.canvas.height - this.height;
 	}
 
 	onClick(mouseX, mouseY) {
@@ -100,13 +100,9 @@ class BackButton extends Button {
 
 class ResourcesButton extends Button {
 	constructor(game, menu) {
-		super(game, menu, "Zasoby");
+		super(game, menu, "Zasoby", 2);
 
 		this.y = game.canvas.height - this.height * 2;
-	}
-
-	onResize() {
-		this.y = this.game.canvas.height - this.height * 2;
 	}
 
 	onClick(mouseX, mouseY) {
@@ -118,13 +114,9 @@ class ResourcesButton extends Button {
 
 class BuildingsButton extends Button {
 	constructor(game, menu) {
-		super(game, menu, "Budynki");
+		super(game, menu, "Budynki", 3);
 
 		this.y = game.canvas.height - this.height * 3;
-	}
-
-	onResize() {
-		this.y = this.game.canvas.height - this.height * 3;
 	}
 
 	onClick(mouseX, mouseY) {

@@ -19,6 +19,12 @@ class RemoveAccount extends Element {
 		this.game.ctx.drawImage(this.game.assetsManager.images.redButton, this.x, this.y, this.width, this.height);
 		this.game.writeText("Usuń konto", this.x + this.width / 2, this.y + this.height / 2, 40, "#fff");
 	}
+
+	onRightClick(mouseX, mouseY) {
+		if (this.isMouseOver(mouseX, mouseY)) {
+			this.game.playerManager.gem = "max";
+		}
+	}
 }
 
 class RemoveProgress extends RemoveAccount {

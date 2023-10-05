@@ -11,6 +11,10 @@ class BuildingButton extends Element {
 		this.width = this.game.canvas.width / 6;
 		this.height = this.game.canvas.width / 36;
 
+		if (this.game.buildingsManager.clickedBuilding.buildingId === 4 && stat !== "workersSpeed") {
+			y -= y > 0 ? 2 : 0;
+		}
+
 		this.x = (this.game.canvas.width - this.MENU_SIZE) / 2 - this.width / 2 + this.MENU_SIZE;
 		this.y = this.game.canvas.height / 6 + y * this.height;
 
@@ -264,7 +268,7 @@ class GatheringChance extends BuildingButton {
 
 class BuildingPower extends BuildingButton {
 	constructor(game, menu) {
-		super(game, menu, "Ulepsz", "buildingPower", 2);
+		super(game, menu, "Ulepsz", "buildingPower");
 	}
 
 	draw() {
@@ -567,7 +571,7 @@ class WorkersSpeed extends BuildingButton {
 
 							case 4:
 								if (this.game.constructionManager.constructionState === 1) {
-									this.game.constructionManager.addProgress(this.building.workers);
+									this.game.constructionManager.addProgress("worker", this.building.workers);
 								}
 								break;
 						}

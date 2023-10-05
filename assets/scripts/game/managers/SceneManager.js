@@ -1,6 +1,10 @@
 import { MainScene } from "../scene/main/MainScene.js";
 import { ShopScene } from "../scene/shop/ShopScene.js";
-import { BuildingScene } from "../scene/building/BuildingScene.js";
+import { CastleScene } from "../scene/building/CastleScene.js";
+import { ResourceScene } from "../scene/building/ResourceScene.js";
+import { WorkshopScene } from "../scene/building/WorkshopScene.js";
+import { VaultScene } from "../scene/building/VaultScene.js";
+import { TraderScene } from "../scene/building/TraderScene.js";
 
 class SceneManager {
 	constructor(game) {
@@ -33,8 +37,26 @@ class SceneManager {
 				this.currentScene = new ShopScene(this.game);
 				break;
 
-			case "building":
-				this.currentScene = new BuildingScene(this.game);
+			case "castle":
+				this.currentScene = new CastleScene(this.game);
+				break;
+
+			case "sawmill":
+			case "quarry":
+			case "mine":
+				this.currentScene = new ResourceScene(this.game);
+				break;
+
+			case "workshop":
+				this.currentScene = new WorkshopScene(this.game);
+				break;
+
+			case "vault":
+				this.currentScene = new VaultScene(this.game);
+				break;
+
+			case "trader":
+				this.currentScene = new TraderScene(this.game);
 				break;
 		}
 

@@ -3,7 +3,9 @@ const imagesPath = {
 	waterTile: "assets/images/tiles/water.png",
 	waterTile2: "assets/images/tiles/water2.png",
 	treeTile: "assets/images/tiles/tree.png",
+	treeTile2: "assets/images/tiles/tree2.png",
 	stoneTile: "assets/images/tiles/stone.png",
+	stoneTile2: "assets/images/tiles/stone2.png",
 
 	woodIcon: "assets/images/icons/wood.png",
 	stoneIcon: "assets/images/icons/stone.png",
@@ -27,6 +29,11 @@ const imagesPath = {
 	upgradeButton: "assets/images/ui/upgrade-button.png",
 	redButton: "assets/images/ui/red-button.png",
 	buildingClick: "assets/images/ui/building-click.png",
+
+	commonChest: "assets/images/chests/common.png",
+	rareChest: "assets/images/chests/rare.png",
+	epicChest: "assets/images/chests/epic.png",
+	legendaryChest: "assets/images/chests/legendary.png",
 };
 
 class AssetsManager {

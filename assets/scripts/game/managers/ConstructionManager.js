@@ -1,4 +1,5 @@
 import { buildings } from "../data/buildings.js";
+import { WorkshopBuilding } from "./BuildingsManager.js";
 import { Element } from "../element/Element.js";
 import { map } from "../scene/main/elements/Map.js";
 
@@ -38,8 +39,16 @@ class ConstructionManager extends Element {
 		}
 	}
 
-	addProgress(progress) {
-		this.clickProgress += progress;
+	addProgress(type, workers) {
+		if (type === "click" && typeof WorkshopBuilding.stats.criticalChance !== "undefined") {
+			let critic = Math.random() < WorkshopBuilding.stats.criticalChance / 100;
+			let amount = critic ? WorkshopBuilding.stats.criticalPower : WorkshopBuilding.stats.buildingPower;
+			this.clickProgress += amount;
+		} else if (type === "click") {
+			this.clickProgress += 1;
+		} else if (type === "worker" && workers > 0) {
+			this.clickProgress += workers;
+		}
 
 		if (this.clickProgress >= this.neededClicks) {
 			if (this.constructionType == "build") {

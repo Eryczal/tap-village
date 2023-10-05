@@ -3,42 +3,43 @@ const buildings = [
 		id: 0,
 		image: "castle",
 		name: "Zamek",
-		description: "Budynek główny. Pozwala rozbudowywać\npozostałe budynki do poziomu zamku.",
+		description:
+			"Zamek jest budynkiem głównym. Odpowiada za maksymalny możliwy poziom budynków w grze. Każdy budynek może być ulepszony maksymalnie do poziomu zamku. Zamek umożliwia resetowanie postępu.",
 		size: {
 			x: 5,
 			y: 5,
 		},
 		cost: {
-			wood: 30,
+			wood: 10,
 			stone: 0,
 			gold: 0,
 		},
-		clicks: 100,
+		clicks: 25,
 		maxOnMap: 1,
 		upgrades: [
 			{
 				cost: {
-					wood: 70,
-					stone: 30,
+					wood: 25,
+					stone: 10,
 					gold: 0,
 				},
-				clicks: 200,
+				clicks: 75,
 			},
 			{
 				cost: {
-					wood: 150,
-					stone: 75,
-					gold: 20,
+					wood: 75,
+					stone: 35,
+					gold: 10,
 				},
-				clicks: 350,
+				clicks: 150,
 			},
 			{
 				cost: {
-					wood: 350,
-					stone: 200,
-					gold: 100,
+					wood: 125,
+					stone: 100,
+					gold: 50,
 				},
-				clicks: 500,
+				clicks: 250,
 			},
 		],
 	},
@@ -46,13 +47,14 @@ const buildings = [
 		id: 1,
 		image: "sawmill",
 		name: "Tartak",
-		description: "Pozwala zbierać drewno potrzebne do budowy.",
+		description:
+			"Tartak pozwala na zbieranie drewna z budynku. Budynek umożliwia ulepszanie wydobycia drewna oraz zatrudnienie pracowników, którzy będą zbierali drewno automatycznie.",
 		size: {
 			x: 3,
 			y: 2,
 		},
 		cost: {
-			wood: 50,
+			wood: 20,
 			stone: 10,
 			gold: 0,
 		},
@@ -74,46 +76,46 @@ const buildings = [
 		},
 		statsCost: {
 			gatheringPower: {
-				wood: 30,
-				stone: 0,
-				gold: 0,
-			},
-			gatheringChance: {
-				wood: 5,
-				stone: 0,
-				gold: 0,
-			},
-			criticalPower: {
 				wood: 10,
 				stone: 0,
 				gold: 0,
 			},
+			gatheringChance: {
+				wood: 4,
+				stone: 0,
+				gold: 0,
+			},
+			criticalPower: {
+				wood: 7,
+				stone: 0,
+				gold: 0,
+			},
 			criticalChance: {
-				wood: 5,
+				wood: 3,
 				stone: 0,
 				gold: 0,
 			},
 			workers: {
-				wood: 30,
-				stone: 10,
+				wood: 15,
+				stone: 7,
 				gold: 0,
 			},
 			workersSpeed: {
-				wood: 15,
+				wood: 7,
 				stone: 3,
 				gold: 0,
 			},
 		},
-		clicks: 150,
+		clicks: 50,
 		maxOnMap: 3,
 		upgrades: [
 			{
 				cost: {
-					wood: 100,
-					stone: 50,
+					wood: 35,
+					stone: 15,
 					gold: 0,
 				},
-				clicks: 250,
+				clicks: 125,
 				maxStats: {
 					gatheringPower: 3,
 					gatheringChance: 15,
@@ -125,11 +127,11 @@ const buildings = [
 			},
 			{
 				cost: {
-					wood: 150,
-					stone: 50,
+					wood: 75,
+					stone: 35,
 					gold: 0,
 				},
-				clicks: 400,
+				clicks: 200,
 				maxStats: {
 					gatheringPower: 5,
 					gatheringChance: 20,
@@ -145,14 +147,15 @@ const buildings = [
 		id: 2,
 		image: "quarry",
 		name: "Kamieniołom",
-		description: "Pozwala zbierać kamień potrzebny do budowy.",
+		description:
+			"Kamieniołom pozwala na zbieranie kamienia z budynku. Budynek umożliwia ulepszanie wydobycia kamienia oraz zatrudnienie pracowników, którzy będą zbierali kamień automatycznie.",
 		size: {
 			x: 3,
 			y: 3,
 		},
 		cost: {
-			wood: 30,
-			stone: 30,
+			wood: 15,
+			stone: 15,
 			gold: 0,
 		},
 		stats: {
@@ -173,8 +176,8 @@ const buildings = [
 		},
 		statsCost: {
 			gatheringPower: {
-				wood: 20,
-				stone: 10,
+				wood: 10,
+				stone: 5,
 				gold: 0,
 			},
 			gatheringChance: {
@@ -183,36 +186,36 @@ const buildings = [
 				gold: 0,
 			},
 			criticalPower: {
-				wood: 7,
-				stone: 5,
-				gold: 0,
-			},
-			criticalChance: {
-				wood: 2,
+				wood: 5,
 				stone: 3,
 				gold: 0,
 			},
+			criticalChance: {
+				wood: 3,
+				stone: 4,
+				gold: 0,
+			},
 			workers: {
-				wood: 15,
-				stone: 30,
+				wood: 7,
+				stone: 17,
 				gold: 0,
 			},
 			workersSpeed: {
-				wood: 7,
-				stone: 20,
+				wood: 5,
+				stone: 10,
 				gold: 0,
 			},
 		},
-		clicks: 200,
+		clicks: 50,
 		maxOnMap: 3,
 		upgrades: [
 			{
 				cost: {
-					wood: 100,
-					stone: 100,
+					wood: 30,
+					stone: 30,
 					gold: 0,
 				},
-				clicks: 250,
+				clicks: 150,
 				maxStats: {
 					gatheringPower: 2,
 					gatheringChance: 10,
@@ -224,11 +227,11 @@ const buildings = [
 			},
 			{
 				cost: {
-					wood: 150,
-					stone: 200,
+					wood: 50,
+					stone: 50,
 					gold: 0,
 				},
-				clicks: 400,
+				clicks: 250,
 				maxStats: {
 					gatheringPower: 3,
 					gatheringChance: 15,
@@ -244,14 +247,15 @@ const buildings = [
 		id: 3,
 		image: "mine",
 		name: "Kopalnia",
-		description: "Pozwala zbierać złoto potrzebne do budowy.",
+		description:
+			"Kopalnia pozwala na zbieranie złota z budynku. Budynek umożliwia ulepszanie wydobycia złota oraz zatrudnienie pracowników, którzy będą zbierali złoto automatycznie.",
 		size: {
 			x: 3,
 			y: 3,
 		},
 		cost: {
-			wood: 50,
-			stone: 50,
+			wood: 30,
+			stone: 30,
 			gold: 0,
 		},
 		stats: {
@@ -272,9 +276,9 @@ const buildings = [
 		},
 		statsCost: {
 			gatheringPower: {
-				wood: 20,
-				stone: 10,
-				gold: 1,
+				wood: 15,
+				stone: 7,
+				gold: 3,
 			},
 			gatheringChance: {
 				wood: 7,
@@ -292,26 +296,26 @@ const buildings = [
 				gold: 0,
 			},
 			workers: {
-				wood: 20,
-				stone: 35,
+				wood: 15,
+				stone: 25,
 				gold: 5,
 			},
 			workersSpeed: {
 				wood: 10,
 				stone: 20,
-				gold: 1,
+				gold: 3,
 			},
 		},
-		clicks: 300,
+		clicks: 100,
 		maxOnMap: 3,
 		upgrades: [
 			{
 				cost: {
-					wood: 100,
-					stone: 100,
-					gold: 30,
+					wood: 30,
+					stone: 30,
+					gold: 10,
 				},
-				clicks: 300,
+				clicks: 200,
 				maxStats: {
 					gatheringPower: 2,
 					gatheringChance: 7,
@@ -323,11 +327,11 @@ const buildings = [
 			},
 			{
 				cost: {
-					wood: 200,
-					stone: 200,
-					gold: 50,
+					wood: 50,
+					stone: 50,
+					gold: 20,
 				},
-				clicks: 550,
+				clicks: 300,
 				maxStats: {
 					gatheringPower: 3,
 					gatheringChance: 10,
@@ -343,15 +347,16 @@ const buildings = [
 		id: 4,
 		image: "workshop",
 		name: "Warsztat",
-		description: "Pozwala zwiększać prędkość budowy.",
+		description:
+			"Warsztat umożliwia ulepszanie efektywności podczas budowania i ulepszania budynków. W warsztacie można zatrudnić pracowników do automatycznej budowy.",
 		size: {
 			x: 2,
 			y: 2,
 		},
 		cost: {
-			wood: 50,
-			stone: 40,
-			gold: 30,
+			wood: 25,
+			stone: 25,
+			gold: 25,
 		},
 		stats: {
 			buildingPower: 1,
@@ -369,41 +374,41 @@ const buildings = [
 		},
 		statsCost: {
 			buildingPower: {
-				wood: 30,
-				stone: 20,
-				gold: 10,
+				wood: 20,
+				stone: 15,
+				gold: 7,
 			},
 			criticalPower: {
-				wood: 25,
-				stone: 15,
-				gold: 5,
+				wood: 15,
+				stone: 10,
+				gold: 3,
 			},
 			criticalChance: {
-				wood: 2,
-				stone: 2,
-				gold: 2,
+				wood: 5,
+				stone: 5,
+				gold: 3,
 			},
 			workers: {
-				wood: 30,
-				stone: 30,
-				gold: 30,
-			},
-			workersSpeed: {
-				wood: 20,
-				stone: 20,
+				wood: 15,
+				stone: 15,
 				gold: 15,
 			},
+			workersSpeed: {
+				wood: 10,
+				stone: 10,
+				gold: 7,
+			},
 		},
-		clicks: 200,
+		clicks: 50,
 		maxOnMap: 2,
 		upgrades: [
 			{
 				cost: {
-					wood: 75,
-					stone: 100,
-					gold: 50,
+					wood: 30,
+					stone: 50,
+					gold: 25,
 				},
-				clicks: 250,
+				clicks: 125,
 				maxStats: {
 					buildingPower: 3,
 					criticalPower: 5,
@@ -414,11 +419,11 @@ const buildings = [
 			},
 			{
 				cost: {
-					wood: 100,
-					stone: 150,
-					gold: 100,
+					wood: 50,
+					stone: 75,
+					gold: 30,
 				},
-				clicks: 350,
+				clicks: 250,
 				maxStats: {
 					buildingPower: 5,
 					criticalPower: 10,
@@ -433,35 +438,36 @@ const buildings = [
 		id: 5,
 		image: "vault",
 		name: "Skarbiec",
-		description: "Pozwala na kupowanie skrzyń z kartami.",
+		description:
+			"Skarbiec przechowywuje wszystkie wylosowane karty oraz umożliwia kupowanie nowych skrzynek za monety. W skrzynkach znajdują się losowe karty, które ulepszają statystyki.",
 		size: {
 			x: 3,
 			y: 3,
 		},
 		cost: {
-			wood: 70,
-			stone: 50,
-			gold: 40,
+			wood: 30,
+			stone: 40,
+			gold: 25,
 		},
 		cards: {},
-		clicks: 500,
+		clicks: 125,
 		maxOnMap: 1,
 		upgrades: [
 			{
 				cost: {
-					wood: 100,
-					stone: 100,
-					gold: 100,
+					wood: 60,
+					stone: 60,
+					gold: 60,
 				},
-				clicks: 500,
+				clicks: 250,
 			},
 			{
 				cost: {
-					wood: 250,
-					stone: 200,
-					gold: 200,
+					wood: 125,
+					stone: 125,
+					gold: 125,
 				},
-				clicks: 750,
+				clicks: 450,
 			},
 		],
 	},
@@ -469,35 +475,36 @@ const buildings = [
 		id: 6,
 		image: "trader",
 		name: "Handlarz",
-		description: "Wymienia surowce na monety.",
+		description:
+			"Handlarz wymienia swoje monety na losowe zasoby, których potrzebuje. U handlarza są trzy oferty, które nagradzają monetami. Monety są potrzebne do losowania kart.",
 		size: {
 			x: 2,
 			y: 2,
 		},
 		cost: {
-			wood: 125,
-			stone: 100,
-			gold: 25,
+			wood: 30,
+			stone: 25,
+			gold: 5,
 		},
 		cards: {},
-		clicks: 350,
+		clicks: 75,
 		maxOnMap: 1,
 		upgrades: [
 			{
 				cost: {
-					wood: 150,
-					stone: 125,
-					gold: 75,
+					wood: 50,
+					stone: 30,
+					gold: 15,
 				},
-				clicks: 500,
+				clicks: 175,
 			},
 			{
 				cost: {
-					wood: 275,
-					stone: 175,
-					gold: 75,
+					wood: 100,
+					stone: 75,
+					gold: 50,
 				},
-				clicks: 750,
+				clicks: 275,
 			},
 		],
 	},

@@ -2,9 +2,9 @@ class PlayerManager {
 	constructor(game) {
 		this.game = game;
 
-		this.wood = 5550;
-		this.stone = 5550;
-		this.gold = 5550;
+		this.wood = 0;
+		this.stone = 0;
+		this.gold = 0;
 		this.gem = 0;
 		this.coin = 0;
 

@@ -94,6 +94,27 @@ class Game {
 
 		return { sizes, lines: lines.length };
 	}
+
+	wrapText(text, maxWidth, size, font = "VT323") {
+		this.ctx.font = size + "px " + font;
+
+		return text
+			.split(" ")
+			.reduce((lines, word) => {
+				let lastLine = lines.pop() || "";
+				let testLine = lastLine + (lastLine ? " " : "") + word;
+				let lineWidth = this.ctx.measureText(testLine).width;
+
+				if (lineWidth < maxWidth) {
+					lines.push(testLine);
+				} else {
+					lines.push(lastLine);
+					lines.push(word);
+				}
+				return lines;
+			}, [])
+			.join("\n");
+	}
 }
 
 var game = new Game();

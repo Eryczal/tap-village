@@ -24,6 +24,14 @@ class MapObject extends Element {
 		this.clicks = clicks;
 
 		this.clickable = true;
+
+		this.image = 0;
+
+		if (this.type === 2 || this.type === 3) {
+			if ((this.tileX ^ this.tileY) % 3 === 1) {
+				this.image = 1;
+			}
+		}
 	}
 
 	onClick(mouseX, mouseY) {

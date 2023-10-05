@@ -163,9 +163,22 @@ class WorkshopBuilding extends Building {
 
 		this.workersTimer = setInterval(() => {
 			if (this.game.constructionManager.constructionState === 1) {
-				this.game.constructionManager.addProgress(this.workers);
+				this.game.constructionManager.addProgress("worker", this.workers);
 			}
 		}, this.workersSpeed * 1000);
+	}
+}
+
+class VaultBuilding extends Building {
+	static cards = [];
+
+	constructor(game, buildingId, posX, posY) {
+		super(game, buildingId, posX, posY);
+	}
+
+	init() {
+		this.menu = 0;
+		console.log("ok");
 	}
 }
 
@@ -251,6 +264,9 @@ class BuildingsManager {
 				this.buildings.push(new WorkshopBuilding(this.game, buildingId, posX, posY, buildings[buildingId].stats, buildings[buildingId].statsCost));
 				break;
 
+			case 5:
+				this.buildings.push(new VaultBuilding(this.game, buildingId, posX, posY));
+
 			case 6:
 				this.buildings.push(new TraderBuilding(this.game, buildingId, posX, posY));
 				break;
@@ -265,11 +281,11 @@ class BuildingsManager {
 		for (let i = 0; i < this.buildings.length; i++) {
 			if (this.buildings[i].onClick(mouseX, mouseY)) {
 				this.clickedBuilding = this.buildings[i];
-				this.game.sceneManager.changeScene("building");
+				this.game.sceneManager.changeScene(buildings[this.buildings[i].buildingId].image);
 				return true;
 			}
 		}
 	}
 }
 
-export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding, TraderBuilding };
+export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding, VaultBuilding, TraderBuilding };

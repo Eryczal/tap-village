@@ -11,8 +11,8 @@ class MainScene extends Scene {
 	init() {
 		let menu = new Menu(this.game);
 
-		this.elementsHolder.addElement("map", new Map(this.game, menu));
 		this.elementsHolder.addElement("menu", menu);
+		this.elementsHolder.addElement("map", new Map(this.game, menu));
 		this.elementsHolder.addElement("wood", new Wood(this.game));
 		this.elementsHolder.addElement("stone", new Stone(this.game));
 		this.elementsHolder.addElement("gold", new Gold(this.game));

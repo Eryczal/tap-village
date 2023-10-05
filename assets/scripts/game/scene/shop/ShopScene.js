@@ -11,8 +11,8 @@ class ShopScene extends Scene {
 	init() {
 		let menu = new Menu(this.game, "open");
 
-		this.elementsHolder.addElement("buildingsShop", new BuildingsShop(this.game, menu));
 		this.elementsHolder.addElement("menu", menu);
+		this.elementsHolder.addElement("buildingsShop", new BuildingsShop(this.game, menu));
 		this.elementsHolder.addElement("wood", new Wood(this.game));
 		this.elementsHolder.addElement("stone", new Stone(this.game));
 		this.elementsHolder.addElement("gold", new Gold(this.game));

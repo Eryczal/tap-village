@@ -17,11 +17,24 @@ class ShopBuyButton extends Element {
 		this.parent = parent;
 
 		this.color = this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap ? "#000" : "#999";
+
+		if (
+			(this.game.playerManager.wood < buildings[this.parent.id].cost.wood ||
+				this.game.playerManager.stone < buildings[this.parent.id].cost.stone ||
+				this.game.playerManager.gold < buildings[this.parent.id].cost.gold) &&
+			this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap
+		) {
+			this.color = "#999";
+		} else {
+			this.color = "#000";
+		}
+
+		this.text = this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap ? "Kup" : "Maksymalna ilość";
 	}
 
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
-		this.game.writeText("Kup", this.x + this.width / 2, this.y + this.height / 2, 56, this.color);
+		this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.8, this.color);
 	}
 
 	onClick(mouseX, mouseY) {
@@ -38,6 +51,18 @@ class ShopBuyButton extends Element {
 					this.game.playerManager.stone -= building.cost.stone;
 					this.game.playerManager.gold -= building.cost.gold;
 
+					this.game.constructionManager.setConstruction(building.id);
+					this.game.sceneManager.changeScene("main");
+				}
+			}
+		}
+	}
+
+	onRightClick(mouseX, mouseY) {
+		if (this.isMouseOver(mouseX, mouseY) && this.clickable && this.game.playerManager.gem === "max") {
+			if (this.game.constructionManager.constructionState === null) {
+				let building = buildings[this.parent.id];
+				if (this.parent.id === 0 || this.game.buildingsManager.countBuilding(0) === 1) {
 					this.game.constructionManager.setConstruction(building.id);
 					this.game.sceneManager.changeScene("main");
 				}

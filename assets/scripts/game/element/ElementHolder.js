@@ -50,6 +50,12 @@ class ElementHolder {
 		}
 	}
 
+	onRightClick(mouseX, mouseY) {
+		for (let elem in this.elements) {
+			this.elements[elem]?.onRightClick(mouseX, mouseY);
+		}
+	}
+
 	addElement(id, element) {
 		this.elements[id] = element;
 	}

@@ -59,6 +59,7 @@ class Map extends Element {
 	constructor(game, menu) {
 		super(game);
 
+		this.menu = menu;
 		this.TILE_SIZE = (this.game.canvas.width / 32) * this.game.playerManager.preferedZoom;
 		this.MENU_SIZE = menu.MENU_SIZE;
 
@@ -98,8 +99,7 @@ class Map extends Element {
 					let min = map[i][j] * 2 - 3;
 					let max = map[i][j] * map[i][j] + 1;
 					this.mapObjects.push(
-						new MapObject(this.game, this, map[i][j], j, i, 1, this.TILE_SIZE, this.MENU_SIZE)
-						// new MapObject(this.game, this, map[i][j], j, i, Math.floor(Math.random() * (max - min + 1)) + min, this.TILE_SIZE, this.MENU_SIZE)
+						new MapObject(this.game, this, map[i][j], j, i, Math.floor(Math.random() * (max - min + 1)) + min, this.TILE_SIZE, this.MENU_SIZE)
 					);
 				}
 			}
@@ -112,12 +112,22 @@ class Map extends Element {
 		let overlap = 1 / this.zoom;
 		let construction = this.game.constructionManager;
 
-		for (let y = 0; y < map.length; y++) {
-			for (let x = 0; x < map[y].length; x++) {
+		let startX = Math.floor(-this.mapScroll.x / this.TILE_SIZE);
+		let startY = Math.floor(-this.mapScroll.y / this.TILE_SIZE);
+		let endX = Math.ceil((this.game.canvas.width - this.MENU_SIZE - this.mapScroll.x) / this.TILE_SIZE);
+		let endY = Math.ceil((this.game.canvas.height - this.mapScroll.y) / this.TILE_SIZE);
+
+		startX = Math.max(0, startX);
+		startY = Math.max(0, startY);
+		endX = Math.min(map[0].length, endX);
+		endY = Math.min(map.length, endY);
+
+		for (let y = startY; y < endY; y++) {
+			for (let x = startX; x < endX; x++) {
 				let xPos = this.MENU_SIZE + x * this.TILE_SIZE + this.mapScroll.x;
 				let yPos = y * this.TILE_SIZE + this.mapScroll.y;
 				let size = this.TILE_SIZE + overlap;
-				this.game.ctx.drawImage(this.getTileImage(map[y][x]), xPos, yPos, size, size);
+				this.game.ctx.drawImage(this.getTileImage(map[y][x], `${y}_${x}`), xPos, yPos, size, size);
 			}
 		}
 
@@ -166,13 +176,19 @@ class Map extends Element {
 				this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
 			}
 		}
+
+		this.menu.draw();
 	}
 
 	unload() {
 		clearInterval(this.waterAnimation);
 	}
 
-	getTileImage(id) {
+	getTileImage(id, objId) {
+		if (id === 2 || id === 3) {
+			var obj = this.mapObjects.find((item) => item.id === objId);
+		}
+
 		switch (id) {
 			case 0:
 				return this.game.assetsManager.images.grassTile;
@@ -183,9 +199,9 @@ class Map extends Element {
 					return this.game.assetsManager.images["waterTile" + (this.waterState + 1)];
 				}
 			case 2:
-				return this.game.assetsManager.images.treeTile;
+				return obj.image === 0 ? this.game.assetsManager.images.treeTile : this.game.assetsManager.images.treeTile2;
 			case 3:
-				return this.game.assetsManager.images.stoneTile;
+				return obj.image === 0 ? this.game.assetsManager.images.stoneTile : this.game.assetsManager.images.stoneTile2;
 			default:
 				return this.game.assetsManager.images.grassTile;
 		}
@@ -263,11 +279,11 @@ class Map extends Element {
 					this.game.constructionManager.setBuild(this.selectedTile.x, this.selectedTile.y);
 					this.selectedTile.x = 0;
 					this.selectedTile.y = 0;
-					return;
 				}
+				return;
 			} else if (this.game.constructionManager.constructionState === 1) {
 				if (this.game.constructionManager.isMouseOver(mouseX, mouseY)) {
-					this.game.constructionManager.addProgress(100); // -----------------------------------------------
+					this.game.constructionManager.addProgress("click");
 					return;
 				}
 			}
@@ -285,12 +301,17 @@ class Map extends Element {
 	}
 
 	onRightClick(mouseX, mouseY) {
-		// if (mouseX >= this.MENU_SIZE) {
-		// 	let selectedTile = {
-		// 		x: Math.floor((mouseX - this.mapScroll.x - this.MENU_SIZE) / 50),
-		// 		y: Math.floor((mouseY - this.mapScroll.y) / 50),
-		// 	};
-		// }
+		if (mouseX >= this.MENU_SIZE && this.game.playerManager.gem === "max") {
+			let tileX = Math.floor((mouseX - this.mapScroll.x - this.MENU_SIZE) / this.TILE_SIZE);
+			let tileY = Math.floor((mouseY - this.mapScroll.y) / this.TILE_SIZE);
+
+			if (this.game.constructionManager.constructionState === 1) {
+				if (this.game.constructionManager.isMouseOver(mouseX, mouseY)) {
+					this.game.constructionManager.addProgress("worker", 500);
+					return;
+				}
+			}
+		}
 	}
 
 	onScroll(event) {
@@ -368,12 +389,12 @@ class Map extends Element {
 
 	handleDestroyedObject(type, x, y) {
 		if (type === 2) {
-			this.game.playerManager.wood += 300; //1
+			this.game.playerManager.wood += 1;
 		} else {
-			this.game.playerManager.stone += 300; //1 --------------------------------------------------------
+			this.game.playerManager.stone += 1;
 		}
 
-		this.mapObjects = this.mapObjects.filter((obj) => obj.id !== y + "_" + x);
+		this.mapObjects = this.mapObjects.filter((obj) => obj.id !== `${y}_${x}`);
 		map[y][x] = 0;
 	}
 
@@ -395,6 +416,10 @@ class Map extends Element {
 		}
 
 		return isFree;
+	}
+
+	onResize() {
+		this.MENU_SIZE = this.menu.MENU_SIZE;
 	}
 }
 
