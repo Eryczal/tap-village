@@ -1,4 +1,5 @@
 import { Element } from "../../../element/Element.js";
+import { SawmillBuilding, QuarryBuilding } from "../../../managers/BuildingsManager.js";
 
 class MapObject extends Element {
 	constructor(game, parent, type, x, y, clicks, TILE_SIZE, MENU_SIZE) {
@@ -27,16 +28,20 @@ class MapObject extends Element {
 
 		this.image = 0;
 
-		if (this.type === 2 || this.type === 3) {
-			if ((this.tileX ^ this.tileY) % 3 === 1) {
-				this.image = 1;
-			}
+		if ((this.tileX ^ this.tileY) % 3 === 1) {
+			this.image = 1;
 		}
 	}
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			this.clicks -= 1;
+			let attack = 1;
+			if (this.type === 2 && SawmillBuilding.stats.gatheringPower) {
+				attack = SawmillBuilding.stats.gatheringPower;
+			} else if (this.type === 3 && QuarryBuilding.stats.gatheringPower) {
+				attack = QuarryBuilding.stats.gatheringPower;
+			}
+			this.clicks -= attack;
 
 			if (this.clicks <= 0) {
 				this.parent.handleDestroyedObject(this.type, this.tileX, this.tileY);

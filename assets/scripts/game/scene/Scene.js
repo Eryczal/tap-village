@@ -50,7 +50,9 @@ class Scene {
 		this.elementsHolder.onRightClick(mouseX, mouseY);
 	}
 
-	onScroll() {}
+	onScroll(event) {
+		this.elementsHolder.onScroll(event);
+	}
 }
 
 export { Scene };

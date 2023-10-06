@@ -30,6 +30,14 @@ class BuildingScene extends Scene {
 	}
 
 	initChild(menu) {}
+
+	reloadButtons(menu) {
+		this.elementsHolder.removeElement("UpgradeButton");
+		this.elementsHolder.removeElement("BackButton");
+
+		this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));
+		this.elementsHolder.addElement("BackButton", new BackButton(this.game, menu));
+	}
 }
 
 export { BuildingScene };

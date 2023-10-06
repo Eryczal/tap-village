@@ -178,7 +178,6 @@ class VaultBuilding extends Building {
 
 	init() {
 		this.menu = 0;
-		console.log("ok");
 	}
 }
 

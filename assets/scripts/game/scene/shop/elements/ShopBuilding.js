@@ -13,7 +13,7 @@ class ShopBuilding extends Element {
 		this.column = column;
 		this.row = row;
 		this.x = (this.parent.SIZE / this.parent.MAX_PER_ROW) * this.column + this.parent.MENU_SIZE;
-		this.y = this.row * 1000 + 200; //700 -> previous row height
+		this.y = this.row * 1000 + 200;
 		this.size = this.parent.SIZE / this.parent.MAX_PER_ROW;
 
 		this.ICON_SIZE = this.game.canvas.width / 50;

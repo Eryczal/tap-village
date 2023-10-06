@@ -20,7 +20,12 @@ class BackButton extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			this.game.sceneManager.changeScene("main");
+			let building = this.game.buildingsManager.clickedBuilding;
+			if (building.buildingId !== 5 || building.menu === 0) {
+				this.game.sceneManager.changeScene("main");
+			} else {
+				this.game.sceneManager.currentScene.changeMenu(0);
+			}
 		}
 	}
 

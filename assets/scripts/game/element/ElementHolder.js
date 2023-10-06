@@ -56,8 +56,17 @@ class ElementHolder {
 		}
 	}
 
-	addElement(id, element) {
+	onScroll(event) {
+		for (let elem in this.elements) {
+			this.elements[elem]?.onScroll(event);
+		}
+	}
+
+	addElement(id, element, init = false) {
 		this.elements[id] = element;
+		if (init) {
+			this.elements[id].init();
+		}
 	}
 
 	removeElement(id) {

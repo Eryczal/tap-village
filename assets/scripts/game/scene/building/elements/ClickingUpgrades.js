@@ -193,6 +193,14 @@ class GatheringPower extends BuildingButton {
 					this.cost.stone = Math.round(this.cost.stone * 1.3);
 					this.cost.gold = Math.round(this.cost.gold * 1.3);
 
+					if (this.cost.stone === 0 && this.gatheringPower + 1 > 2) {
+						this.cost.stone = Math.round(this.cost.wood / 3);
+					}
+
+					if (this.cost.gold === 0 && this.gatheringPower + 1 > 3) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
+
 					this.updateValues(mouseX, mouseY);
 				}
 			}
@@ -258,6 +266,14 @@ class GatheringChance extends BuildingButton {
 					this.cost.wood = Math.round(this.cost.wood * 1.2);
 					this.cost.stone = Math.round(this.cost.stone * 1.2);
 					this.cost.gold = Math.round(this.cost.gold * 1.2);
+
+					if (this.cost.stone === 0 && this.gatheringChance + 1 > 5) {
+						this.cost.stone = Math.round(this.cost.wood / 3);
+					}
+
+					if (this.cost.gold === 0 && this.gatheringChance + 1 > 10) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
 
 					this.updateValues();
 				}
@@ -376,6 +392,14 @@ class CriticPower extends BuildingButton {
 					this.cost.stone = Math.round(this.cost.stone * 1.1);
 					this.cost.gold = Math.round(this.cost.gold * 1.1);
 
+					if (this.cost.stone === 0 && this.criticalPower + 1 > 5) {
+						this.cost.stone = Math.round(this.cost.wood / 3);
+					}
+
+					if (this.cost.gold === 0 && this.criticalPower + 1 > 10) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
+
 					this.updateValues();
 				}
 			}
@@ -446,6 +470,14 @@ class CriticChance extends BuildingButton {
 					this.cost.stone = Math.round(this.cost.stone * 1.3);
 					this.cost.gold = Math.round(this.cost.gold * 1.3);
 
+					if (this.cost.stone === 0 && this.criticalChance + 1 > 5) {
+						this.cost.stone = Math.round(this.cost.wood / 3);
+					}
+
+					if (this.cost.gold === 0 && this.criticalChance + 1 > 10) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
+
 					this.updateValues();
 				}
 			}
@@ -492,6 +524,10 @@ class Workers extends BuildingButton {
 					this.cost.wood = Math.round(this.cost.wood * 2.2);
 					this.cost.stone = Math.round(this.cost.stone * 2.2);
 					this.cost.gold = Math.round(this.cost.gold * 2.2);
+
+					if (this.cost.gold === 0 && this.building.workers > 3) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
 
 					this.updateValues();
 				}
@@ -580,6 +616,10 @@ class WorkersSpeed extends BuildingButton {
 					this.cost.wood = Math.round(this.cost.wood * 1.2);
 					this.cost.stone = Math.round(this.cost.stone * 1.2);
 					this.cost.gold = Math.round(this.cost.gold * 1.2);
+
+					if (this.cost.gold === 0 && this.building.workersSpeed < Math.round(buildings[this.building.buildingId].stats.workersSpeed - 1.5)) {
+						this.cost.gold = Math.round(this.cost.stone / 3);
+					}
 
 					this.updateValues();
 				}
