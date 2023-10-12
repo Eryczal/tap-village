@@ -1,10 +1,11 @@
 import { MainScene } from "../scene/main/MainScene.js";
 import { ShopScene } from "../scene/shop/ShopScene.js";
-import { CastleScene } from "../scene/building/CastleScene.js";
-import { ResourceScene } from "../scene/building/ResourceScene.js";
-import { WorkshopScene } from "../scene/building/WorkshopScene.js";
-import { VaultScene } from "../scene/building/VaultScene.js";
-import { TraderScene } from "../scene/building/TraderScene.js";
+import { CastleScene } from "../scene/buildings/castle/CastleScene.js";
+import { ResourceScene } from "../scene/buildings/ResourceScene.js";
+import { WorkshopScene } from "../scene/buildings/workshop/WorkshopScene.js";
+import { VaultScene } from "../scene/buildings/vault/VaultScene.js";
+import { TraderScene } from "../scene/buildings/trader/TraderScene.js";
+import { ChestScene } from "../scene/buildings/vault/chest/ChestScene.js";
 
 class SceneManager {
 	constructor(game) {
@@ -25,7 +26,7 @@ class SceneManager {
 		this.currentScene?.update();
 	}
 
-	changeScene(scene) {
+	changeScene(scene, options = {}) {
 		this.currentScene?.unload();
 
 		switch (scene) {
@@ -58,6 +59,14 @@ class SceneManager {
 			case "trader":
 				this.currentScene = new TraderScene(this.game);
 				break;
+
+			case "chest":
+				this.currentScene = new ChestScene(this.game);
+				break;
+		}
+
+		for (let option in options) {
+			this.currentScene.data[option] = options[option];
 		}
 
 		this.currentScene?.init();

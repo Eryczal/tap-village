@@ -1,7 +1,7 @@
 import { Scene } from "../Scene.js";
-import { Menu } from "../elements/Menu.js";
-import { BuildingsShop } from "./elements/BuildingsShop.js";
-import { Wood, Stone, Gold, Gem } from "../elements/Resources.js";
+import { Menu } from "../_elements/Menu.js";
+import { BuildingsShop } from "./_elements/BuildingsShop.js";
+import { Wood, Stone, Gold, Gem } from "../_elements/Resources.js";
 
 class ShopScene extends Scene {
 	constructor(game) {

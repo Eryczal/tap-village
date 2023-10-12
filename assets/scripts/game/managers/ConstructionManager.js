@@ -1,7 +1,7 @@
 import { buildings } from "../data/buildings.js";
 import { WorkshopBuilding } from "./BuildingsManager.js";
 import { Element } from "../element/Element.js";
-import { map } from "../scene/main/elements/Map.js";
+import { map } from "../scene/main/_elements/Map.js";
 
 class ConstructionManager extends Element {
 	constructor(game) {

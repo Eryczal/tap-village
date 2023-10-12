@@ -1,7 +1,7 @@
 import { Scene } from "../Scene.js";
-import { Map } from "./elements/Map.js";
-import { Menu } from "../elements/Menu.js";
-import { Wood, Stone, Gold, Gem } from "../elements/Resources.js";
+import { Map } from "./_elements/Map.js";
+import { Menu } from "../_elements/Menu.js";
+import { Wood, Stone, Gold, Gem } from "../_elements/Resources.js";
 
 class MainScene extends Scene {
 	constructor(game) {

@@ -4,6 +4,7 @@ class Scene {
 	constructor(game) {
 		this.game = game;
 		this.elementsHolder = new ElementHolder(game);
+		this.data = {};
 	}
 
 	get elements() {

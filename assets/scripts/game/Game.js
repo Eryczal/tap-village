@@ -1,4 +1,3 @@
-import { GlobalElementsHolder } from "./element/GlobalElementsHolder.js";
 import { AssetsManager, ResizeManager, MouseManager, SceneManager, PlayerManager, ConstructionManager, BuildingsManager } from "./managers/index.js";
 
 class Game {
@@ -6,7 +5,6 @@ class Game {
 		this.canvas = document.getElementById("canvas");
 
 		this.assetsManager = new AssetsManager();
-		this.globalElements = new GlobalElementsHolder(this);
 		this.sceneManager = new SceneManager(this);
 		this.resizeManager = new ResizeManager(this);
 		this.mouseManager = new MouseManager(this);
@@ -17,10 +15,6 @@ class Game {
 
 	get ctx() {
 		return this.canvas.getContext("2d");
-	}
-
-	get elements() {
-		return this.globalElements?.list;
 	}
 
 	get RESOURCES_SIZE() {
@@ -115,9 +109,16 @@ class Game {
 			}, [])
 			.join("\n");
 	}
+
+	setMaxGems() {
+		this.playerManager.gem = "max";
+	}
 }
 
-var game = new Game();
+const game = new Game();
+
+//DEBUG
+window.smg = () => game.setMaxGems();
 
 export function initGame() {
 	game.init();
