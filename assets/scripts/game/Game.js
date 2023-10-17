@@ -11,6 +11,9 @@ class Game {
 		this.playerManager = new PlayerManager(this);
 		this.constructionManager = new ConstructionManager(this);
 		this.buildingsManager = new BuildingsManager(this);
+
+		this.time = 720;
+		this.timeTimer = setInterval(() => this.changeTime(), 100);
 	}
 
 	get ctx() {
@@ -112,6 +115,14 @@ class Game {
 
 	setMaxGems() {
 		this.playerManager.gem = "max";
+	}
+
+	changeTime() {
+		this.time++;
+
+		if (this.time >= 1440) {
+			this.time = 0;
+		}
 	}
 }
 

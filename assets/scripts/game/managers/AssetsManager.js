@@ -1,5 +1,7 @@
 const imagesPath = {
 	grassTile: "assets/images/tiles/grass.png",
+	grassTile2: "assets/images/tiles/grass2.png",
+	grassTile3: "assets/images/tiles/grass3.png",
 	waterTile: "assets/images/tiles/water.png",
 	waterTile2: "assets/images/tiles/water2.png",
 	treeTile: "assets/images/tiles/tree.png",
@@ -14,17 +16,23 @@ const imagesPath = {
 	coinIcon: "assets/images/icons/coin.png",
 
 	castle: "assets/images/buildings/castle.png",
+	castleBackground: "assets/images/buildings/castle-bg.png",
 	sawmill: "assets/images/buildings/sawmill.png",
+	sawmillBackground: "assets/images/buildings/sawmill-bg.png",
 	quarry: "assets/images/buildings/quarry.png",
+	quarryBackground: "assets/images/buildings/quarry-bg.png",
 	mine: "assets/images/buildings/mine.png",
+	mineBackground: "assets/images/buildings/mine-bg.png",
 	workshop: "assets/images/buildings/workshop.png",
+	workshopBackground: "assets/images/buildings/workshop-bg.png",
 	vault: "assets/images/buildings/vault.png",
+	vaultBackground: "assets/images/buildings/vault-bg.png",
 	trader: "assets/images/buildings/trader.png",
+	traderBackground: "assets/images/buildings/trader-bg.png",
 
 	menu: "assets/images/ui/menu.png",
 	shopButton: "assets/images/ui/shop-button.png",
 	shop: "assets/images/ui/shop.png",
-	building: "assets/images/ui/building.png",
 	buyButton: "assets/images/ui/buy-button.png",
 	upgradeButton: "assets/images/ui/upgrade-button.png",
 	redButton: "assets/images/ui/red-button.png",
@@ -34,6 +42,19 @@ const imagesPath = {
 	rareChest: "assets/images/chests/rare.png",
 	epicChest: "assets/images/chests/epic.png",
 	legendaryChest: "assets/images/chests/legendary.png",
+
+	woodChanceCard: "assets/images/cards/wood-chance.png",
+	// stoneChanceCard: "assets/images/cards/stone-chance.png",
+	// goldChanceCard: "assets/images/cards/gold-chance.png",
+	workersCard: "assets/images/cards/workers.png",
+	// woodPowerCard: "assets/images/cards/wood-power.png",
+	// stonePowerCard: "assets/images/cards/stone-power.png",
+	// goldPowerCard: "assets/images/cards/gold-power.png",
+	// gemsChanceCard: "assets/images/cards/gems-chance.png",
+	// woodCostCard: "assets/images/cards/wood-cost.png",
+	// stoneCostCard: "assets/images/cards/stone-cost.png",
+	// goldCostCard: "assets/images/cards/gold-cost.png",
+	// rareCardsCard: "assets/images/cards/rare-cards.png",
 };
 
 class AssetsManager {

@@ -69,8 +69,6 @@ class OpeningChest extends Element {
 			this.game.writeText("Otwórz", this.HEADER_X, this.HEADER_Y, this.HEADER_SIZE, `rgba(0, 0, 0, ${this.headerOpacity})`);
 		} else {
 			this.openAgainButton.draw();
-			// this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y + this.ICON_SIZE, this.ICON_SIZE * 2, this.ICON_SIZE / 4);
-			// this.game.writeText("Otwórz ponownie", this.x + this.ICON_SIZE / 2, this.y + this.ICON_SIZE + this.ICON_SIZE / 8, this.ICON_SIZE / 4);
 		}
 		this.game.ctx.drawImage(this.game.assetsManager.images[chests[this.chestId].image + "Chest"], this.x, this.y, this.ICON_SIZE, this.ICON_SIZE);
 	}

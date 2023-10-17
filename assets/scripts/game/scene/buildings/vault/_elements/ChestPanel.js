@@ -25,7 +25,7 @@ class ChestPanel extends Element {
 		this.scroll += event.deltaY;
 		this.scroll = Math.min(Math.max(0, this.scroll), sum);
 
-		for (let i = 0; i < chests.length; i++) {
+		for (let i = 0; i < this.chests.length; i++) {
 			this.chests[i].updateScroll(this.scroll);
 		}
 	}

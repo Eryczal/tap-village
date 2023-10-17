@@ -65,9 +65,7 @@ class Map extends Element {
 
 		this.mapObjects = [];
 
-		this.waterAnimation = setInterval(() => {
-			this.changeWater();
-		}, 800);
+		this.waterAnimation = setInterval(() => this.changeWater(), 800);
 		this.waterState = 0;
 
 		this.scrollable = false;
@@ -75,6 +73,8 @@ class Map extends Element {
 		this.zoom = this.game.playerManager.preferedZoom;
 		this.MAX_ZOOM = 2;
 		this.MIN_ZOOM = 0.6;
+
+		this.time = 6;
 
 		this.oldMapScroll = {
 			x: 0,
@@ -127,7 +127,11 @@ class Map extends Element {
 				let xPos = this.MENU_SIZE + x * this.TILE_SIZE + this.mapScroll.x;
 				let yPos = y * this.TILE_SIZE + this.mapScroll.y;
 				let size = this.TILE_SIZE + overlap;
-				this.game.ctx.drawImage(this.getTileImage(map[y][x], `${y}_${x}`), xPos, yPos, size, size);
+
+				if (map[y][x] === 2 || map[y][x] === 3) {
+					this.game.ctx.drawImage(this.getTileImage(0, `${y}_${x}`, y, x), xPos, yPos, size, size);
+				}
+				this.game.ctx.drawImage(this.getTileImage(map[y][x], `${y}_${x}`, y, x), xPos, yPos, size, size);
 			}
 		}
 
@@ -177,21 +181,59 @@ class Map extends Element {
 			);
 		}
 
+		this.drawDayCycle();
+
 		this.menu.draw();
+	}
+
+	drawDayCycle() {
+		let colorStops = {
+			night: "rgba(0, 0, 50, ",
+			sun: "rgba(255, 100, 50, ",
+		};
+
+		let gradient = this.game.ctx.createLinearGradient(0, 0, 0, map.length * this.TILE_SIZE);
+
+		if (this.game.time >= 360 && this.game.time < 480) {
+			let progress = ((this.game.time - 360) / (480 - 360)) * 0.5;
+			gradient.addColorStop(0, colorStops.sun + progress / 2 + ")");
+			gradient.addColorStop(progress * 2, colorStops.night + "0.5)");
+			gradient.addColorStop(1, colorStops.night + "0.5)");
+		} else if (this.game.time >= 480 && this.game.time < 600) {
+			let progress = ((this.game.time - 480) / (600 - 480)) * 0.5;
+			gradient.addColorStop(0, colorStops.sun + (0.5 - progress) / 2 + ")");
+			gradient.addColorStop(1, colorStops.night + (0.5 - progress) + ")");
+		} else if (this.game.time >= 1080 && this.game.time < 1200) {
+			let progress = ((this.game.time - 1080) / (1200 - 1080)) * 0.5;
+			gradient.addColorStop(0, colorStops.night + progress + ")");
+			gradient.addColorStop(1, colorStops.sun + progress / 2 + ")");
+		} else if (this.game.time >= 1200 && this.game.time < 1320) {
+			let progress = ((this.game.time - 1200) / (1320 - 1200)) * 0.5;
+			gradient.addColorStop(0, colorStops.night + "0.5)");
+			gradient.addColorStop(progress * 2, colorStops.night + "0.5)");
+			gradient.addColorStop(1, colorStops.sun + "0.25)");
+		} else if (this.game.time >= 1320 || this.game.time < 360) {
+			gradient.addColorStop(0, colorStops.night + "0.5)");
+			gradient.addColorStop(1, colorStops.night + "0.5)");
+		}
+
+		this.game.ctx.fillStyle = gradient;
+		this.game.ctx.fillRect(0, this.mapScroll.y, this.game.canvas.width, map.length * this.TILE_SIZE);
 	}
 
 	unload() {
 		clearInterval(this.waterAnimation);
 	}
 
-	getTileImage(id, objId) {
+	getTileImage(id, objId, y, x) {
 		if (id === 2 || id === 3) {
 			var obj = this.mapObjects.find((item) => item.id === objId);
 		}
 
 		switch (id) {
 			case 0:
-				return this.game.assetsManager.images.grassTile;
+				let num = ((Math.abs(Math.sin(x) * y * Math.cos(y) * (x + y)) % 3) + 1) | 0;
+				return this.game.assetsManager.images["grassTile" + (num > 1 ? num : "")];
 			case 1:
 				if (this.waterState == 0) {
 					return this.game.assetsManager.images.waterTile;
