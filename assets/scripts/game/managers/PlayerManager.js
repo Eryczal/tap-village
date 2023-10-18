@@ -1,3 +1,5 @@
+import { cards } from "../data/cards.js";
+
 class PlayerManager {
 	constructor(game) {
 		this.game = game;
@@ -7,6 +9,11 @@ class PlayerManager {
 		this.gold = 0;
 		this.gem = 0;
 		this.coin = 0;
+		this.cards = [];
+
+		for (let i = 0; i < cards.length; i++) {
+			this.cards[i] = 0;
+		}
 
 		this.preferedZoom = 1;
 	}

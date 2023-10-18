@@ -44,7 +44,7 @@ class Button extends Element {
 	}
 
 	draw() {
-		this.game.ctx.drawImage(this.game.assetsManager.images.buildingClick, this.x, this.y, this.width, this.height);
+		this.game.ctx.drawImage(this.game.assetsManager.images.buildingSelect, this.x, this.y, this.width, this.height);
 
 		this.game.ctx.drawImage(this.game.assetsManager.images[this.img.icon], this.img.x, this.img.y, this.img.width, this.img.height);
 
@@ -54,7 +54,7 @@ class Button extends Element {
 
 class ChestsButton extends Button {
 	constructor(game, menu) {
-		super(game, 0, menu, "gemIcon", "Skrzynie");
+		super(game, 0, menu, "legendaryChest", "Skrzynie");
 	}
 
 	onClick(mouseX, mouseY) {
@@ -66,7 +66,7 @@ class ChestsButton extends Button {
 
 class CardsButton extends Button {
 	constructor(game, menu) {
-		super(game, 1, menu, "coinIcon", "Karty");
+		super(game, 1, menu, "woodChanceCard", "Karty");
 	}
 
 	onClick(mouseX, mouseY) {

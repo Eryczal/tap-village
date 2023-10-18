@@ -42,16 +42,18 @@ class CardPanel extends Element {
 	}
 
 	onClick(mouseX, mouseY) {
-		for (let i = 0; i < this.cards.length; i++) {
-			this.cards[i].onClick(mouseX, mouseY);
+		if (!this.game.sceneManager.currentScene.elementsHolder?.elements?.BackButton?.isMouseOver(mouseX, mouseY)) {
+			for (let i = 0; i < this.cards.length; i++) {
+				this.cards[i].onClick(mouseX, mouseY);
+			}
 		}
 	}
 
 	onScroll(event) {
-		// let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + 200, 200); //TODO
+		let sum = Math.floor(this.cards.length / 4 + 200);
 
 		this.scroll += event.deltaY;
-		// this.scroll = Math.min(Math.max(0, this.scroll), sum);
+		this.scroll = Math.min(Math.max(0, this.scroll), sum);
 
 		for (let i = 0; i < this.cards.length; i++) {
 			this.cards[i].updateScroll(this.scroll);

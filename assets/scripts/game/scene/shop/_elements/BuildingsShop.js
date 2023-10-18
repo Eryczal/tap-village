@@ -10,6 +10,7 @@ class BuildingsShop extends Element {
 		this.MENU_SIZE = menu.MENU_SIZE;
 		this.MAX_PER_ROW = 4;
 		this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+		this.OFFSET = this.SIZE * 0.05;
 		this.scroll = 0;
 		this.rows = [0];
 	}
@@ -38,11 +39,18 @@ class BuildingsShop extends Element {
 	draw() {
 		this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, canvas.height);
 
-		this.game.writeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, 30, this.SIZE / 24, "#000", "center", "top");
+		this.game.writeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#000", "center", "top");
+
+		this.game.ctx.save();
+		this.game.ctx.beginPath();
+		this.game.ctx.rect(this.MENU_SIZE + this.SIZE / 24, this.SIZE / 12, this.SIZE - this.SIZE / 12, this.game.canvas.height - this.SIZE / 8);
+		this.game.ctx.clip();
 
 		for (let i = 0; i < buildings.length; i++) {
 			this[buildings[i].image].draw();
 		}
+
+		this.game.ctx.restore();
 	}
 
 	onHover(mouseX, mouseY) {

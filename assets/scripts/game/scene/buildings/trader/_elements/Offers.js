@@ -67,7 +67,7 @@ class Offer extends Element {
 	}
 
 	draw() {
-		this.game.ctx.drawImage(this.game.assetsManager.images.buildingClick, this.x, this.y, this.width, this.height);
+		this.game.ctx.drawImage(this.game.assetsManager.images.buildingSelect, this.x, this.y, this.width, this.height);
 
 		this.game.ctx.drawImage(this.game.assetsManager.images[this.resource.icon], this.resource.x, this.resource.y, this.resource.width, this.resource.height);
 		this.game.writeText(

@@ -192,7 +192,7 @@ class Map extends Element {
 			sun: "rgba(255, 100, 50, ",
 		};
 
-		let gradient = this.game.ctx.createLinearGradient(0, 0, 0, map.length * this.TILE_SIZE);
+		let gradient = this.game.ctx.createLinearGradient(0, this.mapScroll.y, 0, map.length * this.TILE_SIZE + this.mapScroll.y);
 
 		if (this.game.time >= 360 && this.game.time < 480) {
 			let progress = ((this.game.time - 360) / (480 - 360)) * 0.5;

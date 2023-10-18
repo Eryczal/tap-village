@@ -13,7 +13,7 @@ class Game {
 		this.buildingsManager = new BuildingsManager(this);
 
 		this.time = 720;
-		this.timeTimer = setInterval(() => this.changeTime(), 100);
+		this.timeTimer = setInterval(() => this.changeTime(), 60);
 	}
 
 	get ctx() {
@@ -118,7 +118,7 @@ class Game {
 	}
 
 	changeTime() {
-		this.time++;
+		this.time += 0.2;
 
 		if (this.time >= 1440) {
 			this.time = 0;

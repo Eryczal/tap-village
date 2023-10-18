@@ -12,7 +12,6 @@ class BuildingName extends Element {
 	draw() {
 		let building = this.game.buildingsManager.clickedBuilding;
 
-		console.log(building.image + "Background");
 		this.game.ctx.drawImage(
 			this.game.assetsManager.images[buildings[building.buildingId].image + "Background"],
 			this.MENU_SIZE,

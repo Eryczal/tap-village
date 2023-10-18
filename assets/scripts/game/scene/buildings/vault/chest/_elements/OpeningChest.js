@@ -59,11 +59,11 @@ class OpeningChest extends Element {
 		let rarity = chests[this.chestId].chances.findIndex((threshold) => chance < threshold);
 		let array = cards.filter((card) => card.rarity === rarity);
 		let index = Math.floor(Math.random() * array.length);
-		console.log(array[index]);
+		this.game.playerManager.cards[array[index].id]++;
 	}
 
 	draw() {
-		this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, canvas.height);
+		this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, this.game.canvas.height);
 
 		if (this.opened === false) {
 			this.game.writeText("Otwórz", this.HEADER_X, this.HEADER_Y, this.HEADER_SIZE, `rgba(0, 0, 0, ${this.headerOpacity})`);

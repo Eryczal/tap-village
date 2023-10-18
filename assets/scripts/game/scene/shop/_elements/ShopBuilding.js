@@ -12,7 +12,7 @@ class ShopBuilding extends Element {
 		this.id = id;
 		this.column = column;
 		this.row = row;
-		this.x = (this.parent.SIZE / this.parent.MAX_PER_ROW) * this.column + this.parent.MENU_SIZE;
+		this.x = ((this.parent.SIZE - this.parent.OFFSET * 2) / this.parent.MAX_PER_ROW) * this.column + this.parent.MENU_SIZE + this.parent.OFFSET;
 		this.y = this.row * 1000 + 200;
 		this.size = this.parent.SIZE / this.parent.MAX_PER_ROW;
 
