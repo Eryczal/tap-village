@@ -37,29 +37,67 @@ class ConstructionManager extends Element {
 				map[y][x] = 5;
 			}
 		}
+
+		this.saveConstruction();
+	}
+
+	saveConstruction() {
+		let constructionData = {
+			buildingId: this.buildingId,
+			constructionType: this.constructionType,
+			constructionState: this.constructionState,
+			constructionX: this.constructionX,
+			constructionY: this.constructionY,
+			clickProgress: this.clickProgress,
+			neededClicks: this.neededClicks,
+		};
+
+		if (this.constructionType === "upgrade") {
+			this.game.buildingsManager.saveBuilding(this.building.position);
+		}
+
+		this.game.playerManager.updatePlayerData("player");
+		this.game.playerManager.updatePlayerData("construction", constructionData);
+	}
+
+	loadConstruction(data) {
+		this.buildingId = data.buildingId;
+		this.constructionType = data.constructionType;
+		this.constructionState = data.constructionState;
+		this.constructionX = data.constructionX;
+		this.constructionY = data.constructionY;
+		this.clickProgress = data.clickProgress;
+		this.neededClicks = data.neededClicks;
+
+		this.clickable = true;
 	}
 
 	addProgress(type, workers) {
+		let audio = Math.floor(Math.random() * 4) + 1;
 		if (type === "click" && typeof WorkshopBuilding.stats.criticalChance !== "undefined") {
 			let critic = Math.random() < WorkshopBuilding.stats.criticalChance / 100;
 			let amount = critic ? WorkshopBuilding.stats.criticalPower : WorkshopBuilding.stats.buildingPower;
 			this.clickProgress += amount;
+			this.game.assetsManager.playAudio("build" + audio, true);
 		} else if (type === "click") {
 			this.clickProgress += 1;
+			this.game.assetsManager.playAudio("build" + audio, true);
 		} else if (type === "worker" && workers > 0) {
 			this.clickProgress += workers;
 		}
 
 		if (this.clickProgress >= this.neededClicks) {
-			if (this.constructionType == "build") {
+			if (this.constructionType === "build") {
 				this.game.buildingsManager.addBuilding(this.buildingId, this.constructionX, this.constructionY);
-			} else if (this.constructionType == "upgrade") {
+			} else if (this.constructionType === "upgrade") {
 				this.building.lvl++;
 				this.building.upgrading = false;
 				this.building.clickable = true;
+				this.game.buildingsManager.saveBuilding(this.building.position);
 			}
 			this.constructionState = null;
 			this.clickable = false;
+			this.game.playerManager.updatePlayerData("construction", null);
 		}
 	}
 }

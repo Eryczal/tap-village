@@ -1,5 +1,7 @@
 import { Element } from "../element/Element.js";
+import { database as db, ref, set, get } from "../../firebase.js";
 import { buildings } from "../data/buildings.js";
+import { cards } from "../data/cards.js";
 import { offers } from "../data/offers.js";
 
 class Building extends Element {
@@ -25,31 +27,53 @@ class SawmillBuilding extends Building {
 	static stats = {};
 	static statsCost = {};
 
-	constructor(game, buildingId, posX, posY, stats, statsCost) {
+	constructor(game, buildingId, posX, posY, stats, statsCost, workers = null, workersCost = null, workersSpeed = null, workersSpeedCost = null) {
 		super(game, buildingId, posX, posY);
 
-		let pStats = JSON.parse(JSON.stringify(stats));
+		if (stats !== null && statsCost !== null) {
+			let pStats = JSON.parse(JSON.stringify(stats));
+			let pStatsCost = JSON.parse(JSON.stringify(statsCost));
 
-		this.workers = pStats.workers;
-		this.workersSpeed = pStats.workersSpeed;
+			this.workers = pStats.workers;
+			this.workersCost = pStatsCost.workers;
+			this.workersSpeed = pStats.workersSpeed;
+			this.workersSpeedCost = pStatsCost.workersSpeed;
 
-		if (Object.keys(SawmillBuilding.stats).length === 0) {
-			SawmillBuilding.stats = pStats;
-			delete SawmillBuilding.stats.workers;
-			delete SawmillBuilding.stats.workersSpeed;
+			if (Object.keys(SawmillBuilding.stats).length === 0 || Object.keys(SawmillBuilding.statsCost).length === 0) {
+				SawmillBuilding.stats = pStats;
+				delete SawmillBuilding.stats.workers;
+				delete SawmillBuilding.stats.workersSpeed;
 
-			offers[0].upgrades = SawmillBuilding.stats.gatheringPower;
-		}
+				SawmillBuilding.statsCost = pStatsCost;
+				delete SawmillBuilding.statsCost.workers;
+				delete SawmillBuilding.statsCost.workersSpeed;
 
-		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+				set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/SawmillBuilding`), {
+					stats: SawmillBuilding.stats,
+					statsCost: SawmillBuilding.statsCost,
+				});
 
-		this.workersCost = pStatsCost.workers;
-		this.workersSpeedCost = pStatsCost.workersSpeed;
+				offers[0].upgrades = SawmillBuilding.stats.gatheringPower;
+			}
+		} else {
+			this.workers = workers;
+			this.workersCost = workersCost;
+			this.workersSpeed = workersSpeed;
+			this.workersSpeedCost = workersSpeedCost;
 
-		if (Object.keys(SawmillBuilding.statsCost).length === 0) {
-			SawmillBuilding.statsCost = pStatsCost;
-			delete SawmillBuilding.statsCost.workers;
-			delete SawmillBuilding.statsCost.workersSpeed;
+			get(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/SawmillBuilding`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let value = snapshot.val();
+						SawmillBuilding.stats = JSON.parse(JSON.stringify(value.stats));
+						SawmillBuilding.statsCost = JSON.parse(JSON.stringify(value.statsCost));
+
+						offers[0].upgrades = SawmillBuilding.stats.gatheringPower;
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 
 		this.workersTimer = setInterval(() => {
@@ -62,31 +86,53 @@ class QuarryBuilding extends Building {
 	static stats = {};
 	static statsCost = {};
 
-	constructor(game, buildingId, posX, posY, stats, statsCost) {
+	constructor(game, buildingId, posX, posY, stats, statsCost, workers = null, workersCost = null, workersSpeed = null, workersSpeedCost = null) {
 		super(game, buildingId, posX, posY);
 
-		let pStats = JSON.parse(JSON.stringify(stats));
+		if (stats !== null && statsCost !== null) {
+			let pStats = JSON.parse(JSON.stringify(stats));
+			let pStatsCost = JSON.parse(JSON.stringify(statsCost));
 
-		this.workers = pStats.workers;
-		this.workersSpeed = pStats.workersSpeed;
+			this.workers = pStats.workers;
+			this.workersCost = pStatsCost.workers;
+			this.workersSpeed = pStats.workersSpeed;
+			this.workersSpeedCost = pStatsCost.workersSpeed;
 
-		if (Object.keys(QuarryBuilding.stats).length === 0) {
-			QuarryBuilding.stats = pStats;
-			delete QuarryBuilding.stats.workers;
-			delete QuarryBuilding.stats.workersSpeed;
+			if (Object.keys(QuarryBuilding.stats).length === 0 || Object.keys(QuarryBuilding.statsCost).length === 0) {
+				QuarryBuilding.stats = pStats;
+				delete QuarryBuilding.stats.workers;
+				delete QuarryBuilding.stats.workersSpeed;
 
-			offers[1].upgrades = QuarryBuilding.stats.gatheringPower;
-		}
+				QuarryBuilding.statsCost = pStatsCost;
+				delete QuarryBuilding.statsCost.workers;
+				delete QuarryBuilding.statsCost.workersSpeed;
 
-		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+				set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/QuarryBuilding`), {
+					stats: QuarryBuilding.stats,
+					statsCost: QuarryBuilding.statsCost,
+				});
 
-		this.workersCost = pStatsCost.workers;
-		this.workersSpeedCost = pStatsCost.workersSpeed;
+				offers[1].upgrades = QuarryBuilding.stats.gatheringPower;
+			}
+		} else {
+			this.workers = workers;
+			this.workersCost = workersCost;
+			this.workersSpeed = workersSpeed;
+			this.workersSpeedCost = workersSpeedCost;
 
-		if (Object.keys(QuarryBuilding.statsCost).length === 0) {
-			QuarryBuilding.statsCost = pStatsCost;
-			delete QuarryBuilding.statsCost.workers;
-			delete QuarryBuilding.statsCost.workersSpeed;
+			get(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/QuarryBuilding`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let value = snapshot.val();
+						QuarryBuilding.stats = JSON.parse(JSON.stringify(value.stats));
+						QuarryBuilding.statsCost = JSON.parse(JSON.stringify(value.statsCost));
+
+						offers[1].upgrades = QuarryBuilding.stats.gatheringPower;
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 
 		this.workersTimer = setInterval(() => {
@@ -99,31 +145,53 @@ class MineBuilding extends Building {
 	static stats = {};
 	static statsCost = {};
 
-	constructor(game, buildingId, posX, posY, stats, statsCost) {
+	constructor(game, buildingId, posX, posY, stats, statsCost, workers = null, workersCost = null, workersSpeed = null, workersSpeedCost = null) {
 		super(game, buildingId, posX, posY);
 
-		let pStats = JSON.parse(JSON.stringify(stats));
+		if (stats !== null && statsCost !== null) {
+			let pStats = JSON.parse(JSON.stringify(stats));
+			let pStatsCost = JSON.parse(JSON.stringify(statsCost));
 
-		this.workers = pStats.workers;
-		this.workersSpeed = pStats.workersSpeed;
+			this.workers = pStats.workers;
+			this.workersCost = pStatsCost.workers;
+			this.workersSpeed = pStats.workersSpeed;
+			this.workersSpeedCost = pStatsCost.workersSpeed;
 
-		if (Object.keys(MineBuilding.stats).length === 0) {
-			MineBuilding.stats = pStats;
-			delete MineBuilding.stats.workers;
-			delete MineBuilding.stats.workersSpeed;
+			if (Object.keys(MineBuilding.stats).length === 0 || Object.keys(MineBuilding.statsCost).length === 0) {
+				MineBuilding.stats = pStats;
+				delete MineBuilding.stats.workers;
+				delete MineBuilding.stats.workersSpeed;
 
-			offers[2].upgrades = MineBuilding.stats.gatheringPower;
-		}
+				MineBuilding.statsCost = pStatsCost;
+				delete MineBuilding.statsCost.workers;
+				delete MineBuilding.statsCost.workersSpeed;
 
-		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+				set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/MineBuilding`), {
+					stats: MineBuilding.stats,
+					statsCost: MineBuilding.statsCost,
+				});
 
-		this.workersCost = pStatsCost.workers;
-		this.workersSpeedCost = pStatsCost.workersSpeed;
+				offers[2].upgrades = MineBuilding.stats.gatheringPower;
+			}
+		} else {
+			this.workers = workers;
+			this.workersCost = workersCost;
+			this.workersSpeed = workersSpeed;
+			this.workersSpeedCost = workersSpeedCost;
 
-		if (Object.keys(MineBuilding.statsCost).length === 0) {
-			MineBuilding.statsCost = pStatsCost;
-			delete MineBuilding.statsCost.workers;
-			delete MineBuilding.statsCost.workersSpeed;
+			get(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/MineBuilding`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let value = snapshot.val();
+						MineBuilding.stats = JSON.parse(JSON.stringify(value.stats));
+						MineBuilding.statsCost = JSON.parse(JSON.stringify(value.statsCost));
+
+						offers[2].upgrades = MineBuilding.stats.gatheringPower;
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 
 		this.workersTimer = setInterval(() => {
@@ -136,33 +204,52 @@ class WorkshopBuilding extends Building {
 	static stats = {};
 	static statsCost = {};
 
-	constructor(game, buildingId, posX, posY, stats, statsCost) {
+	constructor(game, buildingId, posX, posY, stats, statsCost, workers = null, workersCost = null, workersSpeed = null, workersSpeedCost = null) {
 		super(game, buildingId, posX, posY);
 
-		let pStats = JSON.parse(JSON.stringify(stats));
+		if (stats !== null && statsCost !== null) {
+			let pStats = JSON.parse(JSON.stringify(stats));
+			let pStatsCost = JSON.parse(JSON.stringify(statsCost));
 
-		this.workers = pStats.workers;
-		this.workersSpeed = pStats.workersSpeed;
+			this.workers = pStats.workers;
+			this.workersCost = pStatsCost.workers;
+			this.workersSpeed = pStats.workersSpeed;
+			this.workersSpeedCost = pStatsCost.workersSpeed;
 
-		if (Object.keys(WorkshopBuilding.stats).length === 0) {
-			WorkshopBuilding.stats = pStats;
-			delete WorkshopBuilding.stats.workers;
-			delete WorkshopBuilding.stats.workersSpeed;
-		}
+			if (Object.keys(WorkshopBuilding.stats).length === 0 || Object.keys(WorkshopBuilding.statsCost).length === 0) {
+				WorkshopBuilding.stats = pStats;
+				delete WorkshopBuilding.stats.workers;
+				delete WorkshopBuilding.stats.workersSpeed;
 
-		let pStatsCost = JSON.parse(JSON.stringify(statsCost));
+				WorkshopBuilding.statsCost = pStatsCost;
+				delete WorkshopBuilding.statsCost.workers;
+				delete WorkshopBuilding.statsCost.workersSpeed;
+			}
+		} else {
+			this.workers = workers;
+			this.workersCost = workersCost;
+			this.workersSpeed = workersSpeed;
+			this.workersSpeedCost = workersSpeedCost;
 
-		this.workersCost = pStatsCost.workers;
-		this.workersSpeedCost = pStatsCost.workersSpeed;
-
-		if (Object.keys(WorkshopBuilding.statsCost).length === 0) {
-			WorkshopBuilding.statsCost = pStatsCost;
-			delete WorkshopBuilding.statsCost.workers;
-			delete WorkshopBuilding.statsCost.workersSpeed;
+			get(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/WorkshopBuilding`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let value = snapshot.val();
+						WorkshopBuilding.stats = JSON.parse(JSON.stringify(value.stats));
+						WorkshopBuilding.statsCost = JSON.parse(JSON.stringify(value.statsCost));
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
 
 		this.workersTimer = setInterval(() => {
 			if (this.game.constructionManager.constructionState === 1) {
+				if (Math.random() < cards[3].upgrades[this.game.playerManager.cards[3].lvl] / 100) {
+					this.game.constructionManager.addProgress("worker", this.workers * 2);
+					return;
+				}
 				this.game.constructionManager.addProgress("worker", this.workers);
 			}
 		}, this.workersSpeed * 1000);
@@ -182,12 +269,16 @@ class VaultBuilding extends Building {
 }
 
 class TraderBuilding extends Building {
-	constructor(game, buildingId, posX, posY) {
+	constructor(game, buildingId, posX, posY, offers = null) {
 		super(game, buildingId, posX, posY);
 
-		this.offers = [];
+		if (offers === null) {
+			this.offers = [];
 
-		this.changeOffers("all");
+			this.changeOffers("all");
+		} else {
+			this.offers = JSON.parse(JSON.stringify(offers));
+		}
 	}
 
 	changeOffers(offer) {
@@ -225,7 +316,115 @@ class BuildingsManager {
 		this.clickedBuilding;
 	}
 
-	init() {}
+	init(playerId) {
+		this.playerId = playerId;
+
+		this.loadBuildingData()
+			.then((buildingData) => {
+				for (let building of buildingData) {
+					switch (building.buildingId) {
+						case 1:
+							this.buildings[building.position] = new SawmillBuilding(
+								this.game,
+								building.buildingId,
+								building.posX,
+								building.posY,
+								null,
+								null,
+								building.workers,
+								building.workersCost,
+								building.workersSpeed,
+								building.workersSpeedCost
+							);
+							break;
+
+						case 2:
+							this.buildings[building.position] = new QuarryBuilding(
+								this.game,
+								building.buildingId,
+								building.posX,
+								building.posY,
+								null,
+								null,
+								building.workers,
+								building.workersCost,
+								building.workersSpeed,
+								building.workersSpeedCost
+							);
+							break;
+
+						case 3:
+							this.buildings[building.position] = new MineBuilding(
+								this.game,
+								building.buildingId,
+								building.posX,
+								building.posY,
+								null,
+								null,
+								building.workers,
+								building.workersCost,
+								building.workersSpeed,
+								building.workersSpeedCost
+							);
+							break;
+
+						case 4:
+							this.buildings[building.position] = new WorkshopBuilding(
+								this.game,
+								building.buildingId,
+								building.posX,
+								building.posY,
+								null,
+								null,
+								building.workers,
+								building.workersCost,
+								building.workersSpeed,
+								building.workersSpeedCost
+							);
+							break;
+
+						case 5:
+							this.buildings[building.position] = new VaultBuilding(this.game, building.buildingId, building.posX, building.posY);
+							break;
+
+						case 6:
+							this.buildings[building.position] = new TraderBuilding(this.game, building.buildingId, building.posX, building.posY, building.offers);
+							break;
+
+						default:
+							this.buildings[building.position] = new Building(this.game, building.buildingId, building.posX, building.posY);
+							break;
+					}
+
+					this.buildings[building.position].position = building.position;
+					this.buildings[building.position].lvl = building.lvl;
+
+					if (building.upgrading === true) {
+						this.buildings[building.position].clickable = false;
+						this.buildings[building.position].upgrading = true;
+						this.game.constructionManager.building = this.buildings[building.position];
+					}
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
+
+	loadBuildingData() {
+		return new Promise((resolve, reject) => {
+			get(ref(db, `players/${this.playerId}/buildings/`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let buildingData = snapshot.val();
+						resolve(buildingData);
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
+	}
 
 	countBuilding(id) {
 		let count = 0;
@@ -265,6 +464,7 @@ class BuildingsManager {
 
 			case 5:
 				this.buildings.push(new VaultBuilding(this.game, buildingId, posX, posY));
+				break;
 
 			case 6:
 				this.buildings.push(new TraderBuilding(this.game, buildingId, posX, posY));
@@ -274,6 +474,40 @@ class BuildingsManager {
 				this.buildings.push(new Building(this.game, buildingId, posX, posY));
 				break;
 		}
+
+		this.buildings[this.buildings.length - 1].position = this.buildings.length - 1;
+		this.saveBuilding(this.buildings.length - 1);
+	}
+
+	saveBuilding(id) {
+		let building = this.buildings[id];
+		let buildingStore = {
+			buildingId: building.buildingId,
+			position: building.position,
+			lvl: building.lvl,
+			posX: building.posX,
+			posY: building.posY,
+			upgrading: building.upgrading,
+		};
+
+		switch (building.buildingId) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				buildingStore.offers = building.workers;
+				buildingStore.offers = building.workersCost;
+				buildingStore.offers = building.workersSpeed;
+				buildingStore.offers = building.workersSpeedCost;
+				break;
+			case 5:
+				break;
+			case 6:
+				buildingStore.offers = building.offers;
+				break;
+		}
+
+		set(ref(db, `players/${this.game.playerManager.playerId}/buildings/${building.buildingId}`), buildingStore);
 	}
 
 	onClick(mouseX, mouseY) {

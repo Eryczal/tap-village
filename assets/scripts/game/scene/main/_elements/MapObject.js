@@ -45,6 +45,11 @@ class MapObject extends Element {
 
 			if (this.clicks <= 0) {
 				this.parent.handleDestroyedObject(this.type, this.tileX, this.tileY);
+			} else {
+				if (this.type === 2) {
+					let audio = Math.floor(Math.random() * 4) + 1;
+					this.game.assetsManager.playAudio("chop" + audio, true);
+				}
 			}
 
 			return true;

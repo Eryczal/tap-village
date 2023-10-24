@@ -431,6 +431,7 @@ class Map extends Element {
 
 	handleDestroyedObject(type, x, y) {
 		if (type === 2) {
+			this.game.assetsManager.playAudio("tree", true);
 			this.game.playerManager.wood += 1;
 		} else {
 			this.game.playerManager.stone += 1;

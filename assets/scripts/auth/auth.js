@@ -10,7 +10,7 @@ auth.onAuthStateChanged((user) => {
 	} else {
 		document.getElementById("auth").remove();
 
-		initGame();
+		initGame(user.uid);
 	}
 });
 

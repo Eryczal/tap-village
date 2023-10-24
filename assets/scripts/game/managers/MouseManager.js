@@ -4,6 +4,7 @@ class MouseManager {
 
 		this.mouseDelta = 5;
 		this.mouseLastPos = null;
+		this.firstClick = true;
 	}
 
 	init() {
@@ -51,6 +52,11 @@ class MouseManager {
 	}
 
 	onClick(event) {
+		if (this.firstClick) {
+			this.game.assetsManager.playRandomMusic();
+			this.game.assetsManager.audioAllowed = true;
+			this.firstClick = false;
+		}
 		this.game.sceneManager.onClick(event.clientX, event.clientY);
 	}
 

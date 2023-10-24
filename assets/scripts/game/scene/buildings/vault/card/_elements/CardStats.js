@@ -28,7 +28,8 @@ class CardStats extends Element {
 		this.description = this.game.wrapText(cards[this.cardId].description, this.width / 4, this.TEXT_SIZE);
 		this.DESCRIPTION_Y = this.HEADER_Y + this.HEADER_SIZE * 1.5;
 
-		this.cardLevelText = `Aktualny poziom ${this.game.playerManager.cards[this.cardId]}/${cards[this.cardId].upgrades.length}`;
+		this.cardLevelText = `Poziom karty: ${this.game.playerManager.cards[this.cardId].lvl}/${cards[this.cardId].upgrades.length - 1}`;
+		this.cardBonusText = `${cards[this.cardId].bonusDesc}${cards[this.cardId].upgrades[this.game.playerManager.cards[this.cardId].lvl]}%`;
 
 		this.clickable = true;
 	}
@@ -42,6 +43,8 @@ class CardStats extends Element {
 		this.game.ctx.drawImage(this.game.assetsManager.images[cards[this.cardId].image + "Card"], this.ICON_X, this.ICON_Y, this.ICON_SIZE, this.ICON_SIZE);
 
 		this.game.writeText(this.cardLevelText, this.TEXT_X, this.ICON_Y, this.TEXT_SIZE, "#000", "left", "top");
+		this.game.writeText(this.cardBonusText, this.TEXT_X, this.ICON_Y + this.TEXT_SIZE * 2, this.TEXT_SIZE, "#000", "left", "top");
+		this.game.writeText("Liczba kart", this.HEADER_X, this.ICON_Y + this.TEXT_SIZE * 6, this.HEADER_SIZE);
 	}
 
 	onClick(mouseX, mouseY) {

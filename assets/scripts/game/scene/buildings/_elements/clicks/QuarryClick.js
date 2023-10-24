@@ -8,6 +8,8 @@ class QuarryClick extends GatheringClick {
 		this.text = "Zdobądź kamień";
 		this.buildingClass = QuarryBuilding;
 		this.resource = "stone";
+		this.chanceCardId = 1;
+		this.powerCardId = 5;
 	}
 }
 

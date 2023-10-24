@@ -4,7 +4,7 @@ class Game {
 	constructor() {
 		this.canvas = document.getElementById("canvas");
 
-		this.assetsManager = new AssetsManager();
+		this.assetsManager = new AssetsManager(this);
 		this.sceneManager = new SceneManager(this);
 		this.resizeManager = new ResizeManager(this);
 		this.mouseManager = new MouseManager(this);
@@ -32,8 +32,9 @@ class Game {
 		return this.canvas.width;
 	}
 
-	async init() {
+	async init(userUid) {
 		this.canvas.style.display = "block";
+
 		try {
 			await this.assetsManager.loadAssets();
 
@@ -46,6 +47,10 @@ class Game {
 			this.sceneManager.init();
 
 			this.mouseManager.init();
+
+			this.playerManager.init(userUid);
+
+			this.buildingsManager.init(userUid);
 
 			this.draw();
 		} catch (err) {
@@ -117,8 +122,18 @@ class Game {
 		this.playerManager.gem = "max";
 	}
 
+	setZeroGems() {
+		this.playerManager.gem = 0;
+	}
+
 	changeTime() {
 		this.time += 0.2;
+
+		if (this.time >= 600 && this.time < 1080) {
+			this.assetsManager.playAudio("birds");
+		} else if (this.time >= 1320 || this.time < 360) {
+			this.assetsManager.playAudio("nightAmbience");
+		}
 
 		if (this.time >= 1440) {
 			this.time = 0;
@@ -130,7 +145,8 @@ const game = new Game();
 
 //DEBUG
 window.smg = () => game.setMaxGems();
+window.szg = () => game.setZeroGems();
 
-export function initGame() {
-	game.init();
+export function initGame(userUid) {
+	game.init(userUid);
 }

@@ -57,9 +57,16 @@ class OpeningChest extends Element {
 	generateDrop() {
 		let chance = Math.floor(Math.random() * 1000);
 		let rarity = chests[this.chestId].chances.findIndex((threshold) => chance < threshold);
+		if (rarity < 3) {
+			if (Math.random() < cards[11].upgrades[this.game.playerManager.cards[11].lvl] / 100) {
+				rarity++;
+			}
+		}
 		let array = cards.filter((card) => card.rarity === rarity);
 		let index = Math.floor(Math.random() * array.length);
-		this.game.playerManager.cards[array[index].id]++;
+		this.game.playerManager.cards[array[index].id].amount++;
+		this.game.playerManager.cards[array[index].id].lvl = 4;
+		//add lvl
 	}
 
 	draw() {

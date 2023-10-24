@@ -8,6 +8,8 @@ class MineClick extends GatheringClick {
 		this.text = "Zdobądź złoto";
 		this.buildingClass = MineBuilding;
 		this.resource = "gold";
+		this.chanceCardId = 2;
+		this.powerCardId = 6;
 	}
 }
 

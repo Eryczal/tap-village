@@ -8,6 +8,8 @@ class SawmillClick extends GatheringClick {
 		this.text = "Zdobądź drewno";
 		this.buildingClass = SawmillBuilding;
 		this.resource = "wood";
+		this.chanceCardId = 0;
+		this.powerCardId = 4;
 	}
 }
 

@@ -1,4 +1,5 @@
 import { cards } from "../data/cards.js";
+import { database as db, ref, set, update, get } from "../../firebase.js";
 
 class PlayerManager {
 	constructor(game) {
@@ -12,10 +13,104 @@ class PlayerManager {
 		this.cards = [];
 
 		for (let i = 0; i < cards.length; i++) {
-			this.cards[i] = 0;
+			this.cards[i] = {
+				lvl: 0,
+				amount: 0,
+			};
 		}
 
 		this.preferedZoom = 1;
+	}
+
+	init(playerId) {
+		this.playerId = playerId;
+
+		this.loadPlayerData()
+			.then((playerData) => {
+				this.wood = playerData.wood;
+				this.stone = playerData.stone;
+				this.gold = playerData.gold;
+				this.gem = playerData.gem;
+				this.coin = playerData.coin;
+				this.cards = JSON.parse(JSON.stringify(playerData.cards));
+
+				if (typeof playerData.construction !== "undefined") {
+					this.game.constructionManager.loadConstruction(playerData.construction);
+				}
+
+				setTimeout(() => this.updateResources(), 10000);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
+
+	loadPlayerData() {
+		return new Promise((resolve, reject) => {
+			get(ref(db, `players/${this.playerId}`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						let playerData = snapshot.val();
+						resolve(playerData);
+					} else {
+						let playerData = {
+							wood: 0,
+							stone: 0,
+							gold: 0,
+							gem: 0,
+							coin: 0,
+							cards: [],
+						};
+
+						for (let i = 0; i < cards.length; i++) {
+							playerData.cards[i] = {
+								lvl: 0,
+								amount: 0,
+							};
+						}
+
+						this.setPlayerData(playerData);
+						resolve(playerData);
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
+	}
+
+	setPlayerData(playerData) {
+		return set(ref(db, `players/${this.playerId}`), playerData);
+	}
+
+	updatePlayerData(type, data) {
+		if (type === "player") {
+			let playerData = {
+				wood: this.wood,
+				stone: this.stone,
+				gold: this.gold,
+				gem: this.gem,
+				coin: this.coin,
+			};
+			update(ref(db, `players/${this.playerId}`), playerData);
+		} else if (type === "construction") {
+			if (data !== null) {
+				update(ref(db, `players/${this.playerId}/construction`), data);
+			} else {
+				set(ref(db, `players/${this.playerId}/construction`), data);
+			}
+		} else {
+			return;
+		}
+	}
+
+	updateResources() {
+		this.updatePlayerData("player");
+		if (this.game.constructionManager.constructionState === 1) {
+			this.game.constructionManager.saveConstruction();
+		}
+
+		setTimeout(() => this.updateResources(), 5000);
 	}
 
 	get wood() {

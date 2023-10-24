@@ -1,4 +1,5 @@
 import { Element } from "../../../element/Element.js";
+import { cards } from "../../../data/cards.js";
 import { ResourceClick as Click } from "./ResourceClick.js";
 
 class GatheringClick extends Element {
@@ -21,6 +22,12 @@ class GatheringClick extends Element {
 		this.clickable = true;
 
 		this.clicks = [];
+	}
+
+	init() {
+		this.chanceCard = cards[this.chanceCardId].upgrades[this.game.playerManager.cards[this.chanceCardId].lvl];
+		this.powerCard = cards[this.powerCardId].upgrades[this.game.playerManager.cards[this.powerCardId].lvl];
+		this.gemCard = cards[7].upgrades[this.game.playerManager.cards[7].lvl];
 	}
 
 	addClick(critic, amount, x, y) {
@@ -48,9 +55,13 @@ class GatheringClick extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			if (Math.random() < this.buildingClass.stats.gatheringChance / 100) {
+			if (Math.random() < (this.buildingClass.stats.gatheringChance + this.chanceCard) / 100) {
+				if (Math.random() < this.gemCard / 100) {
+					this.game.playerManager.gem++;
+				}
 				let critic = Math.random() < this.buildingClass.stats.criticalChance / 100;
 				let amount = critic ? this.buildingClass.stats.criticalPower : this.buildingClass.stats.gatheringPower;
+				amount = Math.floor(amount * (1 + this.powerCard / 100));
 				this.game.playerManager[this.resource] += amount;
 				this.addClick(critic, amount, mouseX, mouseY);
 			}

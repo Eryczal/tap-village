@@ -1,5 +1,6 @@
 import { Element } from "../../../element/Element.js";
 import { buildings } from "../../../data/buildings.js";
+import { cards } from "../../../data/cards.js";
 import { MineBuilding, QuarryBuilding, SawmillBuilding, WorkshopBuilding } from "../../../managers/BuildingsManager.js";
 
 class BuildingButton extends Element {
@@ -607,6 +608,10 @@ class WorkersSpeed extends BuildingButton {
 
 							case 4:
 								if (this.game.constructionManager.constructionState === 1) {
+									if (Math.random() < cards[3].upgrades[this.game.playerManager.cards[3].lvl] / 100) {
+										this.game.constructionManager.addProgress("worker", this.building.workers * 2);
+										break;
+									}
 									this.game.constructionManager.addProgress("worker", this.building.workers);
 								}
 								break;

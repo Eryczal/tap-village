@@ -79,6 +79,7 @@ class Button extends Element {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
+			this.game.assetsManager.playAudio("click", true);
 			this.game.sceneManager.changeScene("shop");
 		}
 	}
@@ -93,6 +94,7 @@ class BackButton extends Button {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
+			this.game.assetsManager.playAudio("click", true);
 			this.game.sceneManager.changeScene("main");
 		}
 	}
@@ -121,6 +123,7 @@ class BuildingsButton extends Button {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
+			this.game.assetsManager.playAudio("click", true);
 			this.game.sceneManager.changeScene("shop");
 		}
 	}
