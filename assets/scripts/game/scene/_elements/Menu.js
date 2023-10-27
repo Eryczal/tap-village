@@ -109,7 +109,8 @@ class ResourcesButton extends Button {
 
 	onClick(mouseX, mouseY) {
 		if (this.isMouseOver(mouseX, mouseY)) {
-			// this.game.sceneManager.changeScene("main");
+			this.game.assetsManager.playAudio("click", true);
+			this.game.sceneManager.changeScene("resources");
 		}
 	}
 }

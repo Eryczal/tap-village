@@ -35,4 +35,23 @@ class OpenAgainButton extends BuyButton {
 	}
 }
 
-export { OpenAgainButton };
+class ChestReturnButton extends BuyButton {
+	constructor(game, x, y, width, height, parent) {
+		super(game, x, y, width, height, parent);
+
+		this.clickable = true;
+
+		this.color = "#000";
+
+		this.text = "Powrót";
+	}
+
+	onClick(mouseX, mouseY) {
+		if (this.isMouseOver(mouseX, mouseY)) {
+			this.game.sceneManager.changeScene("vault");
+			this.game.sceneManager.currentScene.changeMenu(1);
+		}
+	}
+}
+
+export { OpenAgainButton, ChestReturnButton };

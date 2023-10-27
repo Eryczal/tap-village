@@ -507,7 +507,7 @@ class BuildingsManager {
 				break;
 		}
 
-		set(ref(db, `players/${this.game.playerManager.playerId}/buildings/${building.buildingId}`), buildingStore);
+		set(ref(db, `players/${this.game.playerManager.playerId}/buildings/${building.position}`), buildingStore);
 	}
 
 	onClick(mouseX, mouseY) {

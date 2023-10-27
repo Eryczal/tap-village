@@ -1,7 +1,7 @@
 import { Element } from "../../../../../element/Element.js";
 import { chests } from "../../../../../data/chests.js";
 import { cards } from "../../../../../data/cards.js";
-import { OpenAgainButton } from "./OpenAgainButton.js";
+import { OpenAgainButton, ChestReturnButton } from "./OpenAgainButton.js";
 
 class OpeningChest extends Element {
 	constructor(game, menu) {
@@ -51,7 +51,22 @@ class OpeningChest extends Element {
 	endAnimation() {
 		this.openingAnimation = false;
 		this.opened = true;
-		this.openAgainButton = new OpenAgainButton(this.game, this.x, this.y + this.ICON_SIZE, this.ICON_SIZE * 2, this.ICON_SIZE / 4, this);
+		this.openAgainButton = new OpenAgainButton(
+			this.game,
+			this.x - this.ICON_SIZE / 2,
+			this.y + this.ICON_SIZE * 1.2,
+			this.ICON_SIZE * 2,
+			this.ICON_SIZE / 4,
+			this
+		);
+		this.chestReturnButton = new ChestReturnButton(
+			this.game,
+			this.x - this.ICON_SIZE / 2,
+			this.y + this.ICON_SIZE * 1.2 + this.ICON_SIZE / 4,
+			this.ICON_SIZE * 2,
+			this.ICON_SIZE / 4,
+			this
+		);
 	}
 
 	generateDrop() {
@@ -76,6 +91,7 @@ class OpeningChest extends Element {
 			this.game.writeText("Otwórz", this.HEADER_X, this.HEADER_Y, this.HEADER_SIZE, `rgba(0, 0, 0, ${this.headerOpacity})`);
 		} else {
 			this.openAgainButton.draw();
+			this.chestReturnButton.draw();
 		}
 		this.game.ctx.drawImage(this.game.assetsManager.images[chests[this.chestId].image + "Chest"], this.x, this.y, this.ICON_SIZE, this.ICON_SIZE);
 	}
@@ -87,6 +103,7 @@ class OpeningChest extends Element {
 			this.openChest();
 		} else {
 			this.openAgainButton.onClick(mouseX, mouseY);
+			this.chestReturnButton.onClick(mouseX, mouseY);
 		}
 	}
 

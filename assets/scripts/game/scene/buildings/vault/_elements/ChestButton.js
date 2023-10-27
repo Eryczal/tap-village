@@ -13,7 +13,25 @@ class ChestButton extends BuyButton {
 			this.color = "#000";
 		}
 
-		this.text = "Kup";
+		this.text = chests[this.parent.id].cost;
+
+		this.scroll = this.parent.scroll;
+
+		this.resource = {
+			x: this.x + this.width / 2,
+			iY: this.y + this.height / 4,
+			y: this.y + this.height / 4 + this.scroll,
+			width: this.height / 2,
+			height: this.height / 2,
+		};
+
+		this.resource.x -= (this.resource.width * 1.2 + this.game.writeText(this.text, 0, 0, this.height * 0.8, "transparent").sizes[0].width) / 2;
+	}
+
+	draw() {
+		this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
+		this.game.ctx.drawImage(this.game.assetsManager.images.coinIcon, this.resource.x, this.resource.y, this.resource.width, this.resource.height);
+		this.game.writeText(this.text, this.resource.x + this.resource.width * 1.2, this.y + this.height / 2, this.height * 0.8, this.color, "left");
 	}
 
 	onClick(mouseX, mouseY) {

@@ -1,4 +1,5 @@
 import { MainScene } from "../scene/main/MainScene.js";
+import { ResourceShopScene } from "../scene/resource-shop/ResourceShopScene.js";
 import { ShopScene } from "../scene/shop/ShopScene.js";
 import { CastleScene } from "../scene/buildings/castle/CastleScene.js";
 import { ResourceScene } from "../scene/buildings/ResourceScene.js";
@@ -33,6 +34,10 @@ class SceneManager {
 		switch (scene) {
 			case "main":
 				this.currentScene = new MainScene(this.game);
+				break;
+
+			case "resources":
+				this.currentScene = new ResourceShopScene(this.game);
 				break;
 
 			case "shop":

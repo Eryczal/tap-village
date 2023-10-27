@@ -138,6 +138,10 @@ class Map extends Element {
 		for (let i = 0; i < this.game.buildingsManager.buildings.length; i++) {
 			let building = this.game.buildingsManager.buildings[i];
 
+			if (typeof building.x === "undefined") {
+				this.updateSizes();
+			}
+
 			if (building.upgrading === false) {
 				this.game.ctx.drawImage(this.game.assetsManager.images[buildings[building.buildingId].image], building.x, building.y, building.width, building.height);
 

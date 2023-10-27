@@ -30,9 +30,16 @@ class CardPanel extends Element {
 	}
 
 	draw() {
+		this.game.ctx.save();
+		this.game.ctx.beginPath();
+		this.game.ctx.rect(this.MENU_SIZE, this.SIZE / 12, this.SIZE, this.game.canvas.height - this.SIZE / 8);
+		this.game.ctx.clip();
+
 		for (let i = 0; i < this.cards.length; i++) {
 			this.cards[i].draw();
 		}
+
+		this.game.ctx.restore();
 	}
 
 	onHover(mouseX, mouseY) {
@@ -50,7 +57,7 @@ class CardPanel extends Element {
 	}
 
 	onScroll(event) {
-		let sum = Math.floor(this.cards.length / 4 + 200);
+		let sum = Math.floor((this.cards.length / this.MAX_PER_ROW) * (this.SIZE / this.MAX_PER_ROW)) + 200;
 
 		this.scroll += event.deltaY;
 		this.scroll = Math.min(Math.max(0, this.scroll), sum);

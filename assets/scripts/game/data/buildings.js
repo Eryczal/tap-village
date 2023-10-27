@@ -581,8 +581,6 @@ const buildings = [
 	},
 
 	//budynek dekoracyjny pozwala stawiać dekoracje na mapie
-	//budynek ze skrzynkami, kartami i ich ulepszeniami
-	//handlarz - pozwala na zamienianie surowców na monety. Monety można zdobyć tylko od handlarza
 	//budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach
 	//lochy - mini gra 2d, gdzie jakiś potwór atakuje. gracz musi unikać strzałów potwora i strzelać do potworów
 	//labolatorium - pozwala stale ulepszać niektóre umiejętności gracza za pomocą monet
