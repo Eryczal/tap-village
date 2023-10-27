@@ -160,9 +160,9 @@ class QuarryBuilding extends Building {
 	}
 
 	saveType() {
-		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/SawmillBuilding`), {
-			stats: SawmillBuilding.stats,
-			statsCost: SawmillBuilding.statsCost,
+		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/QuarryBuilding`), {
+			stats: QuarryBuilding.stats,
+			statsCost: QuarryBuilding.statsCost,
 		});
 	}
 }
@@ -232,9 +232,9 @@ class MineBuilding extends Building {
 	}
 
 	saveType() {
-		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/SawmillBuilding`), {
-			stats: SawmillBuilding.stats,
-			statsCost: SawmillBuilding.statsCost,
+		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/MineBuilding`), {
+			stats: MineBuilding.stats,
+			statsCost: MineBuilding.statsCost,
 		});
 	}
 }
@@ -301,9 +301,9 @@ class WorkshopBuilding extends Building {
 	}
 
 	saveType() {
-		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/SawmillBuilding`), {
-			stats: SawmillBuilding.stats,
-			statsCost: SawmillBuilding.statsCost,
+		set(ref(db, `players/${this.game.playerManager.playerId}/buildingTypes/WorkshopBuilding`), {
+			stats: WorkshopBuilding.stats,
+			statsCost: WorkshopBuilding.statsCost,
 		});
 	}
 }
@@ -539,10 +539,10 @@ class BuildingsManager {
 			case 2:
 			case 3:
 			case 4:
-				buildingStore.offers = building.workers;
-				buildingStore.offers = building.workersCost;
-				buildingStore.offers = building.workersSpeed;
-				buildingStore.offers = building.workersSpeedCost;
+				buildingStore.workers = building.workers;
+				buildingStore.workersCost = building.workersCost;
+				buildingStore.workersSpeed = building.workersSpeed;
+				buildingStore.workersSpeedCost = building.workersSpeedCost;
 				break;
 			case 5:
 				break;
