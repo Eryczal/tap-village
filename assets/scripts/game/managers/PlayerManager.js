@@ -99,6 +99,8 @@ class PlayerManager {
 			} else {
 				set(ref(db, `players/${this.playerId}/construction`), data);
 			}
+		} else if (type === "cards") {
+			update(ref(db, `players/${this.playerId}/cards/${data}`), this.cards[data]);
 		} else {
 			return;
 		}

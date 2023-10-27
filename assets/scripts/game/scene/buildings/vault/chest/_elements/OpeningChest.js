@@ -19,10 +19,12 @@ class OpeningChest extends Element {
 		this.HEADER_X = this.SIZE / 2 + this.MENU_SIZE;
 		this.HEADER_Y = this.iY - this.HEADER_SIZE;
 		this.headerOpacity = 1;
+		this.progress = 0;
 
 		this.chestId = this.game.sceneManager.currentScene.data.id;
 		this.opened = false;
 		this.openingAnimation = false;
+		this.drop = null;
 
 		this.openAgainButton;
 	}
@@ -32,10 +34,12 @@ class OpeningChest extends Element {
 			this.headerOpacity -= 0.08;
 		}
 		this.y += this.ICON_SIZE / 50;
+		this.progress += this.ICON_SIZE / 25;
 
 		if (this.y >= this.iY + this.ICON_SIZE / 2) {
 			this.headerOpacity = 0;
 			this.y = this.iY + this.ICON_SIZE / 2;
+			this.progress = this.ICON_SIZE;
 			this.endAnimation();
 		} else {
 			setTimeout(() => this.openChest(), 16);
@@ -46,6 +50,7 @@ class OpeningChest extends Element {
 		this.opened = false;
 		this.headerOpacity = 1;
 		this.y = this.iY;
+		this.progress = 0;
 	}
 
 	endAnimation() {
@@ -79,9 +84,21 @@ class OpeningChest extends Element {
 		}
 		let array = cards.filter((card) => card.rarity === rarity);
 		let index = Math.floor(Math.random() * array.length);
-		this.game.playerManager.cards[array[index].id].amount++;
-		this.game.playerManager.cards[array[index].id].lvl = 4;
-		//add lvl
+		let card = this.game.playerManager.cards[array[index].id];
+		this.drop = array[index];
+		card.amount++;
+
+		if (card.amount >= 1 && card.amount < 2) {
+			card.lvl = 1;
+		} else if (card.amount >= 2 && card.amount < 5) {
+			card.lvl = 2;
+		} else if (card.amount >= 5 && card.amount < 15) {
+			card.lvl = 3;
+		} else if (card.amount >= 15) {
+			card.lvl = 4;
+		}
+
+		this.game.playerManager.updatePlayerData("cards", array[index].id);
 	}
 
 	draw() {
@@ -92,6 +109,12 @@ class OpeningChest extends Element {
 		} else {
 			this.openAgainButton.draw();
 			this.chestReturnButton.draw();
+		}
+
+		if (this.openingAnimation === true || this.opened === true) {
+			this.game.ctx.globalAlpha = 1 - this.headerOpacity;
+			this.game.ctx.drawImage(this.game.assetsManager.images[this.drop.image + "Card"], this.x, this.y - this.progress, this.ICON_SIZE, this.ICON_SIZE);
+			this.game.ctx.globalAlpha = 1;
 		}
 		this.game.ctx.drawImage(this.game.assetsManager.images[chests[this.chestId].image + "Chest"], this.x, this.y, this.ICON_SIZE, this.ICON_SIZE);
 	}

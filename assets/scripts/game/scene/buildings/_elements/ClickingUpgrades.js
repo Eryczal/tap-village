@@ -93,9 +93,11 @@ class BuildingButton extends Element {
 					this.cost = WorkshopBuilding.statsCost[this.stat];
 					break;
 			}
+			this.building.saveType();
 		} else {
 			this[this.stat] = this.building[this.stat];
 			this.cost = this.building[this.stat + "Cost"];
+			this.game.buildingsManager.saveBuilding(this.building.buildingId);
 		}
 
 		this.onHover(mouseX, mouseY);
