@@ -22,7 +22,7 @@ class ResourceShopScene extends Scene {
 	}
 
 	onScroll(event) {
-		this.elementsHolder.elements.buildingsShop.onScroll(event);
+		this.elementsHolder.elements.resourcesShop.onScroll(event);
 	}
 }
 

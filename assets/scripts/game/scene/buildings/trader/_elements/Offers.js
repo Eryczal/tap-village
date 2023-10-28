@@ -67,7 +67,12 @@ class Offer extends Element {
 	}
 
 	draw() {
+		this.game.ctx.shadowColor = "rgba(34, 34, 34, 0.6)";
+		this.game.ctx.shadowBlur = this.width / 10;
 		this.game.ctx.drawImage(this.game.assetsManager.images.buildingSelect, this.x, this.y, this.width, this.height);
+
+		this.game.ctx.shadowColor = "rgba(0, 0, 0, 0)";
+		this.game.ctx.shadowBlur = 0;
 
 		this.game.ctx.drawImage(this.game.assetsManager.images[this.resource.icon], this.resource.x, this.resource.y, this.resource.width, this.resource.height);
 		this.game.writeText(

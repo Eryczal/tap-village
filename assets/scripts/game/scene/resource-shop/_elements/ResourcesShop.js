@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-// import { ShopBuilding } from "./ShopBuilding.js";
+import { ShopResource } from "./ShopResource.js";
 import { resources } from "../../../data/resources.js";
 
 class ResourcesShop extends Element {
@@ -12,18 +12,16 @@ class ResourcesShop extends Element {
 		this.SIZE = this.game.canvas.width - this.MENU_SIZE;
 		this.OFFSET = this.SIZE * 0.05;
 		this.scroll = 0;
+		this.resources = [];
 		this.rows = [0];
-
-		//10 - drewno, kamień, złoto, wszystko
-		//30 - ...
 	}
 
 	init() {
 		let column = 0;
 		let row = 0;
 
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image] = new ShopBuilding(this.game, this, i, column, row);
+		for (let i = 0; i < resources.length * 4; i++) {
+			this.resources[i] = new ShopResource(this.game, this, i, column, row, i % 4);
 			column++;
 
 			if (column > this.MAX_PER_ROW - 1) {
@@ -32,10 +30,6 @@ class ResourcesShop extends Element {
 
 				this.rows[row] = 0;
 			}
-		}
-
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].updatePosition();
 		}
 	}
 
@@ -49,45 +43,39 @@ class ResourcesShop extends Element {
 		this.game.ctx.rect(this.MENU_SIZE + this.SIZE / 24, this.SIZE / 12, this.SIZE - this.SIZE / 12, this.game.canvas.height - this.SIZE / 8);
 		this.game.ctx.clip();
 
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].draw();
+		for (let i = 0; i < this.resources.length; i++) {
+			this.resources[i].draw();
 		}
 
 		this.game.ctx.restore();
 	}
 
 	onHover(mouseX, mouseY) {
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].onHover(mouseX, mouseY);
+		for (let i = 0; i < this.resources.length; i++) {
+			this.resources[i].onHover(mouseX, mouseY);
 		}
 	}
 
 	onClick(mouseX, mouseY) {
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].onClick(mouseX, mouseY);
-		}
-	}
-
-	onRightClick(mouseX, mouseY) {
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].onRightClick(mouseX, mouseY);
+		for (let i = 0; i < this.resources.length; i++) {
+			this.resources[i].onClick(mouseX, mouseY);
 		}
 	}
 
 	onScroll(event) {
-		let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + 200, 200);
+		let sum = (Math.floor(this.resources.length / 4) - 1) * this.resources[0].ICON_SIZE * 4;
 
 		this.scroll += event.deltaY;
 		this.scroll = Math.min(Math.max(0, this.scroll), sum);
 
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].updateScroll(this.scroll);
+		for (let i = 0; i < this.resources.length; i++) {
+			this.resources[i].updateScroll(this.scroll);
 		}
 	}
 
 	onResize() {
-		for (let i = 0; i < resources.length; i++) {
-			// this[buildings[i].image].onResize();
+		for (let i = 0; i < this.resources.length; i++) {
+			this.resources[i].onResize();
 		}
 		this.MENU_SIZE = this.menu.MENU_SIZE;
 	}

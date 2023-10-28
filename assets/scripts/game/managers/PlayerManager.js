@@ -32,7 +32,10 @@ class PlayerManager {
 				this.gold = playerData.gold;
 				this.gem = playerData.gem;
 				this.coin = playerData.coin;
-				this.cards = JSON.parse(JSON.stringify(playerData.cards));
+
+				for (let card in playerData.cards) {
+					this.cards[card] = playerData.cards[card];
+				}
 
 				if (typeof playerData.construction !== "undefined") {
 					this.game.constructionManager.loadConstruction(playerData.construction);
