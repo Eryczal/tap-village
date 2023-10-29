@@ -51,12 +51,14 @@ const imagesPath = {
 	woodPowerCard: "assets/images/cards/wood-power.png",
 	stonePowerCard: "assets/images/cards/stone-power.png",
 	goldPowerCard: "assets/images/cards/gold-power.png",
-	// gemsChanceCard: "assets/images/cards/gems-chance.png",
+	gemsChanceCard: "assets/images/cards/gems-chance.png",
 	// woodCostCard: "assets/images/cards/wood-cost.png",
 	// stoneCostCard: "assets/images/cards/stone-cost.png",
 	// goldCostCard: "assets/images/cards/gold-cost.png",
 	// rareCardsCard: "assets/images/cards/rare-cards.png",
 	// clickReduceCard: "assets/images/cards/click-reduce.png",
+
+	cardBack: "assets/images/cards/back.png",
 };
 
 const audioPath = {

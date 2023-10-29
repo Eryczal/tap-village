@@ -23,6 +23,28 @@ class CardStats extends Element {
 		this.ICON_X = this.MENU_SIZE + this.ICON_SIZE / 5;
 		this.ICON_Y = this.height / 2 - this.ICON_SIZE / 2;
 
+		switch (this.game.playerManager.cards[this.cardId].lvl) {
+			case 0:
+				this.bgColor = "#999";
+				break;
+
+			case 1:
+				this.bgColor = "#4bb043";
+				break;
+
+			case 2:
+				this.bgColor = "#47b9d7";
+				break;
+
+			case 3:
+				this.bgColor = "#ae47d7";
+				break;
+
+			case 4:
+				this.bgColor = "#e6bc39";
+				break;
+		}
+
 		this.TEXT_X = this.ICON_X + this.ICON_SIZE * 1.2;
 
 		this.description = this.game.wrapText(cards[this.cardId].description, this.width / 4, this.TEXT_SIZE);
@@ -40,6 +62,8 @@ class CardStats extends Element {
 		this.game.writeText(cards[this.cardId].name, this.HEADER_X, this.HEADER_Y, this.HEADER_SIZE);
 		this.game.writeText(cards[this.cardId].description, this.HEADER_X, this.DESCRIPTION_Y, this.TEXT_SIZE);
 
+		this.game.ctx.fillStyle = this.bgColor;
+		this.game.ctx.fillRect(this.ICON_X, this.ICON_Y, this.ICON_SIZE, this.ICON_SIZE);
 		this.game.ctx.drawImage(this.game.assetsManager.images[cards[this.cardId].image + "Card"], this.ICON_X, this.ICON_Y, this.ICON_SIZE, this.ICON_SIZE);
 
 		this.game.writeText(this.cardLevelText, this.TEXT_X, this.ICON_Y, this.TEXT_SIZE, "#000", "left", "top");

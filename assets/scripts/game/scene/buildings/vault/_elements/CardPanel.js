@@ -57,7 +57,7 @@ class CardPanel extends Element {
 	}
 
 	onScroll(event) {
-		let sum = Math.floor((this.cards.length / this.MAX_PER_ROW) * (this.SIZE / this.MAX_PER_ROW)) + 200;
+		let sum = Math.floor(this.cards.length / this.MAX_PER_ROW - 1) * (this.SIZE / this.MAX_PER_ROW) + 200;
 
 		this.scroll += event.deltaY;
 		this.scroll = Math.min(Math.max(0, this.scroll), sum);

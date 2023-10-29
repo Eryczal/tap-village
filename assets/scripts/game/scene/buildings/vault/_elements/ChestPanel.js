@@ -21,7 +21,7 @@ class ChestPanel extends Element {
 	}
 
 	onScroll(event) {
-		let sum = this.chestSizes.slice(0, -1).reduce((a, b) => a + b + 200, 200);
+		let sum = this.chestSizes.slice(0, -2).reduce((a, b) => a + b + 200, 200);
 
 		this.scroll += event.deltaY;
 		this.scroll = Math.min(Math.max(0, this.scroll), sum);

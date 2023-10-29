@@ -19,11 +19,16 @@ class OpeningChest extends Element {
 		this.HEADER_X = this.SIZE / 2 + this.MENU_SIZE;
 		this.HEADER_Y = this.iY - this.HEADER_SIZE;
 		this.headerOpacity = 1;
+		this.gradientProgress = 0;
 		this.progress = 0;
+		this.flipProgress = 0;
+		this.iconWidth = this.ICON_SIZE;
+		this.cardImg;
 
 		this.chestId = this.game.sceneManager.currentScene.data.id;
 		this.opened = false;
 		this.openingAnimation = false;
+		this.lvlAnimation = false;
 		this.drop = null;
 
 		this.openAgainButton;
@@ -35,14 +40,35 @@ class OpeningChest extends Element {
 		}
 		this.y += this.ICON_SIZE / 50;
 		this.progress += this.ICON_SIZE / 25;
+		this.flipProgress += 0.15;
+		this.iconWidth = this.flipProgress < 0.5 ? this.ICON_SIZE * (1 - this.flipProgress * 2) : this.ICON_SIZE * ((this.flipProgress - 0.5) * 2);
+		this.img = this.flipProgress < 0.5 ? this.game.assetsManager.images[this.drop.image + "Card"] : this.game.assetsManager.images.cardBack;
+
+		if (this.flipProgress >= 1) {
+			this.flipProgress = 0;
+		}
 
 		if (this.y >= this.iY + this.ICON_SIZE / 2) {
 			this.headerOpacity = 0;
 			this.y = this.iY + this.ICON_SIZE / 2;
+			this.flipProgress = 0;
+			this.iconWidth = this.flipProgress < 0.5 ? this.ICON_SIZE * (1 - this.flipProgress * 2) : this.ICON_SIZE * ((this.flipProgress - 0.5) * 2);
+			this.img = this.flipProgress < 0.5 ? this.game.assetsManager.images[this.drop.image + "Card"] : this.game.assetsManager.images.cardBack;
 			this.progress = this.ICON_SIZE;
 			this.endAnimation();
 		} else {
 			setTimeout(() => this.openChest(), 16);
+		}
+	}
+
+	animateLvl() {
+		this.gradientProgress += 0.02;
+
+		if (this.gradientProgress >= 1) {
+			this.gradientProgress = 1;
+			this.endLvlAnimation();
+		} else {
+			setTimeout(() => this.animateLvl(), 16);
 		}
 	}
 
@@ -51,6 +77,11 @@ class OpeningChest extends Element {
 		this.headerOpacity = 1;
 		this.y = this.iY;
 		this.progress = 0;
+		this.angle = 0;
+		this.gradientProgress = 0;
+		if (this.lvlAnimation) {
+			this.endLvlAnimation();
+		}
 	}
 
 	endAnimation() {
@@ -72,6 +103,14 @@ class OpeningChest extends Element {
 			this.ICON_SIZE / 4,
 			this
 		);
+
+		if (this.lvlAnimation) {
+			setTimeout(() => this.animateLvl(), 100);
+		}
+	}
+
+	endLvlAnimation() {
+		this.lvlAnimation = false;
 	}
 
 	generateDrop() {
@@ -85,6 +124,7 @@ class OpeningChest extends Element {
 		let array = cards.filter((card) => card.rarity === rarity);
 		let index = Math.floor(Math.random() * array.length);
 		let card = this.game.playerManager.cards[array[index].id];
+		let oldLvl = card.lvl;
 		this.drop = array[index];
 		card.amount++;
 
@@ -98,7 +138,30 @@ class OpeningChest extends Element {
 			card.lvl = 4;
 		}
 
+		if (oldLvl !== card.lvl) {
+			this.lvlAnimation = true;
+		}
+
 		this.game.playerManager.updatePlayerData("cards", array[index].id);
+	}
+
+	getColor(lvl) {
+		switch (lvl) {
+			case 0:
+				return "#999";
+
+			case 1:
+				return "#4bb043";
+
+			case 2:
+				return "#47b9d7";
+
+			case 3:
+				return "#ae47d7";
+
+			case 4:
+				return "#e6bc39";
+		}
 	}
 
 	draw() {
@@ -113,7 +176,19 @@ class OpeningChest extends Element {
 
 		if (this.openingAnimation === true || this.opened === true) {
 			this.game.ctx.globalAlpha = 1 - this.headerOpacity;
-			this.game.ctx.drawImage(this.game.assetsManager.images[this.drop.image + "Card"], this.x, this.y - this.progress, this.ICON_SIZE, this.ICON_SIZE);
+			if (this.lvlAnimation === true) {
+				let gradient = this.game.ctx.createLinearGradient(this.x, this.y - this.progress, this.x + this.ICON_SIZE, this.y - this.progress + this.ICON_SIZE);
+				gradient.addColorStop(0, this.getColor(this.game.playerManager.cards[this.drop.id].lvl));
+				gradient.addColorStop(this.gradientProgress, this.getColor(this.game.playerManager.cards[this.drop.id].lvl));
+				gradient.addColorStop(this.gradientProgress, this.getColor(this.game.playerManager.cards[this.drop.id].lvl - 1));
+				gradient.addColorStop(1, this.getColor(this.game.playerManager.cards[this.drop.id].lvl - 1));
+				this.game.ctx.fillStyle = gradient;
+			} else {
+				this.game.ctx.fillStyle = this.getColor(this.game.playerManager.cards[this.drop.id].lvl);
+			}
+
+			this.game.ctx.fillRect(this.x + (this.ICON_SIZE - this.iconWidth) / 2, this.y - this.progress, this.iconWidth, this.ICON_SIZE);
+			this.game.ctx.drawImage(this.img, this.x + (this.ICON_SIZE - this.iconWidth) / 2, this.y - this.progress, this.iconWidth, this.ICON_SIZE);
 			this.game.ctx.globalAlpha = 1;
 		}
 		this.game.ctx.drawImage(this.game.assetsManager.images[chests[this.chestId].image + "Chest"], this.x, this.y, this.ICON_SIZE, this.ICON_SIZE);
