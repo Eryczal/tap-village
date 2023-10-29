@@ -54,6 +54,7 @@ class MouseManager {
 	onClick(event) {
 		if (this.firstClick) {
 			this.game.assetsManager.playRandomMusic();
+			this.game.assetsManager.playAmbience();
 			this.game.assetsManager.audioAllowed = true;
 			this.firstClick = false;
 		}

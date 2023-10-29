@@ -62,24 +62,31 @@ const imagesPath = {
 };
 
 const audioPath = {
-	nightAmbience: "assets/audio/night-ambience.mp3",
+	crickets: "assets/audio/crickets.mp3",
 	birds: "assets/audio/birds.mp3",
 
+	dawnMusic1: "assets/audio/dawn.mp3",
 	dayMusic1: "assets/audio/day-music.mp3",
 	dayMusic2: "assets/audio/pad-med.mp3",
 	nightMusic1: "assets/audio/wandering.mp3",
 
-	click: "assets/audio/click.mp3",
+	click: "assets/audio/sound/click.mp3",
+	click2: "assets/audio/sound/click2.mp3",
+
 	tree: "assets/audio/tree.mp3",
 
 	build1: "assets/audio/sound/build.mp3",
 	build2: "assets/audio/sound/build2.mp3",
 	build3: "assets/audio/sound/build3.mp3",
 	build4: "assets/audio/sound/build4.mp3",
+
 	chop1: "assets/audio/sound/chop.mp3",
 	chop2: "assets/audio/sound/chop2.mp3",
 	chop3: "assets/audio/sound/chop3.mp3",
 	chop4: "assets/audio/sound/chop4.mp3",
+
+	miss1: "assets/audio/sound/miss.mp3",
+	miss2: "assets/audio/sound/miss2.mp3",
 };
 
 class AssetsManager {
@@ -90,6 +97,7 @@ class AssetsManager {
 		this.audio = {};
 		this.audioAllowed = false;
 		this.playingMusic = false;
+		this.playingAmbience = "";
 	}
 
 	async loadAssets() {
@@ -115,6 +123,8 @@ class AssetsManager {
 		Promise.all(loadPromises).then(() => {
 			if (Object.keys(audioPath).length !== Object.keys(this.audio).length) {
 				throw new Error("Błąd przy wczytywaniu dźwięków.");
+			} else {
+				this.audio.crickets.volume = 0.6;
 			}
 		});
 	}
@@ -152,13 +162,36 @@ class AssetsManager {
 		}
 	}
 
+	playAmbience() {
+		let time = this.game.time;
+		if (time >= 600 && time < 1080) {
+			this.selectAmbience("birds");
+		} else if (time >= 1320 || time < 360) {
+			this.selectAmbience("crickets");
+		} else {
+			setTimeout(() => this.playAmbience(), 5000);
+		}
+	}
+
+	selectAmbience(name) {
+		this.audio[name].play().then(() => (this.playingAmbience = name));
+		this.audio[name].onended = () => {
+			this.playingAmbience = "";
+			this.playAmbience();
+		};
+	}
+
 	playRandomMusic() {
 		let time = this.game.time;
 		if (!this.playingMusic) {
 			if (time >= 600 && time < 1080) {
 				this.selectRandomMusic(2, "dayMusic");
-			} else if (this.time >= 1320 || this.time < 360) {
+			} else if (time >= 1320 || time < 360) {
 				this.selectRandomMusic(1, "nightMusic");
+			} else if (time >= 360 && time < 400) {
+				this.selectRandomMusic(1, "dawnMusic");
+			} else {
+				setTimeout(() => this.playRandomMusic(), 5000);
 			}
 		}
 	}

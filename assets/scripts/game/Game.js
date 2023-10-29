@@ -129,12 +129,6 @@ class Game {
 	changeTime() {
 		this.time += 0.2;
 
-		if (this.time >= 600 && this.time < 1080) {
-			this.assetsManager.playAudio("birds");
-		} else if (this.time >= 1320 || this.time < 360) {
-			this.assetsManager.playAudio("nightAmbience");
-		}
-
 		if (this.time >= 1440) {
 			this.time = 0;
 		}

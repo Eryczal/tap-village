@@ -64,6 +64,9 @@ class GatheringClick extends Element {
 				amount = Math.floor(amount * (1 + this.powerCard / 100));
 				this.game.playerManager[this.resource] += amount;
 				this.addClick(critic, amount, mouseX, mouseY);
+			} else {
+				let audio = Math.floor(Math.random() * 2) + 1;
+				this.game.assetsManager.playAudio("miss" + audio, true);
 			}
 			this.cIconSize = this.game.canvas.width / 20;
 		}

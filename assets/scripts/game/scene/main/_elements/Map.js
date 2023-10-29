@@ -335,6 +335,7 @@ class Map extends Element {
 			}
 
 			if (this.game.buildingsManager.onClick(mouseX, mouseY)) {
+				this.game.assetsManager.playAudio("click2", true);
 				return;
 			}
 

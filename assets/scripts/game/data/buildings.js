@@ -19,7 +19,7 @@ const buildings = [
 		upgrades: [
 			{
 				cost: {
-					wood: 25,
+					wood: 20,
 					stone: 10,
 					gold: 0,
 				},
@@ -48,6 +48,86 @@ const buildings = [
 					gold: 75,
 				},
 				clicks: 350,
+			},
+			{
+				cost: {
+					wood: 250,
+					stone: 200,
+					gold: 125,
+				},
+				clicks: 500,
+			},
+			{
+				cost: {
+					wood: 375,
+					stone: 275,
+					gold: 150,
+				},
+				clicks: 750,
+			},
+			{
+				cost: {
+					wood: 550,
+					stone: 375,
+					gold: 200,
+				},
+				clicks: 1350,
+			},
+			{
+				cost: {
+					wood: 700,
+					stone: 450,
+					gold: 250,
+				},
+				clicks: 2000,
+			},
+			{
+				cost: {
+					wood: 1000,
+					stone: 650,
+					gold: 400,
+				},
+				clicks: 4000,
+			},
+			{
+				cost: {
+					wood: 1400,
+					stone: 950,
+					gold: 600,
+				},
+				clicks: 7500,
+			},
+			{
+				cost: {
+					wood: 2750,
+					stone: 1900,
+					gold: 1150,
+				},
+				clicks: 14000,
+			},
+			{
+				cost: {
+					wood: 4000,
+					stone: 2750,
+					gold: 2000,
+				},
+				clicks: 19000,
+			},
+			{
+				cost: {
+					wood: 6500,
+					stone: 4000,
+					gold: 2900,
+				},
+				clicks: 25000,
+			},
+			{
+				cost: {
+					wood: 8700,
+					stone: 6500,
+					gold: 4750,
+				},
+				clicks: 45000,
 			},
 		],
 	},
@@ -163,6 +243,182 @@ const buildings = [
 					criticalChance: 20,
 					workers: 4,
 					workersSpeed: 6,
+				},
+			},
+			{
+				cost: {
+					wood: 200,
+					stone: 150,
+					gold: 50,
+				},
+				clicks: 550,
+				maxStats: {
+					gatheringPower: 7,
+					gatheringChance: 40,
+					criticalPower: 25,
+					criticalChance: 25,
+					workers: 6,
+					workersSpeed: 5,
+				},
+			},
+			{
+				cost: {
+					wood: 325,
+					stone: 225,
+					gold: 100,
+				},
+				clicks: 750,
+				maxStats: {
+					gatheringPower: 8,
+					gatheringChance: 45,
+					criticalPower: 35,
+					criticalChance: 30,
+					workers: 7,
+					workersSpeed: 5,
+				},
+			},
+			{
+				cost: {
+					wood: 425,
+					stone: 300,
+					gold: 150,
+				},
+				clicks: 1000,
+				maxStats: {
+					gatheringPower: 10,
+					gatheringChance: 50,
+					criticalPower: 45,
+					criticalChance: 35,
+					workers: 10,
+					workersSpeed: 4,
+				},
+			},
+			{
+				cost: {
+					wood: 575,
+					stone: 400,
+					gold: 200,
+				},
+				clicks: 1650,
+				maxStats: {
+					gatheringPower: 13,
+					gatheringChance: 60,
+					criticalPower: 55,
+					criticalChance: 45,
+					workers: 12,
+					workersSpeed: 3,
+				},
+			},
+			{
+				cost: {
+					wood: 750,
+					stone: 500,
+					gold: 275,
+				},
+				clicks: 2300,
+				maxStats: {
+					gatheringPower: 15,
+					gatheringChance: 70,
+					criticalPower: 60,
+					criticalChance: 55,
+					workers: 13,
+					workersSpeed: 2,
+				},
+			},
+			{
+				cost: {
+					wood: 1100,
+					stone: 700,
+					gold: 400,
+				},
+				clicks: 4000,
+				maxStats: {
+					gatheringPower: 17,
+					gatheringChance: 80,
+					criticalPower: 80,
+					criticalChance: 65,
+					workers: 15,
+					workersSpeed: 2,
+				},
+			},
+			{
+				cost: {
+					wood: 1400,
+					stone: 950,
+					gold: 600,
+				},
+				clicks: 7500,
+				maxStats: {
+					gatheringPower: 20,
+					gatheringChance: 90,
+					criticalPower: 95,
+					criticalChance: 70,
+					workers: 17,
+					workersSpeed: 1,
+				},
+			},
+			{
+				cost: {
+					wood: 2750,
+					stone: 1900,
+					gold: 1150,
+				},
+				clicks: 14000,
+				maxStats: {
+					gatheringPower: 25,
+					gatheringChance: 90,
+					criticalPower: 110,
+					criticalChance: 80,
+					workers: 20,
+					workersSpeed: 1,
+				},
+			},
+			{
+				cost: {
+					wood: 4000,
+					stone: 2750,
+					gold: 2000,
+				},
+				clicks: 19000,
+				maxStats: {
+					gatheringPower: 30,
+					gatheringChance: 90,
+					criticalPower: 140,
+					criticalChance: 90,
+					workers: 25,
+					workersSpeed: 1,
+				},
+			},
+			{
+				cost: {
+					wood: 6500,
+					stone: 4000,
+					gold: 2900,
+				},
+				clicks: 25000,
+				maxStats: {
+					gatheringPower: 45,
+					gatheringChance: 90,
+					criticalPower: 175,
+					criticalChance: 100,
+					workers: 40,
+					workersSpeed: 1,
+				},
+			},
+			{
+				cost: {
+					wood: 8700,
+					stone: 6500,
+					gold: 4750,
+				},
+				clicks: 45000,
+				maxStats: {
+					gatheringPower: 100,
+					gatheringChance: 90,
+					criticalPower: 500,
+					criticalChance: 100,
+					workers: 100,
+					workersSpeed: 1,
 				},
 			},
 		],
