@@ -48,7 +48,10 @@ class MapObject extends Element {
 			} else {
 				if (this.type === 2) {
 					let audio = Math.floor(Math.random() * 4) + 1;
-					this.game.assetsManager.playAudio("chop" + audio, true);
+					this.game.assetsManager.playAudio("treeHit" + audio, true);
+				} else if (this.type === 3) {
+					let audio = Math.floor(Math.random() * 2) + 1;
+					this.game.assetsManager.playAudio("stoneHit" + audio, true);
 				}
 			}
 

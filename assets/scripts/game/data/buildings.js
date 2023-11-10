@@ -1,847 +1,660 @@
 const buildings = [
-	{
-		id: 0,
-		image: "castle",
-		name: "Zamek",
-		description:
-			"Zamek jest budynkiem głównym. Odpowiada za maksymalny możliwy poziom budynków w grze. Każdy budynek może być ulepszony maksymalnie do poziomu zamku. Zamek umożliwia resetowanie postępu.",
-		size: {
-			x: 5,
-			y: 5,
-		},
-		cost: {
-			wood: 10,
-			stone: 0,
-			gold: 0,
-		},
-		clicks: 25,
-		maxOnMap: 1,
-		upgrades: [
-			{
-				cost: {
-					wood: 20,
-					stone: 10,
-					gold: 0,
-				},
-				clicks: 75,
-			},
-			{
-				cost: {
-					wood: 75,
-					stone: 35,
-					gold: 10,
-				},
-				clicks: 150,
-			},
-			{
-				cost: {
-					wood: 125,
-					stone: 100,
-					gold: 50,
-				},
-				clicks: 250,
-			},
-			{
-				cost: {
-					wood: 175,
-					stone: 150,
-					gold: 75,
-				},
-				clicks: 350,
-			},
-			{
-				cost: {
-					wood: 250,
-					stone: 200,
-					gold: 125,
-				},
-				clicks: 500,
-			},
-			{
-				cost: {
-					wood: 375,
-					stone: 275,
-					gold: 150,
-				},
-				clicks: 750,
-			},
-			{
-				cost: {
-					wood: 550,
-					stone: 375,
-					gold: 200,
-				},
-				clicks: 1350,
-			},
-			{
-				cost: {
-					wood: 700,
-					stone: 450,
-					gold: 250,
-				},
-				clicks: 2000,
-			},
-			{
-				cost: {
-					wood: 1000,
-					stone: 650,
-					gold: 400,
-				},
-				clicks: 4000,
-			},
-			{
-				cost: {
-					wood: 1400,
-					stone: 950,
-					gold: 600,
-				},
-				clicks: 7500,
-			},
-			{
-				cost: {
-					wood: 2750,
-					stone: 1900,
-					gold: 1150,
-				},
-				clicks: 14000,
-			},
-			{
-				cost: {
-					wood: 4000,
-					stone: 2750,
-					gold: 2000,
-				},
-				clicks: 19000,
-			},
-			{
-				cost: {
-					wood: 6500,
-					stone: 4000,
-					gold: 2900,
-				},
-				clicks: 25000,
-			},
-			{
-				cost: {
-					wood: 8700,
-					stone: 6500,
-					gold: 4750,
-				},
-				clicks: 45000,
-			},
-		],
-	},
-	{
-		id: 1,
-		image: "sawmill",
-		name: "Tartak",
-		description:
-			"Tartak pozwala na zbieranie drewna z budynku. Budynek umożliwia ulepszanie wydobycia drewna oraz zatrudnienie pracowników, którzy będą zbierali drewno automatycznie.",
-		size: {
-			x: 3,
-			y: 2,
-		},
-		cost: {
-			wood: 20,
-			stone: 10,
-			gold: 0,
-		},
-		stats: {
-			gatheringPower: 1,
-			gatheringChance: 5,
-			criticalPower: 3,
-			criticalChance: 0,
-			workers: 0,
-			workersSpeed: 10,
-		},
-		maxStats: {
-			gatheringPower: 2,
-			gatheringChance: 10,
-			criticalPower: 5,
-			criticalChance: 5,
-			workers: 1,
-			workersSpeed: 9,
-		},
-		statsCost: {
-			gatheringPower: {
-				wood: 10,
-				stone: 0,
-				gold: 0,
-			},
-			gatheringChance: {
-				wood: 4,
-				stone: 0,
-				gold: 0,
-			},
-			criticalPower: {
-				wood: 7,
-				stone: 0,
-				gold: 0,
-			},
-			criticalChance: {
-				wood: 3,
-				stone: 0,
-				gold: 0,
-			},
-			workers: {
-				wood: 15,
-				stone: 7,
-				gold: 0,
-			},
-			workersSpeed: {
-				wood: 7,
-				stone: 3,
-				gold: 0,
-			},
-		},
-		clicks: 50,
-		maxOnMap: 3,
-		upgrades: [
-			{
-				cost: {
-					wood: 35,
-					stone: 15,
-					gold: 0,
-				},
-				clicks: 125,
-				maxStats: {
-					gatheringPower: 3,
-					gatheringChance: 15,
-					criticalPower: 10,
-					criticalChance: 10,
-					workers: 2,
-					workersSpeed: 8,
-				},
-			},
-			{
-				cost: {
-					wood: 75,
-					stone: 35,
-					gold: 0,
-				},
-				clicks: 200,
-				maxStats: {
-					gatheringPower: 5,
-					gatheringChance: 20,
-					criticalPower: 15,
-					criticalChance: 15,
-					workers: 3,
-					workersSpeed: 7,
-				},
-			},
-			{
-				cost: {
-					wood: 100,
-					stone: 50,
-					gold: 15,
-				},
-				clicks: 375,
-				maxStats: {
-					gatheringPower: 5,
-					gatheringChance: 30,
-					criticalPower: 20,
-					criticalChance: 20,
-					workers: 4,
-					workersSpeed: 6,
-				},
-			},
-			{
-				cost: {
-					wood: 200,
-					stone: 150,
-					gold: 50,
-				},
-				clicks: 550,
-				maxStats: {
-					gatheringPower: 7,
-					gatheringChance: 40,
-					criticalPower: 25,
-					criticalChance: 25,
-					workers: 6,
-					workersSpeed: 5,
-				},
-			},
-			{
-				cost: {
-					wood: 325,
-					stone: 225,
-					gold: 100,
-				},
-				clicks: 750,
-				maxStats: {
-					gatheringPower: 8,
-					gatheringChance: 45,
-					criticalPower: 35,
-					criticalChance: 30,
-					workers: 7,
-					workersSpeed: 5,
-				},
-			},
-			{
-				cost: {
-					wood: 425,
-					stone: 300,
-					gold: 150,
-				},
-				clicks: 1000,
-				maxStats: {
-					gatheringPower: 10,
-					gatheringChance: 50,
-					criticalPower: 45,
-					criticalChance: 35,
-					workers: 10,
-					workersSpeed: 4,
-				},
-			},
-			{
-				cost: {
-					wood: 575,
-					stone: 400,
-					gold: 200,
-				},
-				clicks: 1650,
-				maxStats: {
-					gatheringPower: 13,
-					gatheringChance: 60,
-					criticalPower: 55,
-					criticalChance: 45,
-					workers: 12,
-					workersSpeed: 3,
-				},
-			},
-			{
-				cost: {
-					wood: 750,
-					stone: 500,
-					gold: 275,
-				},
-				clicks: 2300,
-				maxStats: {
-					gatheringPower: 15,
-					gatheringChance: 70,
-					criticalPower: 60,
-					criticalChance: 55,
-					workers: 13,
-					workersSpeed: 2,
-				},
-			},
-			{
-				cost: {
-					wood: 1100,
-					stone: 700,
-					gold: 400,
-				},
-				clicks: 4000,
-				maxStats: {
-					gatheringPower: 17,
-					gatheringChance: 80,
-					criticalPower: 80,
-					criticalChance: 65,
-					workers: 15,
-					workersSpeed: 2,
-				},
-			},
-			{
-				cost: {
-					wood: 1400,
-					stone: 950,
-					gold: 600,
-				},
-				clicks: 7500,
-				maxStats: {
-					gatheringPower: 20,
-					gatheringChance: 90,
-					criticalPower: 95,
-					criticalChance: 70,
-					workers: 17,
-					workersSpeed: 1,
-				},
-			},
-			{
-				cost: {
-					wood: 2750,
-					stone: 1900,
-					gold: 1150,
-				},
-				clicks: 14000,
-				maxStats: {
-					gatheringPower: 25,
-					gatheringChance: 90,
-					criticalPower: 110,
-					criticalChance: 80,
-					workers: 20,
-					workersSpeed: 1,
-				},
-			},
-			{
-				cost: {
-					wood: 4000,
-					stone: 2750,
-					gold: 2000,
-				},
-				clicks: 19000,
-				maxStats: {
-					gatheringPower: 30,
-					gatheringChance: 90,
-					criticalPower: 140,
-					criticalChance: 90,
-					workers: 25,
-					workersSpeed: 1,
-				},
-			},
-			{
-				cost: {
-					wood: 6500,
-					stone: 4000,
-					gold: 2900,
-				},
-				clicks: 25000,
-				maxStats: {
-					gatheringPower: 45,
-					gatheringChance: 90,
-					criticalPower: 175,
-					criticalChance: 100,
-					workers: 40,
-					workersSpeed: 1,
-				},
-			},
-			{
-				cost: {
-					wood: 8700,
-					stone: 6500,
-					gold: 4750,
-				},
-				clicks: 45000,
-				maxStats: {
-					gatheringPower: 100,
-					gatheringChance: 90,
-					criticalPower: 500,
-					criticalChance: 100,
-					workers: 100,
-					workersSpeed: 1,
-				},
-			},
-		],
-	},
-	{
-		id: 2,
-		image: "quarry",
-		name: "Kamieniołom",
-		description:
-			"Kamieniołom pozwala na zbieranie kamienia z budynku. Budynek umożliwia ulepszanie wydobycia kamienia oraz zatrudnienie pracowników, którzy będą zbierali kamień automatycznie.",
-		size: {
-			x: 3,
-			y: 3,
-		},
-		cost: {
-			wood: 15,
-			stone: 15,
-			gold: 0,
-		},
-		stats: {
-			gatheringPower: 1,
-			gatheringChance: 1,
-			criticalPower: 3,
-			criticalChance: 0,
-			workers: 0,
-			workersSpeed: 15,
-		},
-		maxStats: {
-			gatheringPower: 1,
-			gatheringChance: 5,
-			criticalPower: 3,
-			criticalChance: 5,
-			workers: 1,
-			workersSpeed: 13,
-		},
-		statsCost: {
-			gatheringPower: {
-				wood: 10,
-				stone: 5,
-				gold: 0,
-			},
-			gatheringChance: {
-				wood: 3,
-				stone: 3,
-				gold: 0,
-			},
-			criticalPower: {
-				wood: 5,
-				stone: 3,
-				gold: 0,
-			},
-			criticalChance: {
-				wood: 3,
-				stone: 4,
-				gold: 0,
-			},
-			workers: {
-				wood: 7,
-				stone: 17,
-				gold: 0,
-			},
-			workersSpeed: {
-				wood: 5,
-				stone: 10,
-				gold: 0,
-			},
-		},
-		clicks: 50,
-		maxOnMap: 3,
-		upgrades: [
-			{
-				cost: {
-					wood: 30,
-					stone: 30,
-					gold: 0,
-				},
-				clicks: 150,
-				maxStats: {
-					gatheringPower: 2,
-					gatheringChance: 10,
-					criticalPower: 5,
-					criticalChance: 10,
-					workers: 2,
-					workersSpeed: 10,
-				},
-			},
-			{
-				cost: {
-					wood: 50,
-					stone: 50,
-					gold: 0,
-				},
-				clicks: 250,
-				maxStats: {
-					gatheringPower: 3,
-					gatheringChance: 15,
-					criticalPower: 7,
-					criticalChance: 10,
-					workers: 3,
-					workersSpeed: 9,
-				},
-			},
-			{
-				cost: {
-					wood: 100,
-					stone: 100,
-					gold: 50,
-				},
-				clicks: 400,
-				maxStats: {
-					gatheringPower: 4,
-					gatheringChance: 20,
-					criticalPower: 10,
-					criticalChance: 15,
-					workers: 4,
-					workersSpeed: 8,
-				},
-			},
-		],
-	},
-	{
-		id: 3,
-		image: "mine",
-		name: "Kopalnia",
-		description:
-			"Kopalnia pozwala na zbieranie złota z budynku. Budynek umożliwia ulepszanie wydobycia złota oraz zatrudnienie pracowników, którzy będą zbierali złoto automatycznie.",
-		size: {
-			x: 3,
-			y: 3,
-		},
-		cost: {
-			wood: 30,
-			stone: 30,
-			gold: 0,
-		},
-		stats: {
-			gatheringPower: 1,
-			gatheringChance: 0,
-			criticalPower: 2,
-			criticalChance: 0,
-			workers: 0,
-			workersSpeed: 20,
-		},
-		maxStats: {
-			gatheringPower: 1,
-			gatheringChance: 3,
-			criticalPower: 3,
-			criticalChance: 3,
-			workers: 1,
-			workersSpeed: 18,
-		},
-		statsCost: {
-			gatheringPower: {
-				wood: 15,
-				stone: 7,
-				gold: 3,
-			},
-			gatheringChance: {
-				wood: 7,
-				stone: 5,
-				gold: 0,
-			},
-			criticalPower: {
-				wood: 10,
-				stone: 5,
-				gold: 0,
-			},
-			criticalChance: {
-				wood: 7,
-				stone: 3,
-				gold: 0,
-			},
-			workers: {
-				wood: 15,
-				stone: 25,
-				gold: 5,
-			},
-			workersSpeed: {
-				wood: 10,
-				stone: 20,
-				gold: 3,
-			},
-		},
-		clicks: 100,
-		maxOnMap: 3,
-		upgrades: [
-			{
-				cost: {
-					wood: 30,
-					stone: 30,
-					gold: 10,
-				},
-				clicks: 200,
-				maxStats: {
-					gatheringPower: 2,
-					gatheringChance: 7,
-					criticalPower: 5,
-					criticalChance: 7,
-					workers: 2,
-					workersSpeed: 16,
-				},
-			},
-			{
-				cost: {
-					wood: 50,
-					stone: 50,
-					gold: 20,
-				},
-				clicks: 300,
-				maxStats: {
-					gatheringPower: 3,
-					gatheringChance: 10,
-					criticalPower: 7,
-					criticalChance: 13,
-					workers: 3,
-					workersSpeed: 15,
-				},
-			},
-			{
-				cost: {
-					wood: 75,
-					stone: 75,
-					gold: 35,
-				},
-				clicks: 450,
-				maxStats: {
-					gatheringPower: 4,
-					gatheringChance: 15,
-					criticalPower: 10,
-					criticalChance: 20,
-					workers: 4,
-					workersSpeed: 14,
-				},
-			},
-		],
-	},
-	{
-		id: 4,
-		image: "workshop",
-		name: "Warsztat",
-		description:
-			"Warsztat umożliwia ulepszanie efektywności podczas budowania i ulepszania budynków. W warsztacie można zatrudnić pracowników do automatycznej budowy.",
-		size: {
-			x: 2,
-			y: 2,
-		},
-		cost: {
-			wood: 25,
-			stone: 25,
-			gold: 25,
-		},
-		stats: {
-			buildingPower: 1,
-			criticalPower: 1,
-			criticalChance: 0,
-			workers: 0,
-			workersSpeed: 20,
-		},
-		maxStats: {
-			buildingPower: 2,
-			criticalPower: 3,
-			criticalChance: 3,
-			workers: 1,
-			workersSpeed: 18,
-		},
-		statsCost: {
-			buildingPower: {
-				wood: 20,
-				stone: 15,
-				gold: 7,
-			},
-			criticalPower: {
-				wood: 15,
-				stone: 10,
-				gold: 3,
-			},
-			criticalChance: {
-				wood: 5,
-				stone: 5,
-				gold: 3,
-			},
-			workers: {
-				wood: 15,
-				stone: 15,
-				gold: 15,
-			},
-			workersSpeed: {
-				wood: 10,
-				stone: 10,
-				gold: 7,
-			},
-		},
-		clicks: 50,
-		maxOnMap: 2,
-		upgrades: [
-			{
-				cost: {
-					wood: 30,
-					stone: 50,
-					gold: 25,
-				},
-				clicks: 125,
-				maxStats: {
-					buildingPower: 3,
-					criticalPower: 5,
-					criticalChance: 10,
-					workers: 2,
-					workersSpeed: 16,
-				},
-			},
-			{
-				cost: {
-					wood: 50,
-					stone: 75,
-					gold: 30,
-				},
-				clicks: 250,
-				maxStats: {
-					buildingPower: 5,
-					criticalPower: 10,
-					criticalChance: 15,
-					workers: 3,
-					workersSpeed: 14,
-				},
-			},
-			{
-				cost: {
-					wood: 75,
-					stone: 125,
-					gold: 50,
-				},
-				clicks: 350,
-				maxStats: {
-					buildingPower: 7,
-					criticalPower: 15,
-					criticalChance: 20,
-					workers: 4,
-					workersSpeed: 12,
-				},
-			},
-		],
-	},
-	{
-		id: 5,
-		image: "vault",
-		name: "Skarbiec",
-		description:
-			"Skarbiec przechowywuje wszystkie wylosowane karty oraz umożliwia kupowanie nowych skrzynek za monety. W skrzynkach znajdują się losowe karty, które ulepszają statystyki.",
-		size: {
-			x: 3,
-			y: 3,
-		},
-		cost: {
-			wood: 30,
-			stone: 40,
-			gold: 25,
-		},
-		cards: {},
-		clicks: 125,
-		maxOnMap: 1,
-		upgrades: [
-			{
-				cost: {
-					wood: 60,
-					stone: 60,
-					gold: 60,
-				},
-				clicks: 250,
-			},
-			{
-				cost: {
-					wood: 125,
-					stone: 125,
-					gold: 125,
-				},
-				clicks: 450,
-			},
-		],
-	},
-	{
-		id: 6,
-		image: "trader",
-		name: "Handlarz",
-		description:
-			"Handlarz wymienia swoje monety na losowe zasoby, których potrzebuje. U handlarza są trzy oferty, które nagradzają monetami. Monety są potrzebne do losowania kart.",
-		size: {
-			x: 2,
-			y: 2,
-		},
-		cost: {
-			wood: 30,
-			stone: 25,
-			gold: 5,
-		},
-		cards: {},
-		clicks: 75,
-		maxOnMap: 1,
-		upgrades: [
-			{
-				cost: {
-					wood: 50,
-					stone: 30,
-					gold: 15,
-				},
-				clicks: 175,
-			},
-			{
-				cost: {
-					wood: 100,
-					stone: 75,
-					gold: 50,
-				},
-				clicks: 275,
-			},
-		],
-	},
+    {
+        id: 0,
+        image: "castle",
+        name: "Zamek",
+        description:
+            "Zamek jest budynkiem głównym. Odpowiada za maksymalny możliwy poziom budynków w grze. Każdy budynek może być ulepszony maksymalnie do poziomu zamku. Zamek umożliwia resetowanie postępu.",
+        size: {
+            x: 5,
+            y: 5,
+        },
+        cost: {
+            wood: 10,
+            stone: 0,
+            gold: 0,
+        },
+        clicks: 25,
+        maxOnMap: 1,
+        upgrades: [
+            { cost: { wood: 10, stone: 5, gold: 3 }, clicks: 320 },
+            { cost: { wood: 37, stone: 20, gold: 10 }, clicks: 850 },
+            { cost: { wood: 120, stone: 70, gold: 35 }, clicks: 1700 },
+            { cost: { wood: 450, stone: 340, gold: 155 }, clicks: 3100 },
+            { cost: { wood: 1085, stone: 1085, gold: 670 }, clicks: 5000 },
+            { cost: { wood: 2225, stone: 2495, gold: 1890 }, clicks: 8100 },
+            { cost: { wood: 4785, stone: 5020, gold: 4420 }, clicks: 13100 },
+            { cost: { wood: 9735, stone: 10620, gold: 10710 }, clicks: 21000 },
+            { cost: { wood: 23100, stone: 26400, gold: 24500 }, clicks: 34500 },
+            { cost: { wood: 48900, stone: 53600, gold: 55000 }, clicks: 61500 },
+            { cost: { wood: 83700, stone: 88900, gold: 104000 }, clicks: 106500 },
+            { cost: { wood: 139000, stone: 142000, gold: 154000 }, clicks: 212500 },
+            { cost: { wood: 236000, stone: 263000, gold: 254000 }, clicks: 500000 },
+            { cost: { wood: 787000, stone: 877000, gold: 849000 }, clicks: 1000000 },
+        ],
+    },
+    {
+        id: 1,
+        image: "sawmill",
+        name: "Tartak",
+        description:
+            "Tartak pozwala na zbieranie drewna z budynku. Budynek umożliwia ulepszanie wydobycia drewna oraz zatrudnienie pracowników, którzy będą zbierali drewno automatycznie.",
+        size: {
+            x: 3,
+            y: 2,
+        },
+        cost: {
+            wood: 20,
+            stone: 10,
+            gold: 0,
+        },
+        stats: {
+            gatheringPower: 1,
+            gatheringChance: 5,
+            criticalPower: 3,
+            criticalChance: 0,
+            workers: 0,
+            workersSpeed: 10,
+        },
+        maxStats: {
+            gatheringPower: 2,
+            gatheringChance: 10,
+            criticalPower: 5,
+            criticalChance: 5,
+            workers: 1,
+            workersSpeed: 9,
+        },
+        statsCost: {
+            gatheringPower: {
+                wood: 10,
+                stone: 0,
+                gold: 0,
+            },
+            gatheringChance: {
+                wood: 4,
+                stone: 0,
+                gold: 0,
+            },
+            criticalPower: {
+                wood: 7,
+                stone: 0,
+                gold: 0,
+            },
+            criticalChance: {
+                wood: 3,
+                stone: 0,
+                gold: 0,
+            },
+            workers: {
+                wood: 15,
+                stone: 7,
+                gold: 0,
+            },
+            workersSpeed: {
+                wood: 7,
+                stone: 3,
+                gold: 0,
+            },
+        },
+        clicks: 50,
+        maxOnMap: 3,
+        upgrades: [
+            {
+                cost: { wood: 5, stone: 3, gold: 1 },
+                clicks: 125,
+                maxStats: { gatheringPower: 3, gatheringChance: 15, criticalPower: 10, criticalChance: 10, workers: 2, workersSpeed: 8 },
+            },
+            {
+                cost: { wood: 15, stone: 7, gold: 5 },
+                clicks: 340,
+                maxStats: { gatheringPower: 5, gatheringChance: 20, criticalPower: 15, criticalChance: 15, workers: 3, workersSpeed: 7 },
+            },
+            {
+                cost: { wood: 50, stone: 30, gold: 15 },
+                clicks: 680,
+                maxStats: { gatheringPower: 5, gatheringChance: 30, criticalPower: 20, criticalChance: 20, workers: 4, workersSpeed: 6 },
+            },
+            {
+                cost: { wood: 180, stone: 135, gold: 60 },
+                clicks: 1240,
+                maxStats: { gatheringPower: 7, gatheringChance: 40, criticalPower: 25, criticalChance: 25, workers: 6, workersSpeed: 5 },
+            },
+            {
+                cost: { wood: 435, stone: 435, gold: 270 },
+                clicks: 2000,
+                maxStats: { gatheringPower: 8, gatheringChance: 45, criticalPower: 35, criticalChance: 30, workers: 7, workersSpeed: 5 },
+            },
+            {
+                cost: { wood: 890, stone: 1000, gold: 755 },
+                clicks: 3240,
+                maxStats: { gatheringPower: 10, gatheringChance: 50, criticalPower: 45, criticalChance: 35, workers: 10, workersSpeed: 4 },
+            },
+            {
+                cost: { wood: 1915, stone: 2010, gold: 1770 },
+                clicks: 5240,
+                maxStats: { gatheringPower: 13, gatheringChance: 60, criticalPower: 55, criticalChance: 45, workers: 12, workersSpeed: 3 },
+            },
+            {
+                cost: { wood: 3900, stone: 4250, gold: 4285 },
+                clicks: 8400,
+                maxStats: { gatheringPower: 15, gatheringChance: 70, criticalPower: 60, criticalChance: 55, workers: 13, workersSpeed: 2 },
+            },
+            {
+                cost: { wood: 9240, stone: 10560, gold: 9800 },
+                clicks: 13800,
+                maxStats: { gatheringPower: 17, gatheringChance: 80, criticalPower: 80, criticalChance: 65, workers: 15, workersSpeed: 2 },
+            },
+            {
+                cost: { wood: 19560, stone: 21440, gold: 22000 },
+                clicks: 24600,
+                maxStats: { gatheringPower: 20, gatheringChance: 90, criticalPower: 95, criticalChance: 70, workers: 17, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 33480, stone: 35560, gold: 41600 },
+                clicks: 42600,
+                maxStats: { gatheringPower: 25, gatheringChance: 90, criticalPower: 110, criticalChance: 80, workers: 20, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 55600, stone: 56800, gold: 61600 },
+                clicks: 85000,
+                maxStats: { gatheringPower: 30, gatheringChance: 90, criticalPower: 140, criticalChance: 90, workers: 25, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 94400, stone: 105200, gold: 101600 },
+                clicks: 200000,
+                maxStats: { gatheringPower: 45, gatheringChance: 90, criticalPower: 175, criticalChance: 100, workers: 40, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 314800, stone: 350800, gold: 339600 },
+                clicks: 400000,
+                maxStats: { gatheringPower: 100, gatheringChance: 90, criticalPower: 500, criticalChance: 100, workers: 100, workersSpeed: 1 },
+            },
+        ],
+    },
+    {
+        id: 2,
+        image: "quarry",
+        name: "Kamieniołom",
+        description:
+            "Kamieniołom pozwala na zbieranie kamienia z budynku. Budynek umożliwia ulepszanie wydobycia kamienia oraz zatrudnienie pracowników, którzy będą zbierali kamień automatycznie.",
+        size: {
+            x: 3,
+            y: 3,
+        },
+        cost: {
+            wood: 15,
+            stone: 15,
+            gold: 0,
+        },
+        stats: {
+            gatheringPower: 1,
+            gatheringChance: 1,
+            criticalPower: 3,
+            criticalChance: 0,
+            workers: 0,
+            workersSpeed: 15,
+        },
+        maxStats: {
+            gatheringPower: 1,
+            gatheringChance: 5,
+            criticalPower: 3,
+            criticalChance: 5,
+            workers: 1,
+            workersSpeed: 13,
+        },
+        statsCost: {
+            gatheringPower: {
+                wood: 10,
+                stone: 5,
+                gold: 0,
+            },
+            gatheringChance: {
+                wood: 3,
+                stone: 3,
+                gold: 0,
+            },
+            criticalPower: {
+                wood: 5,
+                stone: 3,
+                gold: 0,
+            },
+            criticalChance: {
+                wood: 3,
+                stone: 4,
+                gold: 0,
+            },
+            workers: {
+                wood: 7,
+                stone: 17,
+                gold: 0,
+            },
+            workersSpeed: {
+                wood: 5,
+                stone: 10,
+                gold: 0,
+            },
+        },
+        clicks: 50,
+        maxOnMap: 3,
+        upgrades: [
+            {
+                cost: { wood: 5, stone: 2, gold: 1 },
+                clicks: 160,
+                maxStats: { gatheringPower: 2, gatheringChance: 8, criticalPower: 7, criticalChance: 10, workers: 2, workersSpeed: 12 },
+            },
+            {
+                cost: { wood: 20, stone: 10, gold: 5 },
+                clicks: 425,
+                maxStats: { gatheringPower: 3, gatheringChance: 13, criticalPower: 10, criticalChance: 15, workers: 3, workersSpeed: 10 },
+            },
+            {
+                cost: { wood: 60, stone: 35, gold: 17 },
+                clicks: 850,
+                maxStats: { gatheringPower: 3, gatheringChance: 20, criticalPower: 15, criticalChance: 20, workers: 4, workersSpeed: 9 },
+            },
+            {
+                cost: { wood: 225, stone: 170, gold: 75 },
+                clicks: 1550,
+                maxStats: { gatheringPower: 5, gatheringChance: 30, criticalPower: 20, criticalChance: 25, workers: 6, workersSpeed: 8 },
+            },
+            {
+                cost: { wood: 540, stone: 540, gold: 335 },
+                clicks: 2500,
+                maxStats: { gatheringPower: 7, gatheringChance: 40, criticalPower: 30, criticalChance: 30, workers: 7, workersSpeed: 7 },
+            },
+            {
+                cost: { wood: 1110, stone: 1250, gold: 945 },
+                clicks: 4050,
+                maxStats: { gatheringPower: 8, gatheringChance: 50, criticalPower: 40, criticalChance: 35, workers: 10, workersSpeed: 5 },
+            },
+            {
+                cost: { wood: 2390, stone: 2510, gold: 2210 },
+                clicks: 6550,
+                maxStats: { gatheringPower: 10, gatheringChance: 60, criticalPower: 45, criticalChance: 45, workers: 12, workersSpeed: 4 },
+            },
+            {
+                cost: { wood: 4865, stone: 5310, gold: 5355 },
+                clicks: 10500,
+                maxStats: { gatheringPower: 13, gatheringChance: 70, criticalPower: 50, criticalChance: 55, workers: 13, workersSpeed: 3 },
+            },
+            {
+                cost: { wood: 11550, stone: 13200, gold: 12250 },
+                clicks: 17250,
+                maxStats: { gatheringPower: 15, gatheringChance: 80, criticalPower: 70, criticalChance: 65, workers: 14, workersSpeed: 2 },
+            },
+            {
+                cost: { wood: 24450, stone: 26800, gold: 27500 },
+                clicks: 30750,
+                maxStats: { gatheringPower: 17, gatheringChance: 90, criticalPower: 80, criticalChance: 70, workers: 15, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 41850, stone: 44450, gold: 52000 },
+                clicks: 53250,
+                maxStats: { gatheringPower: 20, gatheringChance: 90, criticalPower: 90, criticalChance: 80, workers: 17, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 69500, stone: 71000, gold: 77000 },
+                clicks: 106250,
+                maxStats: { gatheringPower: 25, gatheringChance: 90, criticalPower: 110, criticalChance: 90, workers: 20, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 118000, stone: 131500, gold: 127000 },
+                clicks: 250000,
+                maxStats: { gatheringPower: 35, gatheringChance: 90, criticalPower: 150, criticalChance: 100, workers: 35, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 393500, stone: 438500, gold: 424500 },
+                clicks: 500000,
+                maxStats: { gatheringPower: 100, gatheringChance: 90, criticalPower: 500, criticalChance: 100, workers: 100, workersSpeed: 1 },
+            },
+        ],
+    },
+    {
+        id: 3,
+        image: "mine",
+        name: "Kopalnia",
+        description:
+            "Kopalnia pozwala na zbieranie złota z budynku. Budynek umożliwia ulepszanie wydobycia złota oraz zatrudnienie pracowników, którzy będą zbierali złoto automatycznie.",
+        size: {
+            x: 3,
+            y: 3,
+        },
+        cost: {
+            wood: 30,
+            stone: 30,
+            gold: 0,
+        },
+        stats: {
+            gatheringPower: 1,
+            gatheringChance: 0,
+            criticalPower: 2,
+            criticalChance: 0,
+            workers: 0,
+            workersSpeed: 20,
+        },
+        maxStats: {
+            gatheringPower: 1,
+            gatheringChance: 3,
+            criticalPower: 3,
+            criticalChance: 3,
+            workers: 1,
+            workersSpeed: 18,
+        },
+        statsCost: {
+            gatheringPower: {
+                wood: 15,
+                stone: 7,
+                gold: 3,
+            },
+            gatheringChance: {
+                wood: 7,
+                stone: 5,
+                gold: 0,
+            },
+            criticalPower: {
+                wood: 10,
+                stone: 5,
+                gold: 0,
+            },
+            criticalChance: {
+                wood: 7,
+                stone: 3,
+                gold: 0,
+            },
+            workers: {
+                wood: 15,
+                stone: 25,
+                gold: 5,
+            },
+            workersSpeed: {
+                wood: 10,
+                stone: 20,
+                gold: 3,
+            },
+        },
+        clicks: 100,
+        maxOnMap: 3,
+        upgrades: [
+            {
+                cost: { wood: 7, stone: 3, gold: 1 },
+                clicks: 190,
+                maxStats: { gatheringPower: 2, gatheringChance: 5, criticalPower: 5, criticalChance: 5, workers: 2, workersSpeed: 16 },
+            },
+            {
+                cost: { wood: 20, stone: 10, gold: 5 },
+                clicks: 510,
+                maxStats: { gatheringPower: 3, gatheringChance: 7, criticalPower: 7, criticalChance: 10, workers: 3, workersSpeed: 15 },
+            },
+            {
+                cost: { wood: 70, stone: 40, gold: 20 },
+                clicks: 1020,
+                maxStats: { gatheringPower: 3, gatheringChance: 10, criticalPower: 10, criticalChance: 15, workers: 4, workersSpeed: 14 },
+            },
+            {
+                cost: { wood: 270, stone: 200, gold: 95 },
+                clicks: 1860,
+                maxStats: { gatheringPower: 4, gatheringChance: 15, criticalPower: 15, criticalChance: 20, workers: 5, workersSpeed: 12 },
+            },
+            {
+                cost: { wood: 650, stone: 650, gold: 400 },
+                clicks: 3000,
+                maxStats: { gatheringPower: 5, gatheringChance: 30, criticalPower: 20, criticalChance: 25, workers: 7, workersSpeed: 10 },
+            },
+            {
+                cost: { wood: 1335, stone: 1500, gold: 1135 },
+                clicks: 4860,
+                maxStats: { gatheringPower: 7, gatheringChance: 40, criticalPower: 30, criticalChance: 30, workers: 8, workersSpeed: 8 },
+            },
+            {
+                cost: { wood: 2870, stone: 3010, gold: 2650 },
+                clicks: 7860,
+                maxStats: { gatheringPower: 8, gatheringChance: 50, criticalPower: 40, criticalChance: 40, workers: 10, workersSpeed: 7 },
+            },
+            {
+                cost: { wood: 5840, stone: 6370, gold: 6425 },
+                clicks: 12600,
+                maxStats: { gatheringPower: 10, gatheringChance: 60, criticalPower: 50, criticalChance: 50, workers: 13, workersSpeed: 5 },
+            },
+            {
+                cost: { wood: 13860, stone: 15840, gold: 14700 },
+                clicks: 20700,
+                maxStats: { gatheringPower: 13, gatheringChance: 70, criticalPower: 60, criticalChance: 60, workers: 14, workersSpeed: 4 },
+            },
+            {
+                cost: { wood: 29340, stone: 32160, gold: 33000 },
+                clicks: 36900,
+                maxStats: { gatheringPower: 15, gatheringChance: 80, criticalPower: 75, criticalChance: 65, workers: 15, workersSpeed: 3 },
+            },
+            {
+                cost: { wood: 50220, stone: 53340, gold: 62400 },
+                clicks: 63900,
+                maxStats: { gatheringPower: 17, gatheringChance: 90, criticalPower: 85, criticalChance: 75, workers: 15, workersSpeed: 2 },
+            },
+            {
+                cost: { wood: 83400, stone: 85200, gold: 92400 },
+                clicks: 127500,
+                maxStats: { gatheringPower: 20, gatheringChance: 90, criticalPower: 100, criticalChance: 80, workers: 17, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 141600, stone: 157800, gold: 152400 },
+                clicks: 300000,
+                maxStats: { gatheringPower: 30, gatheringChance: 90, criticalPower: 120, criticalChance: 90, workers: 30, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 472200, stone: 526200, gold: 509400 },
+                clicks: 600000,
+                maxStats: { gatheringPower: 100, gatheringChance: 90, criticalPower: 500, criticalChance: 100, workers: 100, workersSpeed: 1 },
+            },
+        ],
+    },
+    {
+        id: 4,
+        image: "workshop",
+        name: "Warsztat",
+        description:
+            "Warsztat umożliwia ulepszanie efektywności podczas budowania i ulepszania budynków. W warsztacie można zatrudnić pracowników do automatycznej budowy.",
+        size: {
+            x: 2,
+            y: 2,
+        },
+        cost: {
+            wood: 25,
+            stone: 25,
+            gold: 25,
+        },
+        stats: {
+            buildingPower: 1,
+            criticalPower: 1,
+            criticalChance: 0,
+            workers: 0,
+            workersSpeed: 20,
+        },
+        maxStats: {
+            buildingPower: 2,
+            criticalPower: 3,
+            criticalChance: 3,
+            workers: 1,
+            workersSpeed: 18,
+        },
+        statsCost: {
+            buildingPower: {
+                wood: 20,
+                stone: 15,
+                gold: 7,
+            },
+            criticalPower: {
+                wood: 15,
+                stone: 10,
+                gold: 3,
+            },
+            criticalChance: {
+                wood: 5,
+                stone: 5,
+                gold: 3,
+            },
+            workers: {
+                wood: 15,
+                stone: 15,
+                gold: 15,
+            },
+            workersSpeed: {
+                wood: 10,
+                stone: 10,
+                gold: 7,
+            },
+        },
+        clicks: 50,
+        maxOnMap: 2,
+        upgrades: [
+            {
+                cost: { wood: 5, stone: 2, gold: 1 },
+                clicks: 160,
+                maxStats: { buildingPower: 3, criticalPower: 5, criticalChance: 10, workers: 2, workersSpeed: 16 },
+            },
+            {
+                cost: { wood: 20, stone: 10, gold: 5 },
+                clicks: 425,
+                maxStats: { buildingPower: 5, criticalPower: 10, criticalChance: 15, workers: 3, workersSpeed: 14 },
+            },
+            {
+                cost: { wood: 60, stone: 35, gold: 17 },
+                clicks: 850,
+                maxStats: { buildingPower: 7, criticalPower: 15, criticalChance: 20, workers: 4, workersSpeed: 12 },
+            },
+            {
+                cost: { wood: 225, stone: 170, gold: 75 },
+                clicks: 1550,
+                maxStats: { buildingPower: 10, criticalPower: 20, criticalChance: 25, workers: 5, workersSpeed: 10 },
+            },
+            {
+                cost: { wood: 540, stone: 540, gold: 335 },
+                clicks: 2500,
+                maxStats: { buildingPower: 13, criticalPower: 25, criticalChance: 30, workers: 7, workersSpeed: 8 },
+            },
+            {
+                cost: { wood: 1110, stone: 1250, gold: 945 },
+                clicks: 4050,
+                maxStats: { buildingPower: 15, criticalPower: 30, criticalChance: 35, workers: 8, workersSpeed: 7 },
+            },
+            {
+                cost: { wood: 2390, stone: 2510, gold: 2210 },
+                clicks: 6550,
+                maxStats: { buildingPower: 17, criticalPower: 40, criticalChance: 40, workers: 10, workersSpeed: 5 },
+            },
+            {
+                cost: { wood: 4865, stone: 5310, gold: 5355 },
+                clicks: 10500,
+                maxStats: { buildingPower: 20, criticalPower: 50, criticalChance: 50, workers: 13, workersSpeed: 4 },
+            },
+            {
+                cost: { wood: 11550, stone: 13200, gold: 12250 },
+                clicks: 17250,
+                maxStats: { buildingPower: 25, criticalPower: 60, criticalChance: 60, workers: 15, workersSpeed: 3 },
+            },
+            {
+                cost: { wood: 24450, stone: 26800, gold: 27500 },
+                clicks: 30750,
+                maxStats: { buildingPower: 30, criticalPower: 75, criticalChance: 70, workers: 17, workersSpeed: 2 },
+            },
+            {
+                cost: { wood: 41850, stone: 44450, gold: 52000 },
+                clicks: 53250,
+                maxStats: { buildingPower: 35, criticalPower: 80, criticalChance: 80, workers: 20, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 69500, stone: 71000, gold: 77000 },
+                clicks: 106250,
+                maxStats: { buildingPower: 40, criticalPower: 90, criticalChance: 90, workers: 25, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 118000, stone: 131500, gold: 127000 },
+                clicks: 250000,
+                maxStats: { buildingPower: 50, criticalPower: 100, criticalChance: 100, workers: 30, workersSpeed: 1 },
+            },
+            {
+                cost: { wood: 393500, stone: 438500, gold: 424500 },
+                clicks: 500000,
+                maxStats: { buildingPower: 100, criticalPower: 200, criticalChance: 100, workers: 100, workersSpeed: 1 },
+            },
+        ],
+    },
+    {
+        id: 5,
+        image: "vault",
+        name: "Skarbiec",
+        description:
+            "Skarbiec przechowywuje wszystkie wylosowane karty oraz umożliwia kupowanie nowych skrzynek za monety. W skrzynkach znajdują się losowe karty, które ulepszają statystyki.",
+        size: {
+            x: 3,
+            y: 3,
+        },
+        cost: {
+            wood: 30,
+            stone: 40,
+            gold: 25,
+        },
+        cards: {},
+        clicks: 125,
+        maxOnMap: 1,
+        upgrades: [
+            { cost: { wood: 2, stone: 1, gold: 0 }, clicks: 60 },
+            { cost: { wood: 7, stone: 4, gold: 2 }, clicks: 170 },
+            { cost: { wood: 25, stone: 15, gold: 7 }, clicks: 340 },
+            { cost: { wood: 90, stone: 70, gold: 30 }, clicks: 620 },
+            { cost: { wood: 220, stone: 220, gold: 130 }, clicks: 1000 },
+            { cost: { wood: 445, stone: 500, gold: 375 }, clicks: 1620 },
+            { cost: { wood: 950, stone: 1000, gold: 885 }, clicks: 2620 },
+            { cost: { wood: 1950, stone: 2120, gold: 2140 }, clicks: 4200 },
+            { cost: { wood: 4620, stone: 5280, gold: 4900 }, clicks: 6900 },
+            { cost: { wood: 9780, stone: 10720, gold: 11000 }, clicks: 12300 },
+            { cost: { wood: 16740, stone: 17780, gold: 20800 }, clicks: 21300 },
+            { cost: { wood: 27800, stone: 28400, gold: 30800 }, clicks: 42500 },
+            { cost: { wood: 47200, stone: 52600, gold: 50800 }, clicks: 100000 },
+            { cost: { wood: 157400, stone: 175400, gold: 169800 }, clicks: 200000 },
+        ],
+    },
+    {
+        id: 6,
+        image: "trader",
+        name: "Handlarz",
+        description:
+            "Handlarz wymienia swoje monety na losowe zasoby, których potrzebuje. U handlarza są trzy oferty, które nagradzają monetami. Monety są potrzebne do losowania kart.",
+        size: {
+            x: 2,
+            y: 2,
+        },
+        cost: {
+            wood: 30,
+            stone: 25,
+            gold: 5,
+        },
+        cards: {},
+        clicks: 75,
+        maxOnMap: 1,
+        upgrades: [
+            { cost: { wood: 5, stone: 2, gold: 1 }, clicks: 160 },
+            { cost: { wood: 18, stone: 10, gold: 5 }, clicks: 425 },
+            { cost: { wood: 60, stone: 35, gold: 15 }, clicks: 850 },
+            { cost: { wood: 225, stone: 170, gold: 75 }, clicks: 1550 },
+            { cost: { wood: 540, stone: 540, gold: 335 }, clicks: 2500 },
+            { cost: { wood: 1110, stone: 1250, gold: 945 }, clicks: 4050 },
+            { cost: { wood: 2390, stone: 2510, gold: 2210 }, clicks: 6550 },
+            { cost: { wood: 4865, stone: 5310, gold: 5355 }, clicks: 10500 },
+            { cost: { wood: 11550, stone: 13200, gold: 12250 }, clicks: 17250 },
+            { cost: { wood: 24450, stone: 26800, gold: 27500 }, clicks: 30750 },
+            { cost: { wood: 41850, stone: 44450, gold: 52000 }, clicks: 53250 },
+            { cost: { wood: 69500, stone: 71000, gold: 77000 }, clicks: 106250 },
+            { cost: { wood: 118000, stone: 131500, gold: 127000 }, clicks: 250000 },
+            { cost: { wood: 393500, stone: 438500, gold: 424500 }, clicks: 500000 },
+        ],
+    },
 
-	//budynek dekoracyjny pozwala stawiać dekoracje na mapie
-	//budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach
-	//lochy - mini gra 2d, gdzie jakiś potwór atakuje. gracz musi unikać strzałów potwora i strzelać do potworów
-	//labolatorium - pozwala stale ulepszać niektóre umiejętności gracza za pomocą monet
-	//muzeum - pokazuje osiągnięcia i postępy gracza
-	//budynek z eliksirami - dają one tymczasowe bonusy dla gracza, np. do zbierania drewna
+    //budynek dekoracyjny pozwala stawiać dekoracje na mapie
+    //budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach
+    //lochy - mini gra 2d, gdzie jakiś potwór atakuje. gracz musi unikać strzałów potwora i strzelać do potworów
+    //labolatorium - pozwala stale ulepszać niektóre umiejętności gracza za pomocą monet
+    //muzeum - pokazuje osiągnięcia i postępy gracza
+    //budynek z eliksirami - dają one tymczasowe bonusy dla gracza, np. do zbierania drewna
 ];
 
 export { buildings };

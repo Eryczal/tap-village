@@ -2,56 +2,56 @@ import { BuyButton } from "../../../../_elements/BuyButton.js";
 import { chests } from "../../../../../data/chests.js";
 
 class OpenAgainButton extends BuyButton {
-	constructor(game, x, y, width, height, parent) {
-		super(game, x, y, width, height, parent);
+    constructor(game, x, y, width, height, parent) {
+        super(game, x, y, width, height, parent);
 
-		this.clickable = this.canBuy();
+        this.clickable = this.canBuy();
 
-		if (this.canBuy()) {
-			this.color = "#999";
-		} else {
-			this.color = "#000";
-		}
+        if (this.canBuy()) {
+            this.color = "#000";
+        } else {
+            this.color = "#999";
+        }
 
-		this.text = "Otwórz ponownie";
-	}
+        this.text = "Otwórz ponownie";
+    }
 
-	onClick(mouseX, mouseY) {
-		if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
-			this.game.playerManager.coin -= chests[this.parent.chestId].cost;
+    onClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
+            this.game.playerManager.coin -= chests[this.parent.chestId].cost;
 
-			this.parent.openAgain();
-		}
-	}
+            this.parent.openAgain();
+        }
+    }
 
-	onRightClick(mouseX, mouseY) {
-		if (this.isMouseOver(mouseX, mouseY) && this.game.playerManager.gem === "max") {
-			this.parent.openAgain();
-		}
-	}
+    onRightClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY) && this.game.playerManager.gem === "max") {
+            this.parent.openAgain();
+        }
+    }
 
-	canBuy() {
-		return this.game.playerManager.coin >= chests[this.parent.chestId].cost;
-	}
+    canBuy() {
+        return this.game.playerManager.coin >= chests[this.parent.chestId].cost;
+    }
 }
 
 class ChestReturnButton extends BuyButton {
-	constructor(game, x, y, width, height, parent) {
-		super(game, x, y, width, height, parent);
+    constructor(game, x, y, width, height, parent) {
+        super(game, x, y, width, height, parent);
 
-		this.clickable = true;
+        this.clickable = true;
 
-		this.color = "#000";
+        this.color = "#000";
 
-		this.text = "Powrót";
-	}
+        this.text = "Powrót";
+    }
 
-	onClick(mouseX, mouseY) {
-		if (this.isMouseOver(mouseX, mouseY)) {
-			this.game.sceneManager.changeScene("vault");
-			this.game.sceneManager.currentScene.changeMenu(1);
-		}
-	}
+    onClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY)) {
+            this.game.sceneManager.changeScene("vault");
+            this.game.sceneManager.currentScene.changeMenu(1);
+        }
+    }
 }
 
 export { OpenAgainButton, ChestReturnButton };

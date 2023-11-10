@@ -145,6 +145,7 @@ class Map extends Element {
 			if (building.upgrading === false) {
 				this.game.ctx.drawImage(this.game.assetsManager.images[buildings[building.buildingId].image], building.x, building.y, building.width, building.height);
 
+				this.game.strokeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
 				this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
 			}
 		}
@@ -436,9 +437,10 @@ class Map extends Element {
 
 	handleDestroyedObject(type, x, y) {
 		if (type === 2) {
-			this.game.assetsManager.playAudio("tree", true);
+			this.game.assetsManager.playAudio("treeDestroy", true);
 			this.game.playerManager.wood += 1;
 		} else {
+			this.game.assetsManager.playAudio("stoneDestroy", true);
 			this.game.playerManager.stone += 1;
 		}
 
