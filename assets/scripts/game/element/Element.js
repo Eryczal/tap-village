@@ -1,37 +1,37 @@
 class Element {
-	constructor(game) {
-		this.game = game;
-		this.clickable = false;
-	}
+    constructor(game) {
+        this.game = game;
+        this.clickable = false;
+    }
 
-	init() {}
+    init() {}
 
-	draw() {}
+    draw() {}
 
-	update() {}
+    update() {}
 
-	unload() {}
+    unload() {}
 
-	onResize() {}
+    onResize() {}
 
-	onHover(mouseX, mouseY) {
-		if (this.clickable) {
-			if (this.isMouseOver(mouseX, mouseY)) {
-				this.game.canvas.style.cursor = "pointer";
-				return true;
-			}
-		}
-	}
+    onHover(mouseX, mouseY) {
+        if (this.clickable) {
+            if (this.isMouseOver(mouseX, mouseY)) {
+                this.game.canvas.style.cursor = "pointer";
+                return true;
+            }
+        }
+    }
 
-	onClick() {}
+    onClick() {}
 
-	onRightClick() {}
+    onRightClick() {}
 
-	onScroll() {}
+    onScroll() {}
 
-	isMouseOver(mouseX, mouseY) {
-		return !(this.y + this.height < mouseY || this.y > mouseY || this.x + this.width < mouseX || this.x > mouseX);
-	}
+    isMouseOver(mouseX, mouseY) {
+        return !(this.y + this.height < mouseY || this.y > mouseY || this.x + this.width < mouseX || this.x > mouseX);
+    }
 }
 
 export { Element };

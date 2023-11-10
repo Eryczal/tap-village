@@ -5,41 +5,41 @@ import { Menu } from "../_elements/Menu.js";
 import { Wood, Stone, Gold, Gem } from "../_elements/Resources.js";
 
 class BuildingScene extends Scene {
-	constructor(game) {
-		super(game);
-	}
+    constructor(game) {
+        super(game);
+    }
 
-	init() {
-		let menu = new Menu(this.game, "open");
-		this.elementsHolder.addElement("menu", menu);
-		this.elementsHolder.addElement("wood", new Wood(this.game));
-		this.elementsHolder.addElement("stone", new Stone(this.game));
-		this.elementsHolder.addElement("gold", new Gold(this.game));
-		this.elementsHolder.addElement("gem", new Gem(this.game));
+    init() {
+        let menu = new Menu(this.game, "open");
+        this.elementsHolder.addElement("menu", menu);
+        this.elementsHolder.addElement("wood", new Wood(this.game));
+        this.elementsHolder.addElement("stone", new Stone(this.game));
+        this.elementsHolder.addElement("gold", new Gold(this.game));
+        this.elementsHolder.addElement("gem", new Gem(this.game));
 
-		this.elementsHolder.addElement("BuildingName", new BuildingName(this.game, menu));
+        this.elementsHolder.addElement("BuildingName", new BuildingName(this.game, menu));
 
-		this.game.buildingsManager.clickedBuilding.init();
+        this.game.buildingsManager.clickedBuilding.init();
 
-		this.initChild(menu);
+        this.initChild(menu);
 
-		this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));
-		this.elementsHolder.addElement("BackButton", new BackButton(this.game, menu));
+        this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));
+        this.elementsHolder.addElement("BackButton", new BackButton(this.game, menu));
 
-		super.init();
-	}
+        super.init();
+    }
 
-	initChild(menu) {}
+    initChild(menu) {}
 
-	reloadButtons(menu, selectedMenu) {
-		this.elementsHolder.removeElement("UpgradeButton");
-		this.elementsHolder.removeElement("BackButton");
+    reloadButtons(menu, selectedMenu) {
+        this.elementsHolder.removeElement("UpgradeButton");
+        this.elementsHolder.removeElement("BackButton");
 
-		if (selectedMenu === 0) {
-			this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));
-		}
-		this.elementsHolder.addElement("BackButton", new BackButton(this.game, menu));
-	}
+        if (selectedMenu === 0) {
+            this.elementsHolder.addElement("UpgradeButton", new UpgradeButton(this.game, menu));
+        }
+        this.elementsHolder.addElement("BackButton", new BackButton(this.game, menu));
+    }
 }
 
 export { BuildingScene };

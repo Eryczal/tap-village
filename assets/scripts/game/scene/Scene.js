@@ -1,59 +1,59 @@
 import { ElementHolder } from "../element/ElementHolder.js";
 
 class Scene {
-	constructor(game) {
-		this.game = game;
-		this.elementsHolder = new ElementHolder(game);
-		this.data = {};
-	}
+    constructor(game) {
+        this.game = game;
+        this.elementsHolder = new ElementHolder(game);
+        this.data = {};
+    }
 
-	get elements() {
-		return this.elementsHolder?.list;
-	}
+    get elements() {
+        return this.elementsHolder?.list;
+    }
 
-	init() {
-		this.elementsHolder.init();
-	}
+    init() {
+        this.elementsHolder.init();
+    }
 
-	draw() {
-		this.elementsHolder.draw();
-	}
+    draw() {
+        this.elementsHolder.draw();
+    }
 
-	update() {
-		this.elementsHolder.update();
-	}
+    update() {
+        this.elementsHolder.update();
+    }
 
-	unload() {
-		this.elementsHolder.unload();
-	}
+    unload() {
+        this.elementsHolder.unload();
+    }
 
-	onResize() {
-		this.elementsHolder.onResize();
-	}
+    onResize() {
+        this.elementsHolder.onResize();
+    }
 
-	onHover(mouseX, mouseY) {
-		this.elementsHolder.onHover(mouseX, mouseY);
-	}
+    onHover(mouseX, mouseY) {
+        this.elementsHolder.onHover(mouseX, mouseY);
+    }
 
-	onClick(mouseX, mouseY) {
-		this.elementsHolder.onClick(mouseX, mouseY);
-	}
+    onClick(mouseX, mouseY) {
+        this.elementsHolder.onClick(mouseX, mouseY);
+    }
 
-	onMouseDrag() {}
+    onMouseDrag() {}
 
-	onMouseMove() {}
+    onMouseMove() {}
 
-	onMouseDown() {}
+    onMouseDown() {}
 
-	onMouseUp() {}
+    onMouseUp() {}
 
-	onRightClick(mouseX, mouseY) {
-		this.elementsHolder.onRightClick(mouseX, mouseY);
-	}
+    onRightClick(mouseX, mouseY) {
+        this.elementsHolder.onRightClick(mouseX, mouseY);
+    }
 
-	onScroll(event) {
-		this.elementsHolder.onScroll(event);
-	}
+    onScroll(event) {
+        this.elementsHolder.onScroll(event);
+    }
 }
 
 export { Scene };

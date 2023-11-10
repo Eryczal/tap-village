@@ -4,46 +4,46 @@ import { Menu } from "../_elements/Menu.js";
 import { Wood, Stone, Gold, Gem } from "../_elements/Resources.js";
 
 class MainScene extends Scene {
-	constructor(game) {
-		super(game);
-	}
+    constructor(game) {
+        super(game);
+    }
 
-	init() {
-		let menu = new Menu(this.game);
+    init() {
+        let menu = new Menu(this.game);
 
-		this.elementsHolder.addElement("menu", menu);
-		this.elementsHolder.addElement("map", new Map(this.game, menu));
-		this.elementsHolder.addElement("wood", new Wood(this.game));
-		this.elementsHolder.addElement("stone", new Stone(this.game));
-		this.elementsHolder.addElement("gold", new Gold(this.game));
-		this.elementsHolder.addElement("gem", new Gem(this.game));
+        this.elementsHolder.addElement("menu", menu);
+        this.elementsHolder.addElement("map", new Map(this.game, menu));
+        this.elementsHolder.addElement("wood", new Wood(this.game));
+        this.elementsHolder.addElement("stone", new Stone(this.game));
+        this.elementsHolder.addElement("gold", new Gold(this.game));
+        this.elementsHolder.addElement("gem", new Gem(this.game));
 
-		super.init();
-	}
+        super.init();
+    }
 
-	onMouseDrag(mouseLastPos, event) {
-		this.elementsHolder.elements.map?.onMouseDrag(mouseLastPos, event);
-	}
+    onMouseDrag(mouseLastPos, event) {
+        this.elementsHolder.elements.map?.onMouseDrag(mouseLastPos, event);
+    }
 
-	onMouseMove(mouseLastPos, event) {
-		this.elementsHolder.elements.map?.onMouseMove(mouseLastPos, event);
-	}
+    onMouseMove(mouseLastPos, event) {
+        this.elementsHolder.elements.map?.onMouseMove(mouseLastPos, event);
+    }
 
-	onMouseDown(mouseX, mouseY) {
-		this.elementsHolder.elements.map?.onMouseDown(mouseX);
-	}
+    onMouseDown(mouseX, mouseY) {
+        this.elementsHolder.elements.map?.onMouseDown(mouseX);
+    }
 
-	onMouseUp(mouseX, mouseY) {
-		this.elementsHolder.elements.map?.onMouseUp();
-	}
+    onMouseUp(mouseX, mouseY) {
+        this.elementsHolder.elements.map?.onMouseUp();
+    }
 
-	onRightClick(mouseX, mouseY) {
-		this.elementsHolder.elements.map?.onRightClick(mouseX, mouseY);
-	}
+    onRightClick(mouseX, mouseY) {
+        this.elementsHolder.elements.map?.onRightClick(mouseX, mouseY);
+    }
 
-	onScroll(event) {
-		this.elementsHolder.elements.map?.onScroll(event);
-	}
+    onScroll(event) {
+        this.elementsHolder.elements.map?.onScroll(event);
+    }
 }
 
 export { MainScene };
