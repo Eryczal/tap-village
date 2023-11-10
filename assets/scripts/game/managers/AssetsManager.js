@@ -196,13 +196,13 @@ class AssetsManager {
     playRandomMusic() {
         let time = this.game.time;
         if (!this.playingMusic) {
-            if (time >= 600 && time < 1080) {
+            if (time >= 480 && time < 1200) {
                 this.selectRandomMusic(2, "dayMusic");
             } else if (time >= 1320 || time < 360) {
                 this.selectRandomMusic(1, "nightMusic");
-            } else if (time >= 360 && time < 600) {
+            } else if (time >= 360 && time < 480) {
                 this.selectRandomMusic(2, "dawnMusic");
-            } else if (time >= 1080 && time < 1320) {
+            } else if (time >= 1200 && time < 1320) {
                 this.selectRandomMusic(1, "duskMusic");
             } else {
                 setTimeout(() => this.playRandomMusic(), 5000);
@@ -226,10 +226,10 @@ class AssetsManager {
         let time = this.game.time;
         clearTimeout(this.musicCheckTimeout);
         if (
-            (time >= 600 && time < 1080 && name !== "dayMusic") ||
+            (time >= 480 && time < 1200 && name !== "dayMusic") ||
             ((time >= 1320 || time < 360) && name !== "nightMusic") ||
-            (time >= 360 && time < 400 && name !== "dawnMusic") ||
-            (time >= 1080 && time < 1200 && name !== "duskMusic")
+            (time >= 360 && time < 480 && name !== "dawnMusic") ||
+            (time >= 1200 && time < 1320 && name !== "duskMusic")
         ) {
             music.volume -= 0.01;
             music.onended = null;

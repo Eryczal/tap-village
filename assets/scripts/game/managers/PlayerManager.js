@@ -20,6 +20,10 @@ class PlayerManager {
         }
 
         this.preferedZoom = 1;
+        this.lastMapPos = {
+            x: 0,
+            y: 0,
+        };
     }
 
     init(playerId) {

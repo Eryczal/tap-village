@@ -57,9 +57,19 @@ class Gold extends Resource {
     }
 }
 
+class Coin extends Resource {
+    constructor(game) {
+        super(game, 3, game.playerManager.coin, game.assetsManager.images.coinIcon);
+    }
+
+    update() {
+        this.text = this.game.playerManager.coin;
+    }
+}
+
 class Gem extends Resource {
     constructor(game) {
-        super(game, 3, game.playerManager.gem, game.assetsManager.images.gemIcon);
+        super(game, 4, game.playerManager.gem, game.assetsManager.images.gemIcon);
     }
 
     update() {
@@ -67,4 +77,4 @@ class Gem extends Resource {
     }
 }
 
-export { Wood, Stone, Gold, Gem };
+export { Wood, Stone, Gold, Coin, Gem };

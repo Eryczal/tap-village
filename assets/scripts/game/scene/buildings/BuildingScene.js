@@ -2,7 +2,7 @@ import { Scene } from "../Scene.js";
 import { BuildingName } from "./_elements/BuildingName.js";
 import { BackButton, UpgradeButton } from "./_elements/Buttons.js";
 import { Menu } from "../_elements/Menu.js";
-import { Wood, Stone, Gold, Gem } from "../_elements/Resources.js";
+import { Wood, Stone, Gold, Coin, Gem } from "../_elements/Resources.js";
 
 class BuildingScene extends Scene {
     constructor(game) {
@@ -15,6 +15,7 @@ class BuildingScene extends Scene {
         this.elementsHolder.addElement("wood", new Wood(this.game));
         this.elementsHolder.addElement("stone", new Stone(this.game));
         this.elementsHolder.addElement("gold", new Gold(this.game));
+        this.elementsHolder.addElement("coin", new Coin(this.game));
         this.elementsHolder.addElement("gem", new Gem(this.game));
 
         this.elementsHolder.addElement("BuildingName", new BuildingName(this.game, menu));

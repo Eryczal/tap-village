@@ -540,8 +540,6 @@ class BuildingsManager {
             upgrading: building.upgrading,
         };
 
-        console.log(building);
-
         switch (building.buildingId) {
             case 1:
             case 2:

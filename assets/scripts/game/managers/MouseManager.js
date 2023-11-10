@@ -16,32 +16,36 @@ class MouseManager {
     }
 
     onMouseDown(event) {
-        this.mouseLastPos = {
-            x: event.clientX,
-            y: event.clientY,
-        };
+        if (event.button === 0) {
+            this.mouseLastPos = {
+                x: event.clientX,
+                y: event.clientY,
+            };
 
-        this.game.sceneManager.onMouseDown(event.clientX, event.clientY);
+            this.game.sceneManager.onMouseDown(event.clientX, event.clientY);
+        }
     }
 
     onMouseUp(event) {
-        let diff = {
-            x: Math.abs(event.clientX - this.mouseLastPos.x),
-            y: Math.abs(event.clientY - this.mouseLastPos.y),
-        };
+        if (event.button === 0) {
+            let diff = {
+                x: Math.abs(event.clientX - this.mouseLastPos.x),
+                y: Math.abs(event.clientY - this.mouseLastPos.y),
+            };
 
-        if (diff.x < this.mouseDelta && diff.y < this.mouseDelta) {
-            this.onClick(event);
+            if (diff.x < this.mouseDelta && diff.y < this.mouseDelta) {
+                this.onClick(event);
+            }
+
+            this.game.sceneManager.onMouseUp(event.clientX, event.clientY);
+
+            this.mouseLastPos = null;
         }
-
-        this.game.sceneManager.onMouseUp(event.clientX, event.clientY);
-
-        this.mouseLastPos = null;
     }
 
     onMouseMove(event) {
         if (this.mouseLastPos !== null) {
-            if (event.buttons == 1) {
+            if (event.buttons === 1) {
                 this.game.sceneManager.onMouseDrag(this.mouseLastPos, event);
             }
         } else {

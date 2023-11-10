@@ -77,13 +77,13 @@ class Map extends Element {
         this.time = 6;
 
         this.oldMapScroll = {
-            x: 0,
-            y: 0,
+            x: this.game.playerManager.lastMapPos.x,
+            y: this.game.playerManager.lastMapPos.y,
         };
 
         this.mapScroll = {
-            x: 0,
-            y: 0,
+            x: this.game.playerManager.lastMapPos.x,
+            y: this.game.playerManager.lastMapPos.y,
         };
 
         this.selectedTile = {
@@ -198,6 +198,30 @@ class Map extends Element {
         this.drawDayCycle();
 
         this.menu.draw();
+
+        let hours = Math.floor(this.game.time / 60);
+        hours = hours < 10 ? "0" + hours : hours;
+        let minutes = Math.floor(this.game.time % 60);
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+
+        this.game.strokeText(
+            `${hours}:${minutes}`,
+            this.game.canvas.width * 0.99,
+            this.game.canvas.width * 0.01,
+            this.game.canvas.width / 50,
+            "#ccc",
+            "right",
+            "top"
+        );
+        this.game.writeText(
+            `${hours}:${minutes}`,
+            this.game.canvas.width * 0.99,
+            this.game.canvas.width * 0.01,
+            this.game.canvas.width / 50,
+            "#000",
+            "right",
+            "top"
+        );
     }
 
     drawDayCycle() {
@@ -208,21 +232,21 @@ class Map extends Element {
 
         let gradient = this.game.ctx.createLinearGradient(0, this.mapScroll.y, 0, map.length * this.TILE_SIZE + this.mapScroll.y);
 
-        if (this.game.time >= 360 && this.game.time < 480) {
-            let progress = ((this.game.time - 360) / (480 - 360)) * 0.5;
+        if (this.game.time >= 480 && this.game.time < 540) {
+            let progress = ((this.game.time - 480) / (540 - 480)) * 0.5;
             gradient.addColorStop(0, colorStops.sun + progress / 2 + ")");
             gradient.addColorStop(progress * 2, colorStops.night + "0.5)");
             gradient.addColorStop(1, colorStops.night + "0.5)");
-        } else if (this.game.time >= 480 && this.game.time < 600) {
-            let progress = ((this.game.time - 480) / (600 - 480)) * 0.5;
+        } else if (this.game.time >= 540 && this.game.time < 600) {
+            let progress = ((this.game.time - 540) / (600 - 540)) * 0.5;
             gradient.addColorStop(0, colorStops.sun + (0.5 - progress) / 2 + ")");
             gradient.addColorStop(1, colorStops.night + (0.5 - progress) + ")");
-        } else if (this.game.time >= 1080 && this.game.time < 1200) {
-            let progress = ((this.game.time - 1080) / (1200 - 1080)) * 0.5;
+        } else if (this.game.time >= 1200 && this.game.time < 1260) {
+            let progress = ((this.game.time - 1200) / (1260 - 1200)) * 0.5;
             gradient.addColorStop(0, colorStops.night + progress + ")");
             gradient.addColorStop(1, colorStops.sun + progress / 2 + ")");
-        } else if (this.game.time >= 1200 && this.game.time < 1320) {
-            let progress = ((this.game.time - 1200) / (1320 - 1200)) * 0.5;
+        } else if (this.game.time >= 1260 && this.game.time < 1320) {
+            let progress = ((this.game.time - 1260) / (1320 - 1260)) * 0.5;
             gradient.addColorStop(0, colorStops.night + "0.5)");
             gradient.addColorStop(progress * 2, colorStops.night + "0.5)");
             gradient.addColorStop(1, colorStops.sun + "0.25)");
@@ -345,6 +369,10 @@ class Map extends Element {
             }
 
             if (this.game.buildingsManager.onClick(mouseX, mouseY)) {
+                this.game.playerManager.lastMapPos = {
+                    x: this.mapScroll.x,
+                    y: this.mapScroll.y,
+                };
                 this.game.assetsManager.playAudio("click2", true);
                 return;
             }
