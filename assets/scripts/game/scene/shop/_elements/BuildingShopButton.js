@@ -5,19 +5,22 @@ class BuildingShopButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
         super(game, x, y, width, height, parent);
 
-        if (this.canBuy()) {
-            this.color = "#000";
+        if (this.isMaxed()) {
+            this.color = "#ccc";
+            this.sColor = "#333";
+        } else if (this.canBuy()) {
+            this.color = "#3f3";
         } else {
-            this.color = "#999";
+            this.color = "#f33";
         }
 
-        this.clickable = this.canBuy();
+        this.clickable = this.canBuy() && !this.isMaxed();
 
-        this.text = this.game.buildingsManager.countBuilding(parent.id) < buildings[parent.id].maxOnMap ? "Kup" : "Maksymalna ilość";
+        this.text = this.isMaxed() ? "Maksymalna ilość" : "Kup";
     }
 
     onClick(mouseX, mouseY) {
-        if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
+        if (this.isMouseOver(mouseX, mouseY) && this.canBuy() && !this.isMaxed()) {
             if (this.game.constructionManager.constructionState === null) {
                 let building = buildings[this.parent.id];
                 if (this.parent.id === 0 || this.game.buildingsManager.countBuilding(0) === 1) {
@@ -48,8 +51,7 @@ class BuildingShopButton extends BuyButton {
         return (
             this.game.playerManager.wood >= buildings[this.parent.id].cost.wood &&
             this.game.playerManager.stone >= buildings[this.parent.id].cost.stone &&
-            this.game.playerManager.gold >= buildings[this.parent.id].cost.gold &&
-            !this.isMaxed()
+            this.game.playerManager.gold >= buildings[this.parent.id].cost.gold
         );
     }
 

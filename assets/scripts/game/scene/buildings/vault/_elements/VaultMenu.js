@@ -57,6 +57,7 @@ class Button extends Element {
         this.game.ctx.shadowColor = "rgba(0, 0, 0, 0)";
         this.game.ctx.shadowBlur = 0;
 
+        this.game.strokeText(this.text.value, this.text.x, this.text.y, this.img.width / 2);
         this.game.writeText(this.text.value, this.text.x, this.text.y, this.img.width / 2);
     }
 }

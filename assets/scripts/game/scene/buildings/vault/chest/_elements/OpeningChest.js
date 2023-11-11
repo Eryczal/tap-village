@@ -151,16 +151,19 @@ class OpeningChest extends Element {
                 return "#999";
 
             case 1:
-                return "#4bb043";
+                return "#633";
 
             case 2:
-                return "#47b9d7";
+                return "#363";
 
             case 3:
-                return "#ae47d7";
+                return "#336";
 
             case 4:
-                return "#e6bc39";
+                return "#3eb";
+
+            case 5:
+                return "#eb3";
         }
     }
 
@@ -205,8 +208,10 @@ class OpeningChest extends Element {
             this.openingAnimation = true;
             this.openChest();
         } else {
-            this.openAgainButton.onClick(mouseX, mouseY);
-            this.chestReturnButton.onClick(mouseX, mouseY);
+            if (typeof this.game.sceneManager.currentScene.data?.id === "number") {
+                this.openAgainButton.onClick(mouseX, mouseY);
+                this.chestReturnButton.onClick(mouseX, mouseY);
+            }
         }
     }
 

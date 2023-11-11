@@ -8,9 +8,9 @@ class ChestButton extends BuyButton {
         this.clickable = this.canBuy();
 
         if (this.canBuy()) {
-            this.color = "#000";
+            this.color = "#fff";
         } else {
-            this.color = "#999";
+            this.color = "#f33";
         }
 
         this.text = chests[this.parent.id].cost;
@@ -31,6 +31,7 @@ class ChestButton extends BuyButton {
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
         this.game.ctx.drawImage(this.game.assetsManager.images.coinIcon, this.resource.x, this.resource.y, this.resource.width, this.resource.height);
+        this.game.strokeText(this.text, this.resource.x + this.resource.width * 1.2, this.y + this.height / 2, this.height * 0.8, "#000", "left");
         this.game.writeText(this.text, this.resource.x + this.resource.width * 1.2, this.y + this.height / 2, this.height * 0.8, this.color, "left");
     }
 

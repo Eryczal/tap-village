@@ -24,19 +24,23 @@ class Card extends Element {
                 break;
 
             case 1:
-                this.bgColor = "#4bb043";
+                this.bgColor = "#633";
                 break;
 
             case 2:
-                this.bgColor = "#47b9d7";
+                this.bgColor = "#363";
                 break;
 
             case 3:
-                this.bgColor = "#ae47d7";
+                this.bgColor = "#336";
                 break;
 
             case 4:
-                this.bgColor = "#e6bc39";
+                this.bgColor = "#3eb";
+                break;
+
+            case 5:
+                this.bgColor = "#eb3";
                 break;
         }
 

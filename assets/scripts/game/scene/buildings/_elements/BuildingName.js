@@ -23,16 +23,24 @@ class BuildingName extends Element {
             buildings[building.buildingId].name,
             this.SCREEN_SIZE / 2 + this.MENU_SIZE,
             this.game.canvas.height / 16,
-            this.game.canvas.height / 16
+            this.game.canvas.height / 16,
+            "#000"
         );
         this.game.writeText(
             buildings[building.buildingId].name,
             this.SCREEN_SIZE / 2 + this.MENU_SIZE,
             this.game.canvas.height / 16,
-            this.game.canvas.height / 16
+            this.game.canvas.height / 16,
+            "#fff"
         );
-        this.game.strokeText("Poziom " + building.lvl, this.SCREEN_SIZE / 2 + this.MENU_SIZE, this.game.canvas.height / 9, this.game.canvas.height / 27);
-        this.game.writeText("Poziom " + building.lvl, this.SCREEN_SIZE / 2 + this.MENU_SIZE, this.game.canvas.height / 9, this.game.canvas.height / 27);
+        this.game.strokeText(
+            "Poziom " + building.lvl,
+            this.SCREEN_SIZE / 2 + this.MENU_SIZE,
+            this.game.canvas.height / 9,
+            this.game.canvas.height / 27,
+            "#000"
+        );
+        this.game.writeText("Poziom " + building.lvl, this.SCREEN_SIZE / 2 + this.MENU_SIZE, this.game.canvas.height / 9, this.game.canvas.height / 27, "#fff");
     }
 }
 

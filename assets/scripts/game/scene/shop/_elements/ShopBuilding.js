@@ -63,6 +63,14 @@ class ShopBuilding extends Element {
     }
 
     draw() {
+        let player = this.game.playerManager;
+
+        this.game.strokeText(
+            buildings[this.id].size.x + "x" + buildings[this.id].size.y,
+            this.x + this.size / 2,
+            this.y - this.MAX_IMAGE_SIZE / 6 - this.scroll,
+            this.TEXT_SIZE
+        );
         this.game.writeText(
             buildings[this.id].size.x + "x" + buildings[this.id].size.y,
             this.x + this.size / 2,
@@ -78,15 +86,17 @@ class ShopBuilding extends Element {
             this.IMAGE_SIZE_Y
         );
 
-        this.game.writeText(buildings[this.id].name, this.x + this.size / 2, this.HEADER_Y - this.scroll, this.TEXT_HEADING_SIZE, "#000", "center", "top");
+        this.game.strokeText(buildings[this.id].name, this.x + this.size / 2, this.HEADER_Y - this.scroll, this.TEXT_HEADING_SIZE, "#000", "center", "top");
+        this.game.writeText(buildings[this.id].name, this.x + this.size / 2, this.HEADER_Y - this.scroll, this.TEXT_HEADING_SIZE, "#fff", "center", "top");
 
-        this.game.writeText(this.buildingDescription, this.x + this.size / 2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#000", "center", "top");
+        this.game.strokeText(this.buildingDescription, this.x + this.size / 2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#000", "center", "top");
+        this.game.writeText(this.buildingDescription, this.x + this.size / 2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#ccc", "center", "top");
 
         let iconX = this.x + this.MAX_IMAGE_SIZE / 2;
 
         this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, iconX, this.RESOURCE_Y - this.scroll, this.ICON_SIZE, this.ICON_SIZE);
 
-        let woodSize = this.game.writeText(
+        this.game.strokeText(
             buildings[this.id].cost.wood,
             iconX + this.ICON_SIZE + this.TEXT_SPACING,
             this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
@@ -95,11 +105,20 @@ class ShopBuilding extends Element {
             "left"
         );
 
+        let woodSize = this.game.writeText(
+            buildings[this.id].cost.wood,
+            iconX + this.ICON_SIZE + this.TEXT_SPACING,
+            this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
+            this.TEXT_SIZE,
+            player.wood >= buildings[this.id].cost.wood ? "#0f0" : "#f00",
+            "left"
+        );
+
         iconX += woodSize.sizes[0].width + this.ICON_SPACING + this.ICON_SIZE;
 
         this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, iconX, this.RESOURCE_Y - this.scroll, this.ICON_SIZE, this.ICON_SIZE);
 
-        let stoneSize = this.game.writeText(
+        this.game.strokeText(
             buildings[this.id].cost.stone,
             iconX + this.ICON_SIZE + this.TEXT_SPACING,
             this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
@@ -107,17 +126,33 @@ class ShopBuilding extends Element {
             "#000",
             "left"
         );
+        let stoneSize = this.game.writeText(
+            buildings[this.id].cost.stone,
+            iconX + this.ICON_SIZE + this.TEXT_SPACING,
+            this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
+            this.TEXT_SIZE,
+            player.stone >= buildings[this.id].cost.stone ? "#0f0" : "#f00",
+            "left"
+        );
 
         iconX += stoneSize.sizes[0].width + this.ICON_SPACING + this.ICON_SIZE;
 
         this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, iconX, this.RESOURCE_Y - this.scroll, this.ICON_SIZE, this.ICON_SIZE);
 
+        this.game.strokeText(
+            buildings[this.id].cost.gold,
+            iconX + this.ICON_SIZE + this.TEXT_SPACING,
+            this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
+            this.TEXT_SIZE,
+            "#00",
+            "left"
+        );
         this.game.writeText(
             buildings[this.id].cost.gold,
             iconX + this.ICON_SIZE + this.TEXT_SPACING,
             this.RESOURCE_Y - this.scroll + this.ICON_SIZE / 2,
             this.TEXT_SIZE,
-            "#000",
+            player.gold >= buildings[this.id].cost.gold ? "#0f0" : "#f00",
             "left"
         );
 

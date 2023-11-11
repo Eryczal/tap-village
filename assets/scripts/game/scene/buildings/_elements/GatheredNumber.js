@@ -35,8 +35,8 @@ class GatheredNumber {
     }
 
     draw() {
-        this.game.strokeText(this.amount, this.x, this.y, this.size);
-        this.game.writeText(this.amount, this.x, this.y, this.size, this.critic ? "#f00" : "#000");
+        this.game.strokeText(this.amount, this.x, this.y, this.size, "#000");
+        this.game.writeText(this.amount, this.x, this.y, this.size, this.critic ? "#f33" : "#fff");
     }
 }
 

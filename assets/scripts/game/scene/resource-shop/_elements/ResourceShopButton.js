@@ -6,9 +6,9 @@ class ResourceShopButton extends BuyButton {
         super(game, x, y, width, height, parent);
 
         if (this.canBuy()) {
-            this.color = "#000";
+            this.color = "#3f3";
         } else {
-            this.color = "#999";
+            this.color = "#f33";
         }
 
         this.clickable = this.canBuy();

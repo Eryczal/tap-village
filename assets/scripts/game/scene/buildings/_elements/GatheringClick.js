@@ -36,8 +36,8 @@ class GatheringClick extends Element {
 
     draw() {
         let diff = (this.iconSize - this.cIconSize) / 2;
-        this.game.strokeText(this.text, this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24);
-        this.game.writeText(this.text, this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24);
+        this.game.strokeText(this.text, this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24, "#000");
+        this.game.writeText(this.text, this.x + this.width / 2, this.y - this.game.canvas.height / 24, this.game.canvas.height / 24, "#fff");
         this.game.ctx.drawImage(this.game.assetsManager.images.buildingClick, this.x, this.y, this.width, this.height);
         this.game.ctx.drawImage(this.game.assetsManager.images[this.resource + "Icon"], this.iconX + diff, this.iconY + diff, this.cIconSize, this.cIconSize);
 

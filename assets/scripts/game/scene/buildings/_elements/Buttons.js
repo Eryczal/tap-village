@@ -31,6 +31,7 @@ class BackButton extends Element {
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
+        this.game.strokeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         this.game.writeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
     }
 }
@@ -77,6 +78,7 @@ class UpgradeButton extends BackButton {
 
     draw() {
         let textX = this.x + this.offset;
+        let player = this.game.playerManager;
 
         this.game.ctx.drawImage(this.game.assetsManager.images.upgradeButton, this.x, this.y, this.width, this.height);
 
@@ -87,29 +89,56 @@ class UpgradeButton extends BackButton {
                 this.game.ctx.rect(this.x, this.y - this.height / 1.5, this.width, this.height / 1.5);
                 this.game.ctx.fill();
 
+                this.game.strokeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
                 this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 
                 this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
                 textX += this.height / 2 + this.offset * 2;
 
-                let woodSize = this.game.writeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2);
+                this.game.strokeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
+                let woodSize = this.game.writeText(
+                    this.cost.wood,
+                    textX,
+                    this.y - this.height / 3,
+                    this.height / 2,
+                    player.wood >= this.cost.wood ? "#0f0" : "#f00",
+                    "left"
+                );
                 textX += woodSize.sizes[0].width + this.offset * 2;
 
                 this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
                 textX += this.height / 2 + this.offset * 2;
 
-                let stoneSize = this.game.writeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2);
+                this.game.strokeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
+                let stoneSize = this.game.writeText(
+                    this.cost.stone,
+                    textX,
+                    this.y - this.height / 3,
+                    this.height / 2,
+                    player.stone >= this.cost.stone ? "#0f0" : "#f00",
+                    "left"
+                );
                 textX += stoneSize.sizes[0].width + this.offset * 2;
 
                 this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
                 textX += this.height / 2 + this.offset * 2;
 
-                let goldSize = this.game.writeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2);
+                this.game.strokeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
+                let goldSize = this.game.writeText(
+                    this.cost.gold,
+                    textX,
+                    this.y - this.height / 3,
+                    this.height / 2,
+                    player.gold >= this.cost.gold ? "#0f0" : "#f00",
+                    "left"
+                );
                 textX += goldSize.sizes[0].width + this.offset * 2;
             } else {
+                this.game.strokeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
                 this.game.writeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             }
         } else {
+            this.game.strokeText("Wymaga ulepszenia zamku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText("Wymaga ulepszenia zamku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         }
     }

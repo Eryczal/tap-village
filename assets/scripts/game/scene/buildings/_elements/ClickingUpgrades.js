@@ -39,21 +39,28 @@ class BuildingButton extends Element {
                 case 1:
                     this[stat] = SawmillBuilding.stats[stat];
                     this.cost = SawmillBuilding.statsCost[stat];
+                    this.gatheringCard = cards[4].upgrades[this.game.playerManager.cards[4].lvl];
+                    this.chanceCard = cards[0].upgrades[this.game.playerManager.cards[0].lvl];
                     break;
 
                 case 2:
                     this[stat] = QuarryBuilding.stats[stat];
                     this.cost = QuarryBuilding.statsCost[stat];
+                    this.gatheringCard = cards[5].upgrades[this.game.playerManager.cards[5].lvl];
+                    this.chanceCard = cards[1].upgrades[this.game.playerManager.cards[1].lvl];
                     break;
 
                 case 3:
                     this[stat] = MineBuilding.stats[stat];
                     this.cost = MineBuilding.statsCost[stat];
+                    this.gatheringCard = cards[6].upgrades[this.game.playerManager.cards[6].lvl];
+                    this.chanceCard = cards[2].upgrades[this.game.playerManager.cards[2].lvl];
                     break;
 
                 case 4:
                     this[stat] = WorkshopBuilding.stats[stat];
                     this.cost = WorkshopBuilding.statsCost[stat];
+                    this.gatheringCard = 0;
                     break;
             }
         } else {
@@ -82,21 +89,28 @@ class BuildingButton extends Element {
                 case 1:
                     this[this.stat] = SawmillBuilding.stats[this.stat];
                     this.cost = SawmillBuilding.statsCost[this.stat];
+                    this.gatheringCard = cards[4].upgrades[this.game.playerManager.cards[4].lvl];
+                    this.chanceCard = cards[0].upgrades[this.game.playerManager.cards[0].lvl];
                     break;
 
                 case 2:
                     this[this.stat] = QuarryBuilding.stats[this.stat];
                     this.cost = QuarryBuilding.statsCost[this.stat];
+                    this.gatheringCard = cards[5].upgrades[this.game.playerManager.cards[5].lvl];
+                    this.chanceCard = cards[1].upgrades[this.game.playerManager.cards[1].lvl];
                     break;
 
                 case 3:
                     this[this.stat] = MineBuilding.stats[this.stat];
                     this.cost = MineBuilding.statsCost[this.stat];
+                    this.gatheringCard = cards[6].upgrades[this.game.playerManager.cards[6].lvl];
+                    this.chanceCard = cards[2].upgrades[this.game.playerManager.cards[2].lvl];
                     break;
 
                 case 4:
                     this[this.stat] = WorkshopBuilding.stats[this.stat];
                     this.cost = WorkshopBuilding.statsCost[this.stat];
+                    this.gatheringCard = 0;
                     break;
             }
             this.building.saveType();
@@ -112,34 +126,50 @@ class BuildingButton extends Element {
             gold: Math.ceil(this.cost.gold - (this.cost.gold * cards[10].upgrades[this.game.playerManager.cards[10].lvl]) / 100),
         };
 
+        this.updateTexts?.();
+
         this.onHover(mouseX, mouseY);
     }
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
         if (this.state === 0) {
+            this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         } else if (this.state === 1) {
             let textX = this.x + this.offset;
+            let player = this.game.playerManager;
+            let cost = this.actualCost;
 
             this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
             textX += this.height / 2 + this.offset;
 
-            let woodSize = this.game.writeText(this.actualCost.wood, textX, this.y + this.height / 2, this.height / 2);
+            this.game.strokeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
+            let woodSize = this.game.writeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, player.wood > cost.wood ? "#3f3" : "#f33", "left");
             textX += woodSize.sizes[0].width + this.offset * 2;
 
             this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
             textX += this.height / 2 + this.offset;
 
-            let stoneSize = this.game.writeText(this.actualCost.stone, textX, this.y + this.height / 2, this.height / 2);
+            this.game.strokeText(cost.stone, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
+            let stoneSize = this.game.writeText(
+                cost.stone,
+                textX,
+                this.y + this.height / 2,
+                this.height / 2,
+                player.stone > cost.stone ? "#3f3" : "#f33",
+                "left"
+            );
             textX += stoneSize.sizes[0].width + this.offset * 2;
 
             this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
             textX += this.height / 2 + this.offset;
 
-            let goldSize = this.game.writeText(this.actualCost.gold, textX, this.y + this.height / 2, this.height / 2);
+            this.game.strokeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
+            let goldSize = this.game.writeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, player.gold > cost.gold ? "#3f3" : "#f33", "left");
             textX += goldSize.sizes[0].width + this.offset * 2;
         } else {
+            this.game.strokeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         }
     }
@@ -152,26 +182,39 @@ class BuildingButton extends Element {
 class GatheringPower extends BuildingButton {
     constructor(game, menu) {
         super(game, menu, "Ulepsz", "gatheringPower");
+
+        this.updateTexts();
+    }
+
+    updateTexts() {
+        this.texts = [
+            `Moc zbierania `,
+            `${Math.floor(this.gatheringPower + (this.gatheringPower * this.gatheringCard) / 100)} `,
+            `-> `,
+            `${Math.floor(this.gatheringPower + 1 + ((this.gatheringPower + 1) * this.gatheringCard) / 100)} `,
+        ];
+
+        this.textSizes = [
+            this.game.writeText(this.texts[0], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[1], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[2], 0, 0, this.height / 2, "transparent").sizes[0].width,
+        ];
+
+        this.textX = [
+            this.x,
+            this.x + this.textSizes[0],
+            this.x + this.textSizes[0] + this.textSizes[1],
+            this.x + this.textSizes[0] + this.textSizes[1] + this.textSizes[2],
+        ];
     }
 
     draw() {
         super.draw();
-        this.game.strokeText(
-            `Moc zbierania ${this.gatheringPower} -> ${this.gatheringPower + 1}`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#ccc",
-            "left"
-        );
-        this.game.writeText(
-            `Moc zbierania ${this.gatheringPower} -> ${this.gatheringPower + 1}`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#000",
-            "left"
-        );
+        this.game.strokeText(this.texts[0] + this.texts[1] + this.texts[2] + this.texts[3], this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+        this.game.writeText(this.texts[0], this.textX[0], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[1], this.textX[1], this.y - this.height / 4, this.height / 2, this.gatheringCard > 0 ? "#3cf" : "#fff", "left");
+        this.game.writeText(this.texts[2], this.textX[2], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[3], this.textX[3], this.y - this.height / 4, this.height / 2, this.gatheringCard > 0 ? "#3cf" : "#fff", "left");
     }
 
     onHover(mouseX, mouseY) {
@@ -234,26 +277,39 @@ class GatheringPower extends BuildingButton {
 class GatheringChance extends BuildingButton {
     constructor(game, menu) {
         super(game, menu, "Ulepsz", "gatheringChance", 2);
+
+        this.updateTexts();
+    }
+
+    updateTexts() {
+        this.texts = [
+            `Szansa zbierania `,
+            `${Math.floor(this.gatheringChance + this.chanceCard)}% `,
+            `-> `,
+            `${Math.floor(this.gatheringChance + 1 + this.chanceCard)}% `,
+        ];
+
+        this.textSizes = [
+            this.game.writeText(this.texts[0], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[1], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[2], 0, 0, this.height / 2, "transparent").sizes[0].width,
+        ];
+
+        this.textX = [
+            this.x,
+            this.x + this.textSizes[0],
+            this.x + this.textSizes[0] + this.textSizes[1],
+            this.x + this.textSizes[0] + this.textSizes[1] + this.textSizes[2],
+        ];
     }
 
     draw() {
         super.draw();
-        this.game.strokeText(
-            `Szansa zebrania ${this.gatheringChance}% -> ${this.gatheringChance + 1}%`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#ccc",
-            "left"
-        );
-        this.game.writeText(
-            `Szansa zebrania ${this.gatheringChance}% -> ${this.gatheringChance + 1}%`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#000",
-            "left"
-        );
+        this.game.strokeText(this.texts[0] + this.texts[1] + this.texts[2] + this.texts[3], this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+        this.game.writeText(this.texts[0], this.textX[0], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[1], this.textX[1], this.y - this.height / 4, this.height / 2, this.chanceCard > 0 ? "#3cf" : "#fff", "left");
+        this.game.writeText(this.texts[2], this.textX[2], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[3], this.textX[3], this.y - this.height / 4, this.height / 2, this.chanceCard > 0 ? "#3cf" : "#fff", "left");
     }
 
     onHover(mouseX, mouseY) {
@@ -325,7 +381,7 @@ class BuildingPower extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#ccc",
+            "#000",
             "left"
         );
         this.game.writeText(
@@ -333,7 +389,7 @@ class BuildingPower extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#000",
+            "#fff",
             "left"
         );
     }
@@ -378,26 +434,39 @@ class BuildingPower extends BuildingButton {
 class CriticPower extends BuildingButton {
     constructor(game, menu) {
         super(game, menu, "Ulepsz", "criticalPower", 4);
+
+        this.updateTexts();
+    }
+
+    updateTexts() {
+        this.texts = [
+            `Moc ciosu kryt. `,
+            `${Math.floor(this.criticalPower + (this.criticalPower * this.gatheringCard) / 100)} `,
+            `-> `,
+            `${Math.floor(this.criticalPower + 1 + ((this.criticalPower + 1) * this.gatheringCard) / 100)} `,
+        ];
+
+        this.textSizes = [
+            this.game.writeText(this.texts[0], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[1], 0, 0, this.height / 2, "transparent").sizes[0].width,
+            this.game.writeText(this.texts[2], 0, 0, this.height / 2, "transparent").sizes[0].width,
+        ];
+
+        this.textX = [
+            this.x,
+            this.x + this.textSizes[0],
+            this.x + this.textSizes[0] + this.textSizes[1],
+            this.x + this.textSizes[0] + this.textSizes[1] + this.textSizes[2],
+        ];
     }
 
     draw() {
         super.draw();
-        this.game.strokeText(
-            `Moc ciosu kryt. ${this.criticalPower} -> ${this.criticalPower + 1}`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#ccc",
-            "left"
-        );
-        this.game.writeText(
-            `Moc ciosu kryt. ${this.criticalPower} -> ${this.criticalPower + 1}`,
-            this.x,
-            this.y - this.height / 4,
-            this.height / 2,
-            "#000",
-            "left"
-        );
+        this.game.strokeText(this.texts[0] + this.texts[1] + this.texts[2] + this.texts[3], this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+        this.game.writeText(this.texts[0], this.textX[0], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[1], this.textX[1], this.y - this.height / 4, this.height / 2, this.gatheringCard > 0 ? "#3cf" : "#fff", "left");
+        this.game.writeText(this.texts[2], this.textX[2], this.y - this.height / 4, this.height / 2, "#fff", "left");
+        this.game.writeText(this.texts[3], this.textX[3], this.y - this.height / 4, this.height / 2, this.gatheringCard > 0 ? "#3cf" : "#fff", "left");
     }
 
     onHover(mouseX, mouseY) {
@@ -473,7 +542,7 @@ class CriticChance extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#ccc",
+            "#000",
             "left"
         );
         this.game.writeText(
@@ -481,7 +550,7 @@ class CriticChance extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#000",
+            "#fff",
             "left"
         );
     }
@@ -556,8 +625,8 @@ class Workers extends BuildingButton {
 
     draw() {
         super.draw();
-        this.game.strokeText(`Liczba pracowników ${this.workers} -> ${this.workers + 1}`, this.x, this.y - this.height / 4, this.height / 2, "#ccc", "left");
-        this.game.writeText(`Liczba pracowników ${this.workers} -> ${this.workers + 1}`, this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+        this.game.strokeText(`Liczba pracowników ${this.workers} -> ${this.workers + 1}`, this.x, this.y - this.height / 4, this.height / 2, "#000", "left");
+        this.game.writeText(`Liczba pracowników ${this.workers} -> ${this.workers + 1}`, this.x, this.y - this.height / 4, this.height / 2, "#fff", "left");
     }
 
     onHover(mouseX, mouseY) {
@@ -621,7 +690,7 @@ class WorkersSpeed extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#ccc",
+            "#000",
             "left"
         );
         this.game.writeText(
@@ -629,7 +698,7 @@ class WorkersSpeed extends BuildingButton {
             this.x,
             this.y - this.height / 4,
             this.height / 2,
-            "#000",
+            "#fff",
             "left"
         );
     }

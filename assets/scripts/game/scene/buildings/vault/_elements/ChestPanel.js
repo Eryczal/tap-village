@@ -45,8 +45,10 @@ class ChestPanel extends Element {
     }
 
     onClick(mouseX, mouseY) {
-        for (let i = 0; i < this.chests.length; i++) {
-            this.chests[i].onClick(mouseX, mouseY);
+        if (!this.game.sceneManager.currentScene.elementsHolder?.elements?.BackButton?.isMouseOver(mouseX, mouseY)) {
+            for (let i = 0; i < this.chests.length; i++) {
+                this.chests[i].onClick(mouseX, mouseY);
+            }
         }
     }
 

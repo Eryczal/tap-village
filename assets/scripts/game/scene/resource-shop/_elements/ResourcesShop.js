@@ -36,7 +36,8 @@ class ResourcesShop extends Element {
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, canvas.height);
 
-        this.game.writeText("Zasoby", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#000", "center", "top");
+        this.game.strokeText("Zasoby", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#000", "center", "top");
+        this.game.writeText("Zasoby", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#fff", "center", "top");
 
         this.game.ctx.save();
         this.game.ctx.beginPath();

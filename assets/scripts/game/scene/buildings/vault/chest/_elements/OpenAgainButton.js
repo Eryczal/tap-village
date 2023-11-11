@@ -8,9 +8,9 @@ class OpenAgainButton extends BuyButton {
         this.clickable = this.canBuy();
 
         if (this.canBuy()) {
-            this.color = "#000";
+            this.color = "#fff";
         } else {
-            this.color = "#999";
+            this.color = "#f33";
         }
 
         this.text = "Otwórz ponownie";
@@ -41,7 +41,7 @@ class ChestReturnButton extends BuyButton {
 
         this.clickable = true;
 
-        this.color = "#000";
+        this.color = "#fff";
 
         this.text = "Powrót";
     }

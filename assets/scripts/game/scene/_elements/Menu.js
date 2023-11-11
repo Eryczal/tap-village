@@ -68,7 +68,8 @@ class Button extends Element {
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.shopButton, this.x, this.y, this.width, this.height);
-        this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6, "#000");
+        this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6);
+        this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6);
     }
 
     onResize() {

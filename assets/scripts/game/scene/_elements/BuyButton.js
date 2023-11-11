@@ -13,12 +13,14 @@ class BuyButton extends Element {
 
         this.parent = parent;
 
-        this.color = "#999";
+        this.sColor = "#000";
+        this.color = "#ccc";
         this.text = "Kup";
     }
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
+        this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.8, this.sColor);
         this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.8, this.color);
     }
 }

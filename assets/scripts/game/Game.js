@@ -12,7 +12,7 @@ class Game {
         this.constructionManager = new ConstructionManager(this);
         this.buildingsManager = new BuildingsManager(this);
 
-        this.time = 720;
+        this.time = 600;
         this.timeTimer = setInterval(() => this.changeTime(), 60);
     }
 
@@ -80,7 +80,7 @@ class Game {
         this.sceneManager.update();
     }
 
-    writeText(text, x, y, size, color = "#000", align = "center", baseline = "middle", font = "VT323") {
+    writeText(text, x, y, size, color = "#fff", align = "center", baseline = "middle", font = "VT323") {
         let lines = text.toString().split("\n");
         let sizes = [];
 
@@ -97,7 +97,7 @@ class Game {
         return { sizes, lines: lines.length };
     }
 
-    strokeText(text, x, y, size, color = "#ccc", align = "center", baseline = "middle", font = "VT323") {
+    strokeText(text, x, y, size, color = "#000", align = "center", baseline = "middle", font = "VT323") {
         let lines = text.toString().split("\n");
 
         this.ctx.font = size + "px " + font;

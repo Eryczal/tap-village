@@ -151,8 +151,8 @@ class Map extends Element {
                     building.height
                 );
 
-                this.game.strokeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
-                this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE);
+                this.game.strokeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE * 0.8);
+                this.game.writeText("Poziom " + building.lvl, building.x + building.width / 2, building.y + building.height / 2, this.TILE_SIZE * 0.8);
             }
         }
 
@@ -184,6 +184,15 @@ class Map extends Element {
                 buildings[construction.buildingId].size.y * this.TILE_SIZE
             );
 
+            this.game.strokeText(
+                construction.clickProgress + "/" + construction.neededClicks,
+                this.MENU_SIZE +
+                    this.mapScroll.x +
+                    construction.constructionX * this.TILE_SIZE +
+                    (buildings[construction.buildingId].size.x * this.TILE_SIZE) / 2,
+                this.mapScroll.y + construction.constructionY * this.TILE_SIZE + (buildings[construction.buildingId].size.y * this.TILE_SIZE) / 2,
+                this.TILE_SIZE * 0.8
+            );
             this.game.writeText(
                 construction.clickProgress + "/" + construction.neededClicks,
                 this.MENU_SIZE +
@@ -191,7 +200,7 @@ class Map extends Element {
                     construction.constructionX * this.TILE_SIZE +
                     (buildings[construction.buildingId].size.x * this.TILE_SIZE) / 2,
                 this.mapScroll.y + construction.constructionY * this.TILE_SIZE + (buildings[construction.buildingId].size.y * this.TILE_SIZE) / 2,
-                this.TILE_SIZE
+                this.TILE_SIZE * 0.8
             );
         }
 
@@ -209,7 +218,7 @@ class Map extends Element {
             this.game.canvas.width * 0.99,
             this.game.canvas.width * 0.01,
             this.game.canvas.width / 50,
-            "#ccc",
+            "#000",
             "right",
             "top"
         );
@@ -218,7 +227,7 @@ class Map extends Element {
             this.game.canvas.width * 0.99,
             this.game.canvas.width * 0.01,
             this.game.canvas.width / 50,
-            "#000",
+            "#fff",
             "right",
             "top"
         );
@@ -232,13 +241,15 @@ class Map extends Element {
 
         let gradient = this.game.ctx.createLinearGradient(0, this.mapScroll.y, 0, map.length * this.TILE_SIZE + this.mapScroll.y);
 
-        if (this.game.time >= 480 && this.game.time < 540) {
-            let progress = ((this.game.time - 480) / (540 - 480)) * 0.5;
+        console.log(this.game.time);
+        if (this.game.time >= 360 && this.game.time < 420) {
+            let progress = ((this.game.time - 360) / (420 - 360)) * 0.5;
+            console.log(progress);
             gradient.addColorStop(0, colorStops.sun + progress / 2 + ")");
             gradient.addColorStop(progress * 2, colorStops.night + "0.5)");
             gradient.addColorStop(1, colorStops.night + "0.5)");
-        } else if (this.game.time >= 540 && this.game.time < 600) {
-            let progress = ((this.game.time - 540) / (600 - 540)) * 0.5;
+        } else if (this.game.time >= 420 && this.game.time < 480) {
+            let progress = ((this.game.time - 420) / (480 - 420)) * 0.5;
             gradient.addColorStop(0, colorStops.sun + (0.5 - progress) / 2 + ")");
             gradient.addColorStop(1, colorStops.night + (0.5 - progress) + ")");
         } else if (this.game.time >= 1200 && this.game.time < 1260) {

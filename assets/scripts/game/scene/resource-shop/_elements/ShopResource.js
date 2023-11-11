@@ -132,11 +132,17 @@ class ShopResource extends Element {
                 break;
         }
 
+        this.game.strokeText(
+            this.type === 3 ? this.amount.join(", ") : this.amount,
+            this.x + this.size / 2,
+            this.y + this.ICON_SIZE * 2 - this.scroll,
+            this.TEXT_SIZE * (1 - this.amount.toString().length / 50)
+        );
         this.game.writeText(
             this.type === 3 ? this.amount.join(", ") : this.amount,
             this.x + this.size / 2,
             this.y + this.ICON_SIZE * 2 - this.scroll,
-            this.TEXT_SIZE
+            this.TEXT_SIZE * (1 - this.amount.toString().length / 50)
         );
 
         this.buyButton.draw();

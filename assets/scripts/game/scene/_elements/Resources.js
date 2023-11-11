@@ -16,7 +16,8 @@ class Resource extends Element {
     draw() {
         this.game.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 
-        this.game.writeText(this.text, this.x + this.width * 1.1, this.y + this.height / 2, this.height, "#000", "left");
+        this.game.strokeText(this.text, this.x + this.width * 1.1, this.y + this.height / 2, this.height, "#000", "left");
+        this.game.writeText(this.text, this.x + this.width * 1.1, this.y + this.height / 2, this.height, "#fff", "left");
     }
 
     onResize() {
