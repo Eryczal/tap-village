@@ -145,7 +145,7 @@ class BuildingButton extends Element {
             textX += this.height / 2 + this.offset;
 
             this.game.strokeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
-            let woodSize = this.game.writeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, player.wood > cost.wood ? "#3f3" : "#f33", "left");
+            let woodSize = this.game.writeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, player.wood >= cost.wood ? "#3f3" : "#f33", "left");
             textX += woodSize.sizes[0].width + this.offset * 2;
 
             this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
@@ -157,7 +157,7 @@ class BuildingButton extends Element {
                 textX,
                 this.y + this.height / 2,
                 this.height / 2,
-                player.stone > cost.stone ? "#3f3" : "#f33",
+                player.stone >= cost.stone ? "#3f3" : "#f33",
                 "left"
             );
             textX += stoneSize.sizes[0].width + this.offset * 2;
@@ -166,7 +166,7 @@ class BuildingButton extends Element {
             textX += this.height / 2 + this.offset;
 
             this.game.strokeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
-            let goldSize = this.game.writeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, player.gold > cost.gold ? "#3f3" : "#f33", "left");
+            let goldSize = this.game.writeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, player.gold >= cost.gold ? "#3f3" : "#f33", "left");
             textX += goldSize.sizes[0].width + this.offset * 2;
         } else {
             this.game.strokeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
@@ -255,15 +255,19 @@ class GatheringPower extends BuildingButton {
                             break;
                     }
 
-                    this.cost.wood = Math.round(this.cost.wood * 1.3);
-                    this.cost.stone = Math.round(this.cost.stone * 1.3);
-                    this.cost.gold = Math.round(this.cost.gold * 1.3);
+                    this.cost.wood = Math.round(this.cost.wood * 1.8);
+                    this.cost.stone = Math.round(this.cost.stone * 1.8);
+                    this.cost.gold = Math.round(this.cost.gold * 1.8);
 
-                    if (this.cost.stone < 4 && this.gatheringPower + 1 > 2) {
+                    if (this.cost.wood < 10 && this.gatheringPower + 1 > 3) {
+                        this.cost.wood = 10;
+                    }
+
+                    if (this.cost.stone < 10 && this.gatheringPower + 1 > 4) {
                         this.cost.stone = Math.round(this.cost.wood / 3);
                     }
 
-                    if (this.cost.gold < 4 && this.gatheringPower + 1 > 3) {
+                    if (this.cost.gold < 10 && this.gatheringPower + 1 > 5) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
@@ -350,15 +354,19 @@ class GatheringChance extends BuildingButton {
                             break;
                     }
 
-                    this.cost.wood = Math.round(this.cost.wood * 1.2);
-                    this.cost.stone = Math.round(this.cost.stone * 1.2);
-                    this.cost.gold = Math.round(this.cost.gold * 1.2);
+                    this.cost.wood = Math.round(this.cost.wood * 1.1);
+                    this.cost.stone = Math.round(this.cost.stone * 1.1);
+                    this.cost.gold = Math.round(this.cost.gold * 1.1);
 
-                    if (this.cost.stone < 4 && this.gatheringChance + 1 > 5) {
+                    if (this.cost.wood < 10 && this.gatheringChance + 1 > 7) {
+                        this.cost.wood = 10;
+                    }
+
+                    if (this.cost.stone < 10 && this.gatheringChance + 1 > 10) {
                         this.cost.stone = Math.round(this.cost.wood / 3);
                     }
 
-                    if (this.cost.gold < 4 && this.gatheringChance + 1 > 10) {
+                    if (this.cost.gold < 10 && this.gatheringChance + 1 > 15) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
@@ -511,15 +519,19 @@ class CriticPower extends BuildingButton {
                             break;
                     }
 
-                    this.cost.wood = Math.round(this.cost.wood * 1.1);
-                    this.cost.stone = Math.round(this.cost.stone * 1.1);
-                    this.cost.gold = Math.round(this.cost.gold * 1.1);
+                    this.cost.wood = Math.round(this.cost.wood * 1.2);
+                    this.cost.stone = Math.round(this.cost.stone * 1.2);
+                    this.cost.gold = Math.round(this.cost.gold * 1.2);
 
-                    if (this.cost.stone < 4 && this.criticalPower + 1 > 5) {
+                    if (this.cost.wood < 10 && this.criticalPower + 1 > 7) {
+                        this.cost.wood = 10;
+                    }
+
+                    if (this.cost.stone < 10 && this.criticalPower + 1 > 10) {
                         this.cost.stone = Math.round(this.cost.wood / 3);
                     }
 
-                    if (this.cost.gold < 4 && this.criticalPower + 1 > 10) {
+                    if (this.cost.gold < 10 && this.criticalPower + 1 > 15) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
@@ -597,15 +609,19 @@ class CriticChance extends BuildingButton {
                             break;
                     }
 
-                    this.cost.wood = Math.round(this.cost.wood * 1.3);
-                    this.cost.stone = Math.round(this.cost.stone * 1.3);
-                    this.cost.gold = Math.round(this.cost.gold * 1.3);
+                    this.cost.wood = Math.round(this.cost.wood * 1.2);
+                    this.cost.stone = Math.round(this.cost.stone * 1.2);
+                    this.cost.gold = Math.round(this.cost.gold * 1.2);
 
-                    if (this.cost.stone < 4 && this.criticalChance + 1 > 5) {
+                    if (this.cost.wood < 10 && this.criticalChance + 1 > 7) {
+                        this.cost.wood = 10;
+                    }
+
+                    if (this.cost.stone < 10 && this.criticalChance + 1 > 10) {
                         this.cost.stone = Math.round(this.cost.wood / 3);
                     }
 
-                    if (this.cost.gold < 4 && this.criticalChance + 1 > 10) {
+                    if (this.cost.gold < 10 && this.criticalChance + 1 > 15) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
@@ -653,9 +669,9 @@ class Workers extends BuildingButton {
                     this.game.playerManager.stone -= this.actualCost.stone;
                     this.game.playerManager.gold -= this.actualCost.gold;
                     this.building.workers += 1;
-                    this.cost.wood = Math.round(this.cost.wood * 2.2);
-                    this.cost.stone = Math.round(this.cost.stone * 2.2);
-                    this.cost.gold = Math.round(this.cost.gold * 2.2);
+                    this.cost.wood = Math.round(this.cost.wood * 1.7);
+                    this.cost.stone = Math.round(this.cost.stone * 1.7);
+                    this.cost.gold = Math.round(this.cost.gold * 1.7);
 
                     if (this.cost.gold < 4 && this.building.workers > 3) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
@@ -757,9 +773,9 @@ class WorkersSpeed extends BuildingButton {
                         }
                     }, this.building.workersSpeed * 1000);
 
-                    this.cost.wood = Math.round(this.cost.wood * 1.2);
-                    this.cost.stone = Math.round(this.cost.stone * 1.2);
-                    this.cost.gold = Math.round(this.cost.gold * 1.2);
+                    this.cost.wood = Math.round(this.cost.wood * 1.3);
+                    this.cost.stone = Math.round(this.cost.stone * 1.3);
+                    this.cost.gold = Math.round(this.cost.gold * 1.3);
 
                     if (this.cost.gold < 4 && this.building.workersSpeed < Math.round(buildings[this.building.buildingId].stats.workersSpeed - 1.5)) {
                         this.cost.gold = Math.round(this.cost.stone / 3);

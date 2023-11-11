@@ -91,8 +91,8 @@ const buildings = [
                 gold: 0,
             },
             workersSpeed: {
-                wood: 7,
-                stone: 3,
+                wood: 8,
+                stone: 4,
                 gold: 0,
             },
         },
@@ -210,7 +210,7 @@ const buildings = [
             },
             gatheringChance: {
                 wood: 3,
-                stone: 3,
+                stone: 2,
                 gold: 0,
             },
             criticalPower: {
@@ -220,17 +220,17 @@ const buildings = [
             },
             criticalChance: {
                 wood: 3,
-                stone: 4,
+                stone: 2,
                 gold: 0,
             },
             workers: {
-                wood: 7,
-                stone: 17,
+                wood: 19,
+                stone: 12,
                 gold: 0,
             },
             workersSpeed: {
-                wood: 5,
-                stone: 10,
+                wood: 10,
+                stone: 5,
                 gold: 0,
             },
         },
@@ -320,8 +320,8 @@ const buildings = [
             y: 3,
         },
         cost: {
-            wood: 30,
-            stone: 30,
+            wood: 20,
+            stone: 20,
             gold: 0,
         },
         stats: {
@@ -362,13 +362,13 @@ const buildings = [
                 gold: 0,
             },
             workers: {
-                wood: 15,
-                stone: 25,
+                wood: 25,
+                stone: 17,
                 gold: 5,
             },
             workersSpeed: {
-                wood: 10,
-                stone: 20,
+                wood: 20,
+                stone: 13,
                 gold: 3,
             },
         },
@@ -459,8 +459,8 @@ const buildings = [
         },
         cost: {
             wood: 25,
-            stone: 25,
-            gold: 25,
+            stone: 20,
+            gold: 15,
         },
         stats: {
             buildingPower: 1,
@@ -494,12 +494,12 @@ const buildings = [
             },
             workers: {
                 wood: 15,
-                stone: 15,
-                gold: 15,
+                stone: 11,
+                gold: 7,
             },
             workersSpeed: {
                 wood: 10,
-                stone: 10,
+                stone: 8,
                 gold: 7,
             },
         },
@@ -589,8 +589,8 @@ const buildings = [
             y: 3,
         },
         cost: {
-            wood: 30,
-            stone: 40,
+            wood: 70,
+            stone: 50,
             gold: 25,
         },
         cards: {},
@@ -624,9 +624,9 @@ const buildings = [
             y: 2,
         },
         cost: {
-            wood: 30,
-            stone: 25,
-            gold: 5,
+            wood: 50,
+            stone: 30,
+            gold: 10,
         },
         cards: {},
         clicks: 75,

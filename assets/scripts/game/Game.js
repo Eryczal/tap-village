@@ -6,9 +6,9 @@ class Game {
 
         this.assetsManager = new AssetsManager(this);
         this.sceneManager = new SceneManager(this);
+        this.playerManager = new PlayerManager(this);
         this.resizeManager = new ResizeManager(this);
         this.mouseManager = new MouseManager(this);
-        this.playerManager = new PlayerManager(this);
         this.constructionManager = new ConstructionManager(this);
         this.buildingsManager = new BuildingsManager(this);
 
@@ -44,11 +44,11 @@ class Game {
                 element?.init();
             }
 
+            this.playerManager.init(userUid);
+
             this.sceneManager.init();
 
             this.mouseManager.init();
-
-            this.playerManager.init(userUid);
 
             this.buildingsManager.init(userUid);
 

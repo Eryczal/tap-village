@@ -5,9 +5,9 @@ class PlayerManager {
     constructor(game) {
         this.game = game;
 
-        this.wood = 0;
-        this.stone = 0;
-        this.gold = 0;
+        this.wood = 15;
+        this.stone = 10;
+        this.gold = 5;
         this.gem = 0;
         this.coin = 0;
         this.cards = [];
@@ -61,9 +61,9 @@ class PlayerManager {
                         resolve(playerData);
                     } else {
                         let playerData = {
-                            wood: 0,
-                            stone: 0,
-                            gold: 0,
+                            wood: 15,
+                            stone: 10,
+                            gold: 5,
                             gem: 0,
                             coin: 0,
                             cards: [],

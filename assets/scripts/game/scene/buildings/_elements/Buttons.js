@@ -76,6 +76,16 @@ class UpgradeButton extends BackButton {
         }
     }
 
+    onRightClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY) && this.game.playerManager.gem === "max") {
+            if (this.game.constructionManager.constructionState === null) {
+                this.game.constructionManager.setConstruction(this.building.buildingId, "upgrade", this.game.buildingsManager.clickedBuilding);
+                this.game.constructionManager.setBuild();
+                this.game.sceneManager.changeScene("main");
+            }
+        }
+    }
+
     draw() {
         let textX = this.x + this.offset;
         let player = this.game.playerManager;

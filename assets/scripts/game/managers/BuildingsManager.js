@@ -70,11 +70,11 @@ class SawmillBuilding extends Building {
 
     setType() {
         if (Object.keys(SawmillBuilding.stats).length === 0 || Object.keys(SawmillBuilding.statsCost).length === 0) {
-            SawmillBuilding.stats = buildings[this.buildingId].stats;
+            SawmillBuilding.stats = JSON.parse(JSON.stringify(buildings[this.buildingId].stats));
             delete SawmillBuilding.stats.workers;
             delete SawmillBuilding.stats.workersSpeed;
 
-            SawmillBuilding.statsCost = buildings[this.buildingId].statsCost;
+            SawmillBuilding.statsCost = JSON.parse(JSON.stringify(buildings[this.buildingId].statsCost));
             delete SawmillBuilding.statsCost.workers;
             delete SawmillBuilding.statsCost.workersSpeed;
 
@@ -142,11 +142,11 @@ class QuarryBuilding extends Building {
 
     setType() {
         if (Object.keys(QuarryBuilding.stats).length === 0 || Object.keys(QuarryBuilding.statsCost).length === 0) {
-            QuarryBuilding.stats = buildings[this.buildingId].stats;
+            QuarryBuilding.stats = JSON.parse(JSON.stringify(buildings[this.buildingId].stats));
             delete QuarryBuilding.stats.workers;
             delete QuarryBuilding.stats.workersSpeed;
 
-            QuarryBuilding.statsCost = buildings[this.buildingId].statsCost;
+            QuarryBuilding.statsCost = JSON.parse(JSON.stringify(buildings[this.buildingId].statsCost));
             delete QuarryBuilding.statsCost.workers;
             delete QuarryBuilding.statsCost.workersSpeed;
 
@@ -214,11 +214,11 @@ class MineBuilding extends Building {
 
     setType() {
         if (Object.keys(MineBuilding.stats).length === 0 || Object.keys(MineBuilding.statsCost).length === 0) {
-            MineBuilding.stats = buildings[this.buildingId].stats;
+            MineBuilding.stats = JSON.parse(JSON.stringify(buildings[this.buildingId].stats));
             delete MineBuilding.stats.workers;
             delete MineBuilding.stats.workersSpeed;
 
-            MineBuilding.statsCost = buildings[this.buildingId].statsCost;
+            MineBuilding.statsCost = JSON.parse(JSON.stringify(buildings[this.buildingId].statsCost));
             delete MineBuilding.statsCost.workers;
             delete MineBuilding.statsCost.workersSpeed;
 
@@ -531,6 +531,8 @@ class BuildingsManager {
 
     saveBuilding(id) {
         let building = this.buildings[id];
+        console.log("saveBuildings workers");
+        console.log(this.buildings[id].workers);
         let buildingStore = {
             buildingId: building.buildingId,
             position: building.position,
