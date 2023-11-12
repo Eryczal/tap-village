@@ -8,7 +8,7 @@ class ChestButton extends BuyButton {
         this.clickable = this.canBuy();
 
         if (this.canBuy()) {
-            this.color = "#fff";
+            this.color = "#3f3";
         } else {
             this.color = "#f33";
         }

@@ -77,13 +77,16 @@ class ConstructionManager extends Element {
 
     addProgress(type, workers) {
         let audio = Math.floor(Math.random() * 4) + 1;
+        let critic = false;
+        let amount = 1;
+
         if (type === "click" && typeof WorkshopBuilding.stats.criticalChance !== "undefined") {
-            let critic = Math.random() < WorkshopBuilding.stats.criticalChance / 100;
-            let amount = critic ? WorkshopBuilding.stats.criticalPower : WorkshopBuilding.stats.buildingPower;
+            critic = Math.random() < WorkshopBuilding.stats.criticalChance / 100;
+            amount = critic ? WorkshopBuilding.stats.criticalPower : WorkshopBuilding.stats.buildingPower;
+        }
+
+        if (type === "click") {
             this.clickProgress += amount;
-            this.game.assetsManager.playAudio("build" + audio, true);
-        } else if (type === "click") {
-            this.clickProgress += 1;
             this.game.assetsManager.playAudio("build" + audio, true);
         } else if (type === "worker" && workers > 0) {
             this.clickProgress += workers;
@@ -102,6 +105,11 @@ class ConstructionManager extends Element {
             this.clickable = false;
             this.game.playerManager.updatePlayerData("construction", null);
         }
+
+        return {
+            critic: critic,
+            amount: amount,
+        };
     }
 }
 

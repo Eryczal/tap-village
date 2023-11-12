@@ -1,6 +1,6 @@
 import { Element } from "../../../element/Element.js";
 import { cards } from "../../../data/cards.js";
-import { GatheredNumber } from "./GatheredNumber.js";
+import { GatheredNumber } from "../../_elements/GatheredNumber.js";
 
 class GatheringClick extends Element {
     constructor(game, menu) {

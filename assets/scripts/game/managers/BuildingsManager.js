@@ -279,11 +279,10 @@ class WorkshopBuilding extends Building {
 
         this.workersTimer = setInterval(() => {
             if (this.game.constructionManager.constructionState === 1) {
-                if (Math.random() < cards[3].upgrades[this.game.playerManager.cards[3].lvl] / 100) {
-                    this.game.constructionManager.addProgress("worker", this.workers * 2);
-                    return;
-                }
-                this.game.constructionManager.addProgress("worker", this.workers);
+                let critic = Math.random() < cards[3].upgrades[this.game.playerManager.cards[3].lvl] / 100;
+                let amount = critic ? this.workers * 2 : this.workers;
+                this.game.constructionManager.addProgress("worker", amount);
+                this.game.sceneManager.currentScene?.elementsHolder?.elements?.map?.addWorkerClick(critic, amount);
             }
         }, this.workersSpeed * 1000);
     }
@@ -531,8 +530,6 @@ class BuildingsManager {
 
     saveBuilding(id) {
         let building = this.buildings[id];
-        console.log("saveBuildings workers");
-        console.log(this.buildings[id].workers);
         let buildingStore = {
             buildingId: building.buildingId,
             position: building.position,

@@ -3,6 +3,7 @@ import { buildings } from "../../../data/buildings.js";
 import { mapObjects } from "../../../data/mapObjects.js";
 import { MapObject, StoneObject, TreeObject, WaterObject } from "./MapObject.js";
 import { database as db, ref, set, get } from "../../../../firebase.js";
+import { MapGatheredNumber } from "../../_elements/GatheredNumber.js";
 
 var map = [
     [
@@ -325,6 +326,8 @@ class Map extends Element {
 
         this.targetScroll = {};
 
+        this.clicks = [];
+
         if (storedMapObjects.length === 0) {
             this.createMapObjects();
         }
@@ -408,6 +411,15 @@ class Map extends Element {
 
             this.game.ctx.globalCompositeOperation = "source-over";
         } else if (construction.constructionState === 1) {
+            this.game.ctx.shadowColor = "#339966";
+            this.game.ctx.shadowBlur = this.TILE_SIZE;
+            this.game.ctx.fillStyle = "#33996666";
+            this.game.ctx.fillRect(
+                this.MENU_SIZE + this.mapScroll.x + construction.constructionX * this.TILE_SIZE - this.TILE_SIZE / 8,
+                this.mapScroll.y + construction.constructionY * this.TILE_SIZE - this.TILE_SIZE / 8,
+                buildings[construction.buildingId].size.x * this.TILE_SIZE + this.TILE_SIZE / 4,
+                buildings[construction.buildingId].size.y * this.TILE_SIZE + this.TILE_SIZE / 4
+            );
             this.game.ctx.drawImage(
                 this.game.assetsManager.images[buildings[construction.buildingId].image],
                 this.MENU_SIZE + this.mapScroll.x + construction.constructionX * this.TILE_SIZE,
@@ -415,6 +427,9 @@ class Map extends Element {
                 buildings[construction.buildingId].size.x * this.TILE_SIZE,
                 buildings[construction.buildingId].size.y * this.TILE_SIZE
             );
+
+            this.game.ctx.shadowColor = "rgba(0, 0, 0, 0)";
+            this.game.ctx.shadowBlur = 0;
 
             this.game.strokeText(
                 construction.clickProgress + "/" + construction.neededClicks,
@@ -434,6 +449,11 @@ class Map extends Element {
                 this.mapScroll.y + construction.constructionY * this.TILE_SIZE + (buildings[construction.buildingId].size.y * this.TILE_SIZE) / 2,
                 this.TILE_SIZE * 0.8
             );
+        }
+
+        for (let i = this.clicks.length - 1; i >= 0; i--) {
+            this.clicks[i].draw();
+            this.clicks[i].updatePos(this.mapScroll.x, this.mapScroll.y, this.TILE_SIZE);
         }
 
         this.drawDayCycle();
@@ -585,7 +605,8 @@ class Map extends Element {
                 return;
             } else if (this.game.constructionManager.constructionState === 1) {
                 if (this.game.constructionManager.isMouseOver(mouseX, mouseY)) {
-                    this.game.constructionManager.addProgress("click");
+                    let progress = this.game.constructionManager.addProgress("click");
+                    this.clicks.push(new MapGatheredNumber(this.game, this.clicks.length, progress.critic, progress.amount, this.clicks, this.TILE_SIZE));
                     return;
                 }
             }
@@ -605,6 +626,10 @@ class Map extends Element {
                 }
             }
         }
+    }
+
+    addWorkerClick(critic, amount) {
+        this.clicks.push(new MapGatheredNumber(this.game, this.clicks.length, critic, amount, this.clicks, this.TILE_SIZE, "worker"));
     }
 
     onRightClick(mouseX, mouseY) {
@@ -688,6 +713,10 @@ class Map extends Element {
         for (let i = 0; i < storedMapObjects.length; i++) {
             //change
             storedMapObjects[i].updatePos(this.MENU_SIZE, this.TILE_SIZE, this.mapScroll.x, this.mapScroll.y);
+        }
+
+        for (let i = 0; i < this.clicks.length; i++) {
+            this.clicks[i].updateRelativePos(this.TILE_SIZE);
         }
     }
 

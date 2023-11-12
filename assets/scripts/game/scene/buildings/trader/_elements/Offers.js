@@ -81,7 +81,7 @@ class Offer extends Element {
             this.resource.width,
             this.resource.height
         );
-        this.game.writeText(
+        this.game.strokeText(
             this.offer.amount,
             this.resource.x + this.resource.width * 1.2,
             this.resource.y + this.resource.height / 2,
@@ -89,14 +89,30 @@ class Offer extends Element {
             "#000",
             "left"
         );
+        this.game.writeText(
+            this.offer.amount,
+            this.resource.x + this.resource.width * 1.2,
+            this.resource.y + this.resource.height / 2,
+            this.resource.width,
+            this.offer.amount >= this.game.playerManager[this.offer.type] ? "#f33" : "#3f3",
+            "left"
+        );
 
         this.game.ctx.drawImage(this.game.assetsManager.images[this.reward.icon], this.reward.x, this.reward.y, this.reward.width, this.reward.height);
-        this.game.writeText(
+        this.game.strokeText(
             this.offer.reward,
             this.reward.x + this.reward.width * 1.2,
             this.reward.y + this.reward.height / 2,
             this.reward.width,
             "#000",
+            "left"
+        );
+        this.game.writeText(
+            this.offer.reward,
+            this.reward.x + this.reward.width * 1.2,
+            this.reward.y + this.reward.height / 2,
+            this.reward.width,
+            "#fff",
             "left"
         );
     }
