@@ -568,6 +568,14 @@ class BuildingsManager {
             }
         }
     }
+
+    getClickedBuilding(mouseX, mouseY) {
+        for (let i = 0; i < this.buildings.length; i++) {
+            if (this.buildings[i].isMouseOver(mouseX, mouseY)) {
+                return i;
+            }
+        }
+    }
 }
 
 export { BuildingsManager, SawmillBuilding, QuarryBuilding, MineBuilding, WorkshopBuilding, VaultBuilding, TraderBuilding };

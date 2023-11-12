@@ -105,6 +105,7 @@ class OpeningChest extends Element {
         );
 
         if (this.lvlAnimation) {
+            this.game.assetsManager.playAudio("card", true);
             setTimeout(() => this.animateLvl(), 100);
         }
     }

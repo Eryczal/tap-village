@@ -120,6 +120,13 @@ class WaterObject extends MapObject {
         this.clickable = false;
     }
 
+    onClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY)) {
+            this.game.assetsManager.playAudio("water", true);
+            return true;
+        }
+    }
+
     draw() {
         this.game.ctx.drawImage(
             this.game.assetsManager.images[this.parent.waterState === 0 ? "waterTile" : "waterTile2"],

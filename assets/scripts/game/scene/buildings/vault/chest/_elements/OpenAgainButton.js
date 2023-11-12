@@ -3,7 +3,7 @@ import { chests } from "../../../../../data/chests.js";
 
 class OpenAgainButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
-        super(game, x, y, width, height, parent);
+        super(game, x, y, width, height, parent, `Otwórz - ${chests[parent.chestId].cost}`, "coinIcon");
 
         this.clickable = this.canBuy();
 
@@ -12,8 +12,6 @@ class OpenAgainButton extends BuyButton {
         } else {
             this.color = "#f33";
         }
-
-        this.text = "Otwórz ponownie";
     }
 
     onClick(mouseX, mouseY) {
@@ -37,13 +35,11 @@ class OpenAgainButton extends BuyButton {
 
 class ChestReturnButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
-        super(game, x, y, width, height, parent);
+        super(game, x, y, width, height, parent, "Powrót");
 
         this.clickable = true;
 
         this.color = "#fff";
-
-        this.text = "Powrót";
     }
 
     onClick(mouseX, mouseY) {

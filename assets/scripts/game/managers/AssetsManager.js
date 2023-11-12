@@ -29,6 +29,10 @@ const imagesPath = {
     vaultBackground: "assets/images/buildings/vault-bg.png",
     trader: "assets/images/buildings/trader.png",
     traderBackground: "assets/images/buildings/trader-bg.png",
+    craftsman: "assets/images/buildings/craftsman.png",
+    craftsmanBackground: "assets/images/buildings/craftsman-bg.png",
+    architect: "assets/images/buildings/architect.png",
+    architectBackground: "assets/images/buildings/architect-bg.png",
 
     menu: "assets/images/ui/menu.png",
     shopButton: "assets/images/ui/shop-button.png",
@@ -86,6 +90,11 @@ const audioPath = {
     gather2: "assets/audio/sound/gather2.mp3",
     gather3: "assets/audio/sound/gather3.mp3",
 
+    trade: "assets/audio/sound/trade.mp3",
+    card: "assets/audio/sound/card.mp3",
+    upgrade: "assets/audio/sound/upgrade.mp3",
+    water: "assets/audio/sound/water.mp3",
+
     constructionStart: "assets/audio/sound/construction-start.mp3",
 
     crickets: "assets/audio/crickets.mp3",
@@ -96,6 +105,7 @@ const audioPath = {
     dayMusic1: "assets/audio/day-music.mp3",
     dayMusic2: "assets/audio/day-music2.mp3",
     duskMusic1: "assets/audio/dusk-music.mp3",
+    duskMusic2: "assets/audio/dusk-music2.mp3",
     nightMusic1: "assets/audio/night-music.mp3",
 };
 
@@ -203,7 +213,7 @@ class AssetsManager {
             } else if (time >= 360 && time < 480) {
                 this.selectRandomMusic(2, "dawnMusic");
             } else if (time >= 1200 && time < 1320) {
-                this.selectRandomMusic(1, "duskMusic");
+                this.selectRandomMusic(2, "duskMusic");
             } else {
                 setTimeout(() => this.playRandomMusic(), 5000);
             }

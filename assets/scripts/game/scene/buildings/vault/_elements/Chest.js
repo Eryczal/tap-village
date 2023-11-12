@@ -47,7 +47,6 @@ class Chest extends Element {
     updateScroll(scroll) {
         this.scroll = scroll;
         this.chestButton.y = this.chestButton.iY - scroll;
-        this.chestButton.resource.y = this.chestButton.resource.iY - scroll;
     }
 
     draw() {

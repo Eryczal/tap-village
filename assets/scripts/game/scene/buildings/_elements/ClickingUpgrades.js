@@ -271,6 +271,8 @@ class GatheringPower extends BuildingButton {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
+                    this.game.assetsManager.playAudio("upgrade", true);
+
                     this.updateValues(mouseX, mouseY);
                 }
             }
@@ -370,6 +372,8 @@ class GatheringChance extends BuildingButton {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
+                    this.game.assetsManager.playAudio("upgrade", true);
+
                     this.updateValues();
                 }
             }
@@ -431,6 +435,8 @@ class BuildingPower extends BuildingButton {
                     this.cost.wood = Math.round(this.cost.wood * 1.3);
                     this.cost.stone = Math.round(this.cost.stone * 1.3);
                     this.cost.gold = Math.round(this.cost.gold * 1.3);
+
+                    this.game.assetsManager.playAudio("upgrade", true);
 
                     this.updateValues(mouseX, mouseY);
                 }
@@ -535,6 +541,8 @@ class CriticPower extends BuildingButton {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
+                    this.game.assetsManager.playAudio("upgrade", true);
+
                     this.updateValues();
                 }
             }
@@ -625,6 +633,8 @@ class CriticChance extends BuildingButton {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
 
+                    this.game.assetsManager.playAudio("upgrade", true);
+
                     this.updateValues();
                 }
             }
@@ -676,6 +686,8 @@ class Workers extends BuildingButton {
                     if (this.cost.gold < 4 && this.building.workers > 3) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
+
+                    this.game.assetsManager.playAudio("upgrade", true);
 
                     this.updateValues();
                 }
@@ -779,6 +791,8 @@ class WorkersSpeed extends BuildingButton {
                     if (this.cost.gold < 4 && this.building.workersSpeed < Math.round(buildings[this.building.buildingId].stats.workersSpeed - 1.5)) {
                         this.cost.gold = Math.round(this.cost.stone / 3);
                     }
+
+                    this.game.assetsManager.playAudio("upgrade", true);
 
                     this.updateValues();
                 }

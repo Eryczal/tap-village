@@ -126,6 +126,8 @@ class Offer extends Element {
                 this.game.buildingsManager.clickedBuilding.changeOffers(this.num);
 
                 this.refreshOffer();
+
+                this.game.assetsManager.playAudio("trade", true);
             }
         }
     }

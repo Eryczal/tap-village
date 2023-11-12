@@ -5,15 +5,13 @@ class BackButton extends Element {
     constructor(game, menu) {
         super(game);
 
-        let canvas = this.game.canvas;
-
         this.MENU_SIZE = menu.MENU_SIZE;
 
-        this.width = canvas.width / 4;
-        this.height = canvas.width / 24;
+        this.width = this.game.canvas.width / 4;
+        this.height = this.game.canvas.width / 24;
 
-        this.x = (canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE - this.width / 2;
-        this.y = canvas.height - canvas.height / 8;
+        this.x = (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE - this.width / 2;
+        this.y = this.game.canvas.height - this.game.canvas.height / 8;
 
         this.clickable = true;
     }
@@ -26,6 +24,7 @@ class BackButton extends Element {
             } else {
                 this.game.sceneManager.currentScene.changeMenu(0);
             }
+            this.game.assetsManager.playAudio("click2", true);
         }
     }
 
@@ -40,11 +39,9 @@ class UpgradeButton extends BackButton {
     constructor(game, menu) {
         super(game, menu);
 
-        let canvas = this.game.canvas;
+        this.y = this.game.canvas.height - this.game.canvas.height / 4;
 
-        this.y = canvas.height - canvas.height / 4;
-
-        this.offset = canvas.width / 200;
+        this.offset = this.game.canvas.width / 200;
         this.iconY = this.y - this.height / 3 - this.height / 4;
 
         this.building = this.game.buildingsManager.clickedBuilding;
@@ -62,6 +59,8 @@ class UpgradeButton extends BackButton {
                 (this.building.buildingId === 0 || this.game.buildingsManager.buildings[0].lvl > this.building.lvl) &&
                 this.game.constructionManager.constructionState === null
             ) {
+                this.game.assetsManager.playAudio("click2", true);
+
                 player.wood -= this.cost.wood;
                 player.stone -= this.cost.stone;
                 player.gold -= this.cost.gold;
