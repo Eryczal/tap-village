@@ -163,8 +163,8 @@ class ShopResource extends Element {
     onResize() {
         this.ICON_SIZE = this.game.canvas.width / 40;
         this.MAX_IMAGE_SIZE = this.ICON_SIZE * 5;
-        this.IMAGE_SIZE_X = buildings[this.id].size.x * this.ICON_SIZE;
-        this.IMAGE_SIZE_Y = buildings[this.id].size.y * this.ICON_SIZE;
+        this.IMAGE_SIZE_X = buildings[this.id].size.x * this.ICON_SIZE; // ---- // == // - / = /
+        this.IMAGE_SIZE_Y = buildings[this.id].size.y * this.ICON_SIZE; // ---- // == // - / = /
         this.TEXT_SPACING = this.game.canvas.height / 100;
         this.ICON_SPACING = this.game.canvas.height / 50;
     }

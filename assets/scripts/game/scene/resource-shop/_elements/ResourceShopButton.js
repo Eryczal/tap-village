@@ -3,7 +3,7 @@ import { resources } from "../../../data/resources.js";
 
 class ResourceShopButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
-        super(game, x, y, width, height, parent, resources[parent.resourceId].cost, "gemIcon");
+        super(game, x, y, width, height, parent, `${resources[parent.resourceId].cost} %i0`, ["gemIcon"]);
 
         if (this.canBuy()) {
             this.color = "#3f3";

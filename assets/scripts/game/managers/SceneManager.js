@@ -9,6 +9,7 @@ import { TraderScene } from "../scene/buildings/trader/TraderScene.js";
 import { ChestScene } from "../scene/buildings/vault/chest/ChestScene.js";
 import { CardScene } from "../scene/buildings/vault/card/CardScene.js";
 import { CraftsmanScene } from "../scene/buildings/craftsman/CraftsmanScene.js";
+import { ArchitectScene } from "../scene/buildings/architect/ArchitectScene.js";
 
 class SceneManager {
     constructor(game) {
@@ -77,6 +78,10 @@ class SceneManager {
 
             case "craftsman":
                 this.currentScene = new CraftsmanScene(this.game);
+                break;
+
+            case "architect":
+                this.currentScene = new ArchitectScene(this.game);
                 break;
         }
 

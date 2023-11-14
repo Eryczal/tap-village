@@ -1,7 +1,7 @@
 import { Element } from "../../element/Element.js";
 
 class BuyButton extends Element {
-    constructor(game, x, y, width, height, parent, text = "Kup", image = false) {
+    constructor(game, x, y, width, height, parent, text = "Kup", images = false, size = height * 0.8) {
         super(game);
 
         this.width = width;
@@ -15,29 +15,71 @@ class BuyButton extends Element {
 
         this.sColor = "#000";
         this.color = "#ccc";
-        this.text = text;
 
-        this.image = image ? this.game.assetsManager.images[image] : false;
+        this.size = size;
 
-        this.textX = this.x + this.width / 2;
-        this.textSize = this.game.writeText(this.text, 0, 0, this.height * 0.8, "transparent").sizes[0].width;
-        this.align = "center";
+        this.images = images ? images.map((image) => (image ? this.game.assetsManager.images[image] : false)) : false;
+        this.margin = this.size / 8;
 
-        if (this.image) {
-            this.textMargin = this.height * 0.1;
-            this.combinedWidth = this.textSize + this.height * 0.6 + this.textMargin;
-            this.textX -= this.combinedWidth / 2;
-            this.align = "left";
+        if (this.images) {
+            this.elements = text.split(" ").map((element, i) => {
+                const match = element.match(/%i(\d+)/);
+                if (match) {
+                    const imageIndex = parseInt(match[1]);
+                    return this.images[imageIndex] ? this.images[imageIndex] : element;
+                } else {
+                    return element;
+                }
+            });
+
+            let totalWidth = this.images ? -this.margin : 0;
+
+            this.elements.forEach((element) => {
+                if (typeof element === "string") {
+                    totalWidth += this.game.writeText(element, 0, 0, this.height * 0.8, "transparent").sizes[0].width;
+                } else {
+                    totalWidth += this.height * 0.6;
+                }
+                totalWidth += this.margin;
+            });
+
+            const centerX = (this.width - totalWidth) / 2;
+
+            let currentX = centerX;
+
+            this.elements.forEach((element, i) => {
+                let elementWidth;
+                if (typeof element === "string") {
+                    elementWidth = this.game.writeText(element, 0, 0, this.height * 0.8, "transparent").sizes[0].width;
+                } else {
+                    elementWidth = this.height * 0.6;
+                }
+
+                this.elements[i] = { value: element, x: currentX };
+
+                currentX += elementWidth + this.margin;
+            });
+        } else {
+            this.text = text;
         }
     }
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
-        if (this.image) {
-            this.game.ctx.drawImage(this.image, this.textX + this.textSize + this.textMargin, this.y + this.height * 0.2, this.height * 0.6, this.height * 0.6);
+
+        if (this.notAllowedText || this.images === false) {
+            this.game.strokeText(this.notAllowedText || this.text, this.x + this.width / 2, this.y + this.height / 2, this.size, this.sColor, "center");
+            this.game.writeText(this.notAllowedText || this.text, this.x + this.width / 2, this.y + this.height / 2, this.size, this.color, "center");
+        } else {
+            this.elements.forEach((element, i) => {
+                if (typeof element.value === "string") {
+                    this.game.strokeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.sColor, "left");
+                    this.game.writeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.color, "left");
+                } else {
+                    this.game.ctx.drawImage(element.value, this.x + element.x, this.y + this.height * 0.2, this.height * 0.6, this.height * 0.6);
+                }
+            });
         }
-        this.game.strokeText(this.text, this.textX, this.y + this.height / 2, this.height * 0.8, this.sColor, this.align);
-        this.game.writeText(this.text, this.textX, this.y + this.height / 2, this.height * 0.8, this.color, this.align);
     }
 }
 

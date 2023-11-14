@@ -2,12 +2,6 @@ const imagesPath = {
     grassTile: "assets/images/tiles/grass.png",
     grassTile2: "assets/images/tiles/grass2.png",
     grassTile3: "assets/images/tiles/grass3.png",
-    waterTile: "assets/images/tiles/water.png",
-    waterTile2: "assets/images/tiles/water2.png",
-    treeTile: "assets/images/tiles/tree.png",
-    treeTile2: "assets/images/tiles/tree2.png",
-    stoneTile: "assets/images/tiles/stone.png",
-    stoneTile2: "assets/images/tiles/stone2.png",
 
     woodIcon: "assets/images/icons/wood.png",
     stoneIcon: "assets/images/icons/stone.png",
@@ -33,6 +27,8 @@ const imagesPath = {
     craftsmanBackground: "assets/images/buildings/craftsman-bg.png",
     architect: "assets/images/buildings/architect.png",
     architectBackground: "assets/images/buildings/architect-bg.png",
+    monument: "assets/images/buildings/monument.png",
+    monumentBackground: "assets/images/buildings/monument-bg.png",
 
     menu: "assets/images/ui/menu.png",
     shopButton: "assets/images/ui/shop-button.png",
@@ -42,6 +38,25 @@ const imagesPath = {
     redButton: "assets/images/ui/red-button.png",
     buildingClick: "assets/images/ui/building-click.png",
     buildingSelect: "assets/images/ui/building-select.png",
+
+    tree: "assets/images/objects/tree.png",
+    tree2: "assets/images/objects/tree2.png",
+    water: "assets/images/objects/water.png",
+    water2: "assets/images/objects/water2.png",
+    stone: "assets/images/objects/stone.png",
+    stone2: "assets/images/objects/stone2.png",
+    td1: "assets/images/objects/td1.png",
+    td2: "assets/images/objects/td2.png",
+    td3: "assets/images/objects/td3.png",
+    td4: "assets/images/objects/td4.png",
+    td5: "assets/images/objects/td5.png",
+    td6: "assets/images/objects/td6.png",
+    td7: "assets/images/objects/td7.png",
+    td8: "assets/images/objects/td8.png",
+    td9: "assets/images/objects/td9.png",
+    td10: "assets/images/objects/td10.png",
+    td11: "assets/images/objects/td11.png",
+    td12: "assets/images/objects/td12.png",
 
     commonChest: "assets/images/chests/common.png",
     rareChest: "assets/images/chests/rare.png",
@@ -225,6 +240,7 @@ class AssetsManager {
         let music = this.audio[name + randomNumber];
         music.play().then(() => (this.playingMusic = true));
         music.onended = () => {
+            //ending before checkMusicTime?
             this.playingMusic = false;
             this.playRandomMusic();
         };

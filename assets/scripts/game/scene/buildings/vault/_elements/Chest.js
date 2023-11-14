@@ -65,6 +65,10 @@ class Chest extends Element {
     onRightClick(mouseX, mouseY) {
         this.chestButton.onRightClick(mouseX, mouseY);
     }
+
+    onHover(mouseX, mouseY) {
+        this.chestButton.onHover(mouseX, mouseY);
+    }
 }
 
 export { Chest };

@@ -8,6 +8,7 @@ class BuildingShopButton extends BuyButton {
         if (this.isMaxed()) {
             this.color = "#ccc";
             this.sColor = "#333";
+            this.notAllowedText = "Maksymalna ilość";
         } else if (this.canBuy()) {
             this.color = "#3f3";
         } else {
@@ -15,8 +16,6 @@ class BuildingShopButton extends BuyButton {
         }
 
         this.clickable = this.canBuy() && !this.isMaxed();
-
-        this.text = this.isMaxed() ? "Maksymalna ilość" : "Kup";
     }
 
     onClick(mouseX, mouseY) {

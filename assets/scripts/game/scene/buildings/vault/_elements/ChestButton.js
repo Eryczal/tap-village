@@ -3,7 +3,7 @@ import { chests } from "../../../../data/chests.js";
 
 class ChestButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
-        super(game, x, y, width, height, parent, chests[parent.id].cost, "coinIcon");
+        super(game, x, y, width, height, parent, `${chests[parent.id].cost - game.buildingsManager.clickedBuilding.lvl} %i0`, ["coinIcon"]);
 
         this.clickable = this.canBuy();
 
@@ -18,7 +18,7 @@ class ChestButton extends BuyButton {
 
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
-            this.game.playerManager.coin -= chests[this.parent.id].cost;
+            this.game.playerManager.coin -= chests[this.parent.id].cost - this.game.buildingsManager.clickedBuilding.lvl;
 
             this.game.sceneManager.changeScene("chest", {
                 id: this.parent.id,
@@ -35,7 +35,7 @@ class ChestButton extends BuyButton {
     }
 
     canBuy() {
-        return this.game.playerManager.coin >= chests[this.parent.id].cost;
+        return this.game.playerManager.coin >= chests[this.parent.id].cost - this.game.buildingsManager.clickedBuilding.lvl;
     }
 }
 

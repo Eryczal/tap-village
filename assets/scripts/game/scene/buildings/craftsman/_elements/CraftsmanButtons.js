@@ -1,4 +1,3 @@
-import { database as db, remove, ref, signOut, auth } from "../../../../../firebase.js";
 import { BuyButton } from "../../../_elements/BuyButton.js";
 
 class ChangePositionButton extends BuyButton {

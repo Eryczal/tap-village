@@ -3,7 +3,7 @@ import { chests } from "../../../../../data/chests.js";
 
 class OpenAgainButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
-        super(game, x, y, width, height, parent, `Otwórz - ${chests[parent.chestId].cost}`, "coinIcon");
+        super(game, x, y, width, height, parent, `Otwórz ( ${chests[parent.chestId].cost - game.buildingsManager.clickedBuilding.lvl} %i0 )`, ["coinIcon"]);
 
         this.clickable = this.canBuy();
 
@@ -16,7 +16,7 @@ class OpenAgainButton extends BuyButton {
 
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
-            this.game.playerManager.coin -= chests[this.parent.chestId].cost;
+            this.game.playerManager.coin -= chests[this.parent.chestId].cost - this.game.buildingsManager.clickedBuilding.lvl;
 
             this.parent.openAgain();
         }
@@ -29,7 +29,7 @@ class OpenAgainButton extends BuyButton {
     }
 
     canBuy() {
-        return this.game.playerManager.coin >= chests[this.parent.chestId].cost;
+        return this.game.playerManager.coin >= chests[this.parent.chestId].cost - this.game.buildingsManager.clickedBuilding.lvl;
     }
 }
 

@@ -225,6 +225,9 @@ class OpeningChest extends Element {
     onHover(mouseX, mouseY) {
         if (this.opened === false && this.openingAnimation === false) {
             this.game.canvas.style.cursor = "pointer";
+        } else {
+            this.openAgainButton?.onHover(mouseX, mouseY);
+            this.chestReturnButton?.onHover(mouseX, mouseY);
         }
     }
 }

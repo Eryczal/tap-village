@@ -4,6 +4,7 @@ import { mapObjects } from "../../../data/mapObjects.js";
 import { MapObject, StoneObject, TreeObject, WaterObject } from "./MapObject.js";
 import { database as db, ref, set, get } from "../../../../firebase.js";
 import { MapGatheredNumber } from "../../_elements/GatheredNumber.js";
+import { architectObjects } from "../../../data/architectObjects.js";
 
 var map = [
     [
@@ -387,7 +388,7 @@ class Map extends Element {
                     );
 
                     this.game.ctx.globalCompositeOperation = "source-atop";
-                    this.game.ctx.fillStyle = this.checkBuildingPos(building.buildingId) ? "rgba(0, 255, 0, 0.3)" : "rgba(255, 0, 0, 0.3)";
+                    this.game.ctx.fillStyle = this.checkElementPos(building.buildingId, "building") ? "rgba(0, 255, 0, 0.3)" : "rgba(255, 0, 0, 0.3)";
 
                     this.game.ctx.fillRect(
                         this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
@@ -418,6 +419,29 @@ class Map extends Element {
             }
         }
 
+        if (this.game.sceneManager.currentScene?.data?.placeObject === true) {
+            let object = architectObjects[this.game.sceneManager.currentScene.data.objectId];
+            this.game.ctx.drawImage(
+                this.game.assetsManager.images[object.image],
+                this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
+                this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
+                object.sizeX * this.TILE_SIZE,
+                object.sizeY * this.TILE_SIZE
+            );
+
+            this.game.ctx.globalCompositeOperation = "source-atop";
+            this.game.ctx.fillStyle = this.checkElementPos(object.id, "object") ? "rgba(0, 255, 0, 0.3)" : "rgba(255, 0, 0, 0.3)";
+
+            this.game.ctx.fillRect(
+                this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
+                this.mapScroll.y + this.selectedTile.y * this.TILE_SIZE,
+                object.sizeX * this.TILE_SIZE,
+                object.sizeY * this.TILE_SIZE
+            );
+
+            this.game.ctx.globalCompositeOperation = "source-over";
+        }
+
         if (construction.constructionState === 0) {
             this.game.ctx.drawImage(
                 this.game.assetsManager.images[buildings[construction.buildingId].image],
@@ -427,7 +451,7 @@ class Map extends Element {
                 buildings[construction.buildingId].size.y * this.TILE_SIZE
             );
             this.game.ctx.globalCompositeOperation = "source-atop";
-            this.game.ctx.fillStyle = this.checkBuildingPos(construction.buildingId) ? "rgba(0, 255, 0, 0.3)" : "rgba(255, 0, 0, 0.3)";
+            this.game.ctx.fillStyle = this.checkElementPos(construction.buildingId, "building") ? "rgba(0, 255, 0, 0.3)" : "rgba(255, 0, 0, 0.3)";
 
             this.game.ctx.fillRect(
                 this.MENU_SIZE + this.mapScroll.x + this.selectedTile.x * this.TILE_SIZE,
@@ -511,50 +535,28 @@ class Map extends Element {
             "top"
         );
 
+        if (construction.constructionState === 0) {
+            this.drawTopInfoText("Wybierz miejsce dla budynku");
+        }
+
         if (this.game.sceneManager.currentScene?.data?.changePosition === true) {
             if (this.game.sceneManager.currentScene?.data?.progress === 0) {
-                this.game.strokeText(
-                    "Wybierz budynek do przeniesienia",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
-                this.game.writeText(
-                    "Wybierz budynek do przeniesienia",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
+                this.drawTopInfoText("Wybierz budynek do przeniesienia");
             } else if (this.game.sceneManager.currentScene?.data?.progress === 1) {
-                this.game.strokeText(
-                    "Wybierz miejsce dla budynku",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
-                this.game.writeText(
-                    "Wybierz miejsce dla budynku",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
+                this.drawTopInfoText("Wybierz miejsce dla budynku");
             }
         } else if (this.game.sceneManager.currentScene?.data?.removeObject === true) {
             if (this.game.sceneManager.currentScene?.data?.progress === 0) {
-                this.game.strokeText(
-                    "Wybierz obiekty do usunięcia",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
-                this.game.writeText(
-                    "Wybierz obiekty do usunięcia",
-                    (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE,
-                    this.game.canvas.height / 25,
-                    this.game.canvas.height / 25
-                );
+                this.drawTopInfoText("Wybierz obiekty do usunięcia");
             }
+        } else if (this.game.sceneManager.currentScene?.data?.placeObject === true) {
+            this.drawTopInfoText("Wybierz miejsce dla obiektu");
         }
+    }
+
+    drawTopInfoText(text) {
+        this.game.strokeText(text, (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE, this.game.canvas.height / 25, this.game.canvas.height / 25);
+        this.game.writeText(text, (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE, this.game.canvas.height / 25, this.game.canvas.height / 25);
     }
 
     drawDayCycle() {
@@ -642,7 +644,8 @@ class Map extends Element {
     onMouseMove(mouseLastPos, event) {
         if (
             this.game.constructionManager.constructionState === 0 ||
-            (this.game.sceneManager.currentScene?.data?.changePosition === true && this.game.sceneManager.currentScene?.data?.progress === 1)
+            (this.game.sceneManager.currentScene?.data?.changePosition === true && this.game.sceneManager.currentScene?.data?.progress === 1) ||
+            this.game.sceneManager.currentScene?.data?.placeObject === true
         ) {
             if (event.clientX >= this.MENU_SIZE) {
                 this.selectedTile = {
@@ -686,7 +689,7 @@ class Map extends Element {
                         }
                     }
                 } else if (this.game.sceneManager.currentScene.data.progress === 1) {
-                    if (this.checkBuildingPos(building.buildingId)) {
+                    if (this.checkElementPos(building.buildingId, "building")) {
                         building.posX = tileX;
                         building.posY = tileY;
                         this.game.buildingsManager.saveBuilding(id);
@@ -703,6 +706,20 @@ class Map extends Element {
                     }
                 }
                 return;
+            } else if (this.game.sceneManager.currentScene?.data?.placeObject === true) {
+                let obj = architectObjects[this.game.sceneManager.currentScene.data.objectId];
+                if (
+                    this.game.playerManager.wood >= obj.cost.wood &&
+                    this.game.playerManager.stone >= obj.cost.stone &&
+                    this.game.playerManager.gold >= obj.cost.gold
+                ) {
+                    this.game.playerManager.wood -= obj.cost.wood;
+                    this.game.playerManager.stone -= obj.cost.stone;
+                    this.game.playerManager.gold -= obj.cost.gold;
+                    obj.x = this.selectedTile.x;
+                    obj.y = this.selectedTile.y;
+                    this.handleCreateObject(obj, true);
+                }
             }
 
             if (this.game.constructionManager.constructionState === 0) {
@@ -710,7 +727,7 @@ class Map extends Element {
                     x: tileX,
                     y: tileY,
                 };
-                if (this.checkBuildingPos(this.game.constructionManager.buildingId)) {
+                if (this.checkElementPos(this.game.constructionManager.buildingId, "building")) {
                     this.game.constructionManager.setBuild(this.selectedTile.x, this.selectedTile.y);
                     this.selectedTile.x = 0;
                     this.selectedTile.y = 0;
@@ -757,7 +774,7 @@ class Map extends Element {
             return;
         }
 
-        if (this.game.sceneManager.currentScene?.data?.removeObject === true) {
+        if (this.game.sceneManager.currentScene?.data?.removeObject === true || this.game.sceneManager.currentScene?.data?.placeObject === true) {
             delete this.game.sceneManager.currentScene?.data;
             return;
         }
@@ -813,7 +830,7 @@ class Map extends Element {
             } else if (this.game.sceneManager.currentScene?.data?.progress === 1) {
                 let id = this.game.sceneManager.currentScene?.data?.clickedBuilding;
                 let building = this.game.buildingsManager.buildings[id];
-                let cursor = this.checkBuildingPos(building.buildingId) ? "pointer" : "default";
+                let cursor = this.checkElementPos(building.buildingId, "building") ? "pointer" : "default";
                 this.game.canvas.style.cursor = cursor;
                 return;
             }
@@ -881,16 +898,16 @@ class Map extends Element {
         this.changeMap(tileX, tileY, sizeX, sizeY, 0);
     }
 
-    checkBuildingPos(buildingId) {
-        let buildingSize = {
-            x: buildings[buildingId].size.x - 1,
-            y: buildings[buildingId].size.y - 1,
+    checkElementPos(id, type) {
+        let size = {
+            x: (type === "building" ? buildings[id].size.x : architectObjects[id].sizeX) - 1,
+            y: (type === "building" ? buildings[id].size.y : architectObjects[id].sizeY) - 1,
         };
 
         let isFree = true;
 
-        for (let y = this.selectedTile.y; y <= this.selectedTile.y + buildingSize.y; y++) {
-            for (let x = this.selectedTile.x; x <= this.selectedTile.x + buildingSize.x; x++) {
+        for (let y = this.selectedTile.y; y <= this.selectedTile.y + size.y; y++) {
+            for (let x = this.selectedTile.x; x <= this.selectedTile.x + size.x; x++) {
                 if (map[y]?.[x] !== 0) {
                     isFree = false;
                     break;
@@ -923,17 +940,48 @@ class Map extends Element {
             });
     }
 
-    handleCreateObject(mapObject) {
-        if (mapObject.type === "water") {
-            storedMapObjects.push(new WaterObject(this.game, this, mapObject.type, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY));
-        } else if (mapObject.type === "tree") {
+    handleCreateObject(mapObject, save = false) {
+        if (mapObject.image === "water") {
+            storedMapObjects.push(new WaterObject(this.game, this, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, mapObject.image));
+        } else if (mapObject.image === "tree" || mapObject.image === "tree2") {
             storedMapObjects.push(
-                new TreeObject(this.game, this, mapObject.type, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, mapObject.clicks, mapObject.image)
+                new TreeObject(
+                    this.game,
+                    this,
+                    mapObject.x,
+                    mapObject.y,
+                    mapObject.sizeX,
+                    mapObject.sizeY,
+                    mapObject.image,
+                    mapObject.clicks ? mapObject.clicks : 5
+                )
             );
-        } else if (mapObject.type === "stone") {
+        } else if (mapObject.image === "stone" || mapObject.image === "stone2") {
             storedMapObjects.push(
-                new StoneObject(this.game, this, mapObject.type, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, mapObject.clicks, mapObject.image)
+                new StoneObject(
+                    this.game,
+                    this,
+                    mapObject.x,
+                    mapObject.y,
+                    mapObject.sizeX,
+                    mapObject.sizeY,
+                    mapObject.image,
+                    mapObject.clicks ? mapObject.clicks : 15
+                )
             );
+        } else {
+            storedMapObjects.push(new MapObject(this.game, this, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, mapObject.image));
+        }
+
+        if (save) {
+            let saveObject = {
+                x: mapObject.x,
+                y: mapObject.y,
+                sizeX: mapObject.sizeX,
+                sizeY: mapObject.sizeY,
+                image: mapObject.image,
+            };
+            set(ref(db, `players/${this.game.playerManager.playerId}/mapObjects/o${mapObject.y}_${mapObject.x}`), saveObject);
         }
         this.changeMap(mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, 2);
     }

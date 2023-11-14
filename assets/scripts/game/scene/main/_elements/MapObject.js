@@ -2,18 +2,18 @@ import { Element } from "../../../element/Element.js";
 import { SawmillBuilding, QuarryBuilding } from "../../../managers/BuildingsManager.js";
 
 class MapObject extends Element {
-    constructor(game, parent, type, x, y, sizeX, sizeY) {
+    constructor(game, parent, x, y, sizeX, sizeY, image) {
         super(game);
 
         this.parent = parent;
 
         this.id = y + "_" + x;
 
-        this.type = type;
         this.tileX = x;
         this.tileY = y;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.image = image;
 
         this.TILE_SIZE = this.parent.TILE_SIZE;
         this.MENU_SIZE = this.parent.MENU_SIZE;
@@ -24,7 +24,7 @@ class MapObject extends Element {
         this.width = this.TILE_SIZE * this.sizeX;
         this.height = this.TILE_SIZE * this.sizeY;
 
-        this.clickable = true;
+        this.clickable = false;
     }
 
     onClick(mouseX, mouseY) {
@@ -50,11 +50,11 @@ class MapObject extends Element {
 }
 
 class TreeObject extends MapObject {
-    constructor(game, parent, type, x, y, sizeX, sizeY, clicks, image) {
-        super(game, parent, type, x, y, sizeX, sizeY);
+    constructor(game, parent, x, y, sizeX, sizeY, image, clicks) {
+        super(game, parent, x, y, sizeX, sizeY, image);
 
         this.clicks = clicks;
-        this.image = image;
+        this.clickable = true;
     }
 
     onClick(mouseX, mouseY) {
@@ -82,11 +82,11 @@ class TreeObject extends MapObject {
 }
 
 class StoneObject extends MapObject {
-    constructor(game, parent, type, x, y, sizeX, sizeY, clicks, image) {
-        super(game, parent, type, x, y, sizeX, sizeY);
+    constructor(game, parent, x, y, sizeX, sizeY, image, clicks) {
+        super(game, parent, x, y, sizeX, sizeY, image);
 
         this.clicks = clicks;
-        this.image = image;
+        this.clickable = true;
     }
 
     onClick(mouseX, mouseY) {
@@ -114,10 +114,8 @@ class StoneObject extends MapObject {
 }
 
 class WaterObject extends MapObject {
-    constructor(game, parent, type, x, y, sizeX, sizeY) {
-        super(game, parent, type, x, y, sizeX, sizeY);
-
-        this.clickable = false;
+    constructor(game, parent, type, x, y, sizeX, sizeY, image) {
+        super(game, parent, type, x, y, sizeX, sizeY, image);
     }
 
     onClick(mouseX, mouseY) {
@@ -129,7 +127,7 @@ class WaterObject extends MapObject {
 
     draw() {
         this.game.ctx.drawImage(
-            this.game.assetsManager.images[this.parent.waterState === 0 ? "waterTile" : "waterTile2"],
+            this.game.assetsManager.images[this.parent.waterState === 0 ? this.image : this.image + "2"],
             this.x,
             this.y,
             this.width,
