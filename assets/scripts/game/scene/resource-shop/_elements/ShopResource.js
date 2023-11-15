@@ -26,31 +26,54 @@ class ShopResource extends Element {
         switch (this.type) {
             case 0:
                 this.amount = Math.floor(
-                    resources[this.resourceId].amount * (SawmillBuilding.stats.gatheringPower + 1) * (SawmillBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        ((((SawmillBuilding.stats.gatheringPower * SawmillBuilding.stats.gatheringChance) / 100) *
+                            (100 - SawmillBuilding.stats.criticalChance)) /
+                            100 +
+                            (((SawmillBuilding.stats.criticalPower * SawmillBuilding.stats.gatheringChance) / 100) * SawmillBuilding.stats.criticalChance) /
+                                100)
                 );
                 break;
 
             case 1:
                 this.amount = Math.floor(
-                    resources[this.resourceId].amount * (QuarryBuilding.stats.gatheringPower + 1) * (QuarryBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        ((((QuarryBuilding.stats.gatheringPower * QuarryBuilding.stats.gatheringChance) / 100) * (100 - QuarryBuilding.stats.criticalChance)) /
+                            100 +
+                            (((QuarryBuilding.stats.criticalPower * QuarryBuilding.stats.gatheringChance) / 100) * QuarryBuilding.stats.criticalChance) / 100)
                 );
                 break;
 
             case 2:
                 this.amount = Math.floor(
-                    resources[this.resourceId].amount * (MineBuilding.stats.gatheringPower + 1) * (MineBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        ((((MineBuilding.stats.gatheringPower * MineBuilding.stats.gatheringChance) / 100) * (100 - MineBuilding.stats.criticalChance)) / 100 +
+                            (((MineBuilding.stats.criticalPower * MineBuilding.stats.gatheringChance) / 100) * MineBuilding.stats.criticalChance) / 100)
                 );
                 break;
 
             case 3:
                 let wood = Math.floor(
-                    resources[this.resourceId].amount * 0.4 * (SawmillBuilding.stats.gatheringPower + 1) * (SawmillBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        0.4 *
+                        ((((SawmillBuilding.stats.gatheringPower * SawmillBuilding.stats.gatheringChance) / 100) *
+                            (100 - SawmillBuilding.stats.criticalChance)) /
+                            100 +
+                            (((SawmillBuilding.stats.criticalPower * SawmillBuilding.stats.gatheringChance) / 100) * SawmillBuilding.stats.criticalChance) /
+                                100)
                 );
                 let stone = Math.floor(
-                    resources[this.resourceId].amount * 0.4 * (QuarryBuilding.stats.gatheringPower + 1) * (QuarryBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        0.4 *
+                        ((((QuarryBuilding.stats.gatheringPower * QuarryBuilding.stats.gatheringChance) / 100) * (100 - QuarryBuilding.stats.criticalChance)) /
+                            100 +
+                            (((QuarryBuilding.stats.criticalPower * QuarryBuilding.stats.gatheringChance) / 100) * QuarryBuilding.stats.criticalChance) / 100)
                 );
                 let gold = Math.floor(
-                    resources[this.resourceId].amount * 0.4 * (MineBuilding.stats.gatheringPower + 1) * (MineBuilding.stats.gatheringChance / 100)
+                    resources[this.resourceId].amount *
+                        0.4 *
+                        ((((MineBuilding.stats.gatheringPower * MineBuilding.stats.gatheringChance) / 100) * (100 - MineBuilding.stats.criticalChance)) / 100 +
+                            (((MineBuilding.stats.criticalPower * MineBuilding.stats.gatheringChance) / 100) * MineBuilding.stats.criticalChance) / 100)
                 );
                 this.amount = [wood, stone, gold];
                 break;
@@ -65,6 +88,8 @@ class ShopResource extends Element {
         }
 
         this.height = this.ICON_SIZE * 3;
+
+        this.additional = (resources[this.resourceId].amount / resources[this.resourceId].cost) * 10 - 100;
 
         this.buyButton = new ResourceShopButton(game, this.x + this.size / 2 - this.size / 4, this.y + this.ICON_SIZE * 3, this.size / 2, this.size / 12, this);
 
@@ -132,6 +157,11 @@ class ShopResource extends Element {
                 break;
         }
 
+        if (this.additional > 9) {
+            this.game.strokeText(`+${this.additional}%`, this.x + this.size / 2 + this.ICON_SIZE / 2, this.y - this.scroll, this.ICON_SIZE / 2, "#f00");
+            this.game.writeText(`+${this.additional}%`, this.x + this.size / 2 + this.ICON_SIZE / 2, this.y - this.scroll, this.ICON_SIZE / 2);
+        }
+
         this.game.strokeText(
             this.type === 3 ? this.amount.join(", ") : this.amount,
             this.x + this.size / 2,
@@ -161,12 +191,9 @@ class ShopResource extends Element {
     }
 
     onResize() {
-        this.ICON_SIZE = this.game.canvas.width / 40;
-        this.MAX_IMAGE_SIZE = this.ICON_SIZE * 5;
-        this.IMAGE_SIZE_X = buildings[this.id].size.x * this.ICON_SIZE; // ---- // == // - / = /
-        this.IMAGE_SIZE_Y = buildings[this.id].size.y * this.ICON_SIZE; // ---- // == // - / = /
-        this.TEXT_SPACING = this.game.canvas.height / 100;
-        this.ICON_SPACING = this.game.canvas.height / 50;
+        this.ICON_SIZE = this.game.canvas.width / 20;
+        this.IMAGE_SIZE_X = this.ICON_SIZE;
+        this.IMAGE_SIZE_Y = this.ICON_SIZE;
     }
 }
 

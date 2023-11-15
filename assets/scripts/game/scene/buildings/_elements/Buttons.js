@@ -1,4 +1,5 @@
 import { Element } from "../../../element/Element.js";
+import { BuyButton } from "../../_elements/BuyButton.js";
 import { buildings } from "../../../data/buildings.js";
 
 class BackButton extends Element {
@@ -28,6 +29,14 @@ class BackButton extends Element {
         }
     }
 
+    onResize() {
+        this.width = this.game.canvas.width / 4;
+        this.height = this.game.canvas.width / 24;
+
+        this.x = (this.game.canvas.width - this.MENU_SIZE) / 2 + this.MENU_SIZE - this.width / 2;
+        this.y = this.game.canvas.height - this.game.canvas.height / 8;
+    }
+
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
         this.game.strokeText("Powrót", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
@@ -39,7 +48,7 @@ class UpgradeButton extends BackButton {
     constructor(game, menu) {
         super(game, menu);
 
-        this.y = this.game.canvas.height - this.game.canvas.height / 4;
+        this.y = this.game.canvas.height - this.game.canvas.height / 8 - this.height * 1.2;
 
         this.offset = this.game.canvas.width / 200;
         this.iconY = this.y - this.height / 3 - this.height / 4;
@@ -47,6 +56,8 @@ class UpgradeButton extends BackButton {
         this.building = this.game.buildingsManager.clickedBuilding;
         this.cost = buildings[this.building.buildingId].upgrades[this.building.lvl - 1]?.cost;
         this.clickable = this.cost !== undefined;
+
+        this.upgradeCost = new UpgradeCost(game, this);
     }
 
     onClick(mouseX, mouseY) {
@@ -85,63 +96,21 @@ class UpgradeButton extends BackButton {
         }
     }
 
-    draw() {
-        let textX = this.x + this.offset;
-        let player = this.game.playerManager;
+    onResize() {
+        this.y = this.game.canvas.height - this.game.canvas.height / 8 - this.height * 1.2;
 
+        this.upgradeCost.onResize();
+    }
+
+    draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.upgradeButton, this.x, this.y, this.width, this.height);
 
         if (this.building.buildingId === 0 || this.building.lvl < this.game.buildingsManager.buildings[0].lvl) {
             if (this.cost !== undefined) {
-                this.game.ctx.beginPath();
-                this.game.ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
-                this.game.ctx.rect(this.x, this.y - this.height / 1.5, this.width, this.height / 1.5);
-                this.game.ctx.fill();
-
                 this.game.strokeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
                 this.game.writeText("Ulepsz", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
 
-                this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
-                textX += this.height / 2 + this.offset * 2;
-
-                this.game.strokeText(this.cost.wood, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
-                let woodSize = this.game.writeText(
-                    this.cost.wood,
-                    textX,
-                    this.y - this.height / 3,
-                    this.height / 2,
-                    player.wood >= this.cost.wood ? "#0f0" : "#f00",
-                    "left"
-                );
-                textX += woodSize.sizes[0].width + this.offset * 2;
-
-                this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
-                textX += this.height / 2 + this.offset * 2;
-
-                this.game.strokeText(this.cost.stone, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
-                let stoneSize = this.game.writeText(
-                    this.cost.stone,
-                    textX,
-                    this.y - this.height / 3,
-                    this.height / 2,
-                    player.stone >= this.cost.stone ? "#0f0" : "#f00",
-                    "left"
-                );
-                textX += stoneSize.sizes[0].width + this.offset * 2;
-
-                this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
-                textX += this.height / 2 + this.offset * 2;
-
-                this.game.strokeText(this.cost.gold, textX, this.y - this.height / 3, this.height / 2, "#000", "left");
-                let goldSize = this.game.writeText(
-                    this.cost.gold,
-                    textX,
-                    this.y - this.height / 3,
-                    this.height / 2,
-                    player.gold >= this.cost.gold ? "#0f0" : "#f00",
-                    "left"
-                );
-                textX += goldSize.sizes[0].width + this.offset * 2;
+                this.upgradeCost.draw();
             } else {
                 this.game.strokeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
                 this.game.writeText("Maksymalny poziom", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
@@ -150,6 +119,52 @@ class UpgradeButton extends BackButton {
             this.game.strokeText("Wymaga ulepszenia zamku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText("Wymaga ulepszenia zamku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         }
+    }
+}
+
+class UpgradeCost extends BuyButton {
+    constructor(game, parent) {
+        super(
+            game,
+            parent.x,
+            parent.y - parent.height / 1.5,
+            parent.width,
+            parent.height / 1.5,
+            parent,
+            `%i0 ${parent.cost.wood} %i1 ${parent.cost.stone} %i2 ${parent.cost.gold}`,
+            ["woodIcon", "stoneIcon", "goldIcon"],
+            (parent.height / 1.5) * 0.8,
+            3
+        );
+
+        this.colors = [
+            this.game.playerManager.wood >= this.parent.cost.wood ? "#3f3" : "#f33",
+            this.game.playerManager.stone >= this.parent.cost.stone ? "#3f3" : "#f33",
+            this.game.playerManager.gold >= this.parent.cost.gold ? "#3f3" : "#f33",
+        ];
+    }
+
+    draw() {
+        this.game.ctx.beginPath();
+        this.game.ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
+        this.game.ctx.rect(this.x, this.y, this.width, this.height);
+        this.game.ctx.fill();
+
+        this.elements.forEach((element, i) => {
+            if (typeof element.value === "string") {
+                this.game.strokeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.sColor, "left");
+                this.game.writeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.colors[Math.floor(i / 2)], "left");
+            } else {
+                this.game.ctx.drawImage(element.value, this.x + element.x, this.y + this.height * 0.2, this.height * 0.6, this.height * 0.6);
+            }
+        });
+    }
+
+    onResize() {
+        this.x = this.parent.x;
+        this.y = this.parent.y - this.parent.height / 1.5;
+        this.width = this.parent.width;
+        this.height = this.parent.height / 1.5;
     }
 }
 

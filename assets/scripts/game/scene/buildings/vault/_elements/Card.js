@@ -53,7 +53,7 @@ class Card extends Element {
     }
 
     draw() {
-        this.game.ctx.shadowColor = "rgba(34, 34, 34, 0.6)";
+        this.game.ctx.shadowColor = this.game.playerManager.cards[this.id].lvl >= 5 ? "#eebb3399" : "rgba(34, 34, 34, 0.6)";
         this.game.ctx.shadowBlur = this.width / 10;
         this.game.ctx.fillStyle = this.bgColor;
         this.game.ctx.fillRect(this.x, this.y, this.width, this.width);

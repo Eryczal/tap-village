@@ -1,7 +1,7 @@
 import { Element } from "../../element/Element.js";
 
 class BuyButton extends Element {
-    constructor(game, x, y, width, height, parent, text = "Kup", images = false, size = height * 0.8) {
+    constructor(game, x, y, width, height, parent, text = "Kup", images = false, size = height * 0.8, textMargin = 1) {
         super(game);
 
         this.width = width;
@@ -17,9 +17,14 @@ class BuyButton extends Element {
         this.color = "#ccc";
 
         this.size = size;
-
-        this.images = images ? images.map((image) => (image ? this.game.assetsManager.images[image] : false)) : false;
         this.margin = this.size / 8;
+        this.textMargin = this.margin * textMargin;
+
+        this.updateText(text, images);
+    }
+
+    updateText(text, images) {
+        this.images = images ? images.map((image) => (image ? this.game.assetsManager.images[image] : false)) : false;
 
         if (this.images) {
             this.elements = text.split(" ").map((element, i) => {
@@ -36,11 +41,10 @@ class BuyButton extends Element {
 
             this.elements.forEach((element) => {
                 if (typeof element === "string") {
-                    totalWidth += this.game.writeText(element, 0, 0, this.height * 0.8, "transparent").sizes[0].width;
+                    totalWidth += this.game.writeText(element, 0, 0, this.size, "transparent").sizes[0].width + this.textMargin;
                 } else {
-                    totalWidth += this.height * 0.6;
+                    totalWidth += this.height * 0.6 + this.margin;
                 }
-                totalWidth += this.margin;
             });
 
             const centerX = (this.width - totalWidth) / 2;
@@ -50,14 +54,14 @@ class BuyButton extends Element {
             this.elements.forEach((element, i) => {
                 let elementWidth;
                 if (typeof element === "string") {
-                    elementWidth = this.game.writeText(element, 0, 0, this.height * 0.8, "transparent").sizes[0].width;
+                    elementWidth = this.game.writeText(element, 0, 0, this.size, "transparent").sizes[0].width;
                 } else {
                     elementWidth = this.height * 0.6;
                 }
 
                 this.elements[i] = { value: element, x: currentX };
 
-                currentX += elementWidth + this.margin;
+                currentX += elementWidth + (typeof element === "string" ? this.textMargin : this.margin);
             });
         } else {
             this.text = text;

@@ -1,26 +1,31 @@
 import { Element } from "../../../element/Element.js";
+import { BuyButton } from "../../_elements/BuyButton.js";
 import { buildings } from "../../../data/buildings.js";
 import { cards } from "../../../data/cards.js";
 import { MineBuilding, QuarryBuilding, SawmillBuilding, WorkshopBuilding } from "../../../managers/BuildingsManager.js";
 
-class BuildingButton extends Element {
+class BuildingButton extends BuyButton {
     constructor(game, menu, text, stat, y = 0) {
-        super(game);
-
-        this.MENU_SIZE = menu.MENU_SIZE;
-
-        this.width = this.game.canvas.width / 6;
-        this.height = this.game.canvas.width / 36;
-
-        if (this.game.buildingsManager.clickedBuilding.buildingId === 4 && stat !== "workersSpeed") {
+        if (game.buildingsManager.clickedBuilding.buildingId === 4 && stat !== "workersSpeed") {
             y -= y > 0 ? 2 : 0;
         }
 
-        this.x = (this.game.canvas.width - this.MENU_SIZE) / 2 - this.width / 2 + this.MENU_SIZE;
-        this.y = this.game.canvas.height / 6 + y * this.height;
+        super(
+            game,
+            (game.canvas.width - menu.MENU_SIZE) / 2 - game.canvas.width / 6 / 2 + menu.MENU_SIZE,
+            game.canvas.height / 6 + (y * game.canvas.width) / 36,
+            game.canvas.width / 6,
+            game.canvas.width / 36,
+            false,
+            "Kup",
+            false,
+            game.canvas.width / 78,
+            4
+        );
+
+        this.MENU_SIZE = menu.MENU_SIZE;
 
         this.offset = canvas.width / 200;
-        this.iconY = this.y + this.height / 2 - this.height / 4;
 
         this.clickable = true;
 
@@ -34,56 +39,12 @@ class BuildingButton extends Element {
             this.maxStat = buildings[this.building.buildingId].maxStats[stat];
         }
 
-        if (stat !== "workers" && stat !== "workersSpeed") {
-            switch (this.building.buildingId) {
-                case 1:
-                    this[stat] = SawmillBuilding.stats[stat];
-                    this.cost = SawmillBuilding.statsCost[stat];
-                    this.gatheringCard = cards[4].upgrades[this.game.playerManager.cards[4].lvl];
-                    this.chanceCard = cards[0].upgrades[this.game.playerManager.cards[0].lvl];
-                    break;
-
-                case 2:
-                    this[stat] = QuarryBuilding.stats[stat];
-                    this.cost = QuarryBuilding.statsCost[stat];
-                    this.gatheringCard = cards[5].upgrades[this.game.playerManager.cards[5].lvl];
-                    this.chanceCard = cards[1].upgrades[this.game.playerManager.cards[1].lvl];
-                    break;
-
-                case 3:
-                    this[stat] = MineBuilding.stats[stat];
-                    this.cost = MineBuilding.statsCost[stat];
-                    this.gatheringCard = cards[6].upgrades[this.game.playerManager.cards[6].lvl];
-                    this.chanceCard = cards[2].upgrades[this.game.playerManager.cards[2].lvl];
-                    break;
-
-                case 4:
-                    this[stat] = WorkshopBuilding.stats[stat];
-                    this.cost = WorkshopBuilding.statsCost[stat];
-                    this.gatheringCard = 0;
-                    break;
-            }
-        } else {
-            this[stat] = this.building[stat];
-            this.cost = this.building[stat + "Cost"];
-        }
-
-        this.actualCost = {
-            wood: Math.ceil(this.cost.wood - (this.cost.wood * cards[8].upgrades[this.game.playerManager.cards[8].lvl]) / 100),
-            stone: Math.ceil(this.cost.stone - (this.cost.stone * cards[9].upgrades[this.game.playerManager.cards[9].lvl]) / 100),
-            gold: Math.ceil(this.cost.gold - (this.cost.gold * cards[10].upgrades[this.game.playerManager.cards[10].lvl]) / 100),
-        };
+        this.updateValues(0, 0, false);
 
         this.state = 0;
     }
 
-    updateMaxStats() {
-        if (this.building.lvl > 1) {
-            this.maxStat = buildings[this.building.buildingId].upgrades[this.building.lvl - 2].maxStats[this.stat];
-        }
-    }
-
-    updateValues(mouseX, mouseY) {
+    updateValues(mouseX, mouseY, save = true) {
         if (this.stat !== "workers" && this.stat !== "workersSpeed") {
             switch (this.building.buildingId) {
                 case 1:
@@ -113,11 +74,17 @@ class BuildingButton extends Element {
                     this.gatheringCard = 0;
                     break;
             }
-            this.building.saveType();
+
+            if (save) {
+                this.building.saveType();
+            }
         } else {
             this[this.stat] = this.building[this.stat];
             this.cost = this.building[this.stat + "Cost"];
-            this.game.buildingsManager.saveBuilding(this.building.position);
+
+            if (save) {
+                this.game.buildingsManager.saveBuilding(this.building.position);
+            }
         }
 
         this.actualCost = {
@@ -126,56 +93,44 @@ class BuildingButton extends Element {
             gold: Math.ceil(this.cost.gold - (this.cost.gold * cards[10].upgrades[this.game.playerManager.cards[10].lvl]) / 100),
         };
 
+        this.colors = [
+            this.game.playerManager.wood >= this.actualCost.wood ? "#3f3" : "#f33",
+            this.game.playerManager.stone >= this.actualCost.stone ? "#3f3" : "#f33",
+            this.game.playerManager.gold >= this.actualCost.gold ? "#3f3" : "#f33",
+        ];
+
+        this.updateText(`%i0 ${this.actualCost.wood} %i1 ${this.actualCost.stone} %i2 ${this.actualCost.gold}`, ["woodIcon", "stoneIcon", "goldIcon"]);
+
         this.updateTexts?.();
 
         this.onHover(mouseX, mouseY);
     }
 
+    onHover(mouseX, mouseY) {
+        super.onHover(mouseX, mouseY);
+
+        return this.isMouseOver(mouseX, mouseY);
+    }
+
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.buyButton, this.x, this.y, this.width, this.height);
+
         if (this.state === 0) {
             this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         } else if (this.state === 1) {
-            let textX = this.x + this.offset;
-            let player = this.game.playerManager;
-            let cost = this.actualCost;
-
-            this.game.ctx.drawImage(this.game.assetsManager.images.woodIcon, textX, this.iconY, this.height / 2, this.height / 2);
-            textX += this.height / 2 + this.offset;
-
-            this.game.strokeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
-            let woodSize = this.game.writeText(cost.wood, textX, this.y + this.height / 2, this.height / 2, player.wood >= cost.wood ? "#3f3" : "#f33", "left");
-            textX += woodSize.sizes[0].width + this.offset * 2;
-
-            this.game.ctx.drawImage(this.game.assetsManager.images.stoneIcon, textX, this.iconY, this.height / 2, this.height / 2);
-            textX += this.height / 2 + this.offset;
-
-            this.game.strokeText(cost.stone, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
-            let stoneSize = this.game.writeText(
-                cost.stone,
-                textX,
-                this.y + this.height / 2,
-                this.height / 2,
-                player.stone >= cost.stone ? "#3f3" : "#f33",
-                "left"
-            );
-            textX += stoneSize.sizes[0].width + this.offset * 2;
-
-            this.game.ctx.drawImage(this.game.assetsManager.images.goldIcon, textX, this.iconY, this.height / 2, this.height / 2);
-            textX += this.height / 2 + this.offset;
-
-            this.game.strokeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, "#000", "left");
-            let goldSize = this.game.writeText(cost.gold, textX, this.y + this.height / 2, this.height / 2, player.gold >= cost.gold ? "#3f3" : "#f33", "left");
-            textX += goldSize.sizes[0].width + this.offset * 2;
+            this.elements.forEach((element, i) => {
+                if (typeof element.value === "string") {
+                    this.game.strokeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.sColor, "left");
+                    this.game.writeText(element.value, this.x + element.x, this.y + this.height / 2, this.size, this.colors[Math.floor(i / 2)], "left");
+                } else {
+                    this.game.ctx.drawImage(element.value, this.x + element.x, this.y + this.height * 0.2, this.height * 0.6, this.height * 0.6);
+                }
+            });
         } else {
             this.game.strokeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         }
-    }
-
-    onHover(mouseX, mouseY) {
-        return super.onHover(mouseX, mouseY);
     }
 }
 

@@ -22,6 +22,14 @@ class RemoveAccount extends Element {
         this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.8);
     }
 
+    onResize() {
+        this.width = this.game.canvas.width / 8;
+        this.height = this.game.canvas.width / 48;
+
+        this.x = this.game.canvas.width - this.width * 1.2;
+        this.y = this.game.canvas.height - this.game.canvas.height / 12;
+    }
+
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY)) {
             if (this.state === 0) {
@@ -44,6 +52,12 @@ class RemoveProgress extends RemoveAccount {
 
         this.y -= this.height * 1.5;
         this.text = "Zresetuj postęp";
+    }
+
+    onResize() {
+        super.onResize();
+
+        this.y = this.game.canvas.height - this.game.canvas.height / 12 - this.height * 1.5;
     }
 
     onClick(mouseX, mouseY) {

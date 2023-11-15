@@ -135,8 +135,10 @@ class OpeningChest extends Element {
             card.lvl = 2;
         } else if (card.amount >= 5 && card.amount < 15) {
             card.lvl = 3;
-        } else if (card.amount >= 15) {
+        } else if (card.amount >= 15 && card.amount < 50) {
             card.lvl = 4;
+        } else if (card.amount >= 50) {
+            card.lvl = 5;
         }
 
         if (oldLvl !== card.lvl) {

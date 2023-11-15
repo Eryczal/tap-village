@@ -720,6 +720,7 @@ class Map extends Element {
                     obj.y = this.selectedTile.y;
                     this.handleCreateObject(obj, true);
                 }
+                return;
             }
 
             if (this.game.constructionManager.constructionState === 0) {
@@ -941,7 +942,7 @@ class Map extends Element {
     }
 
     handleCreateObject(mapObject, save = false) {
-        if (mapObject.image === "water") {
+        if (mapObject.image === "water" || mapObject.image === "lava") {
             storedMapObjects.push(new WaterObject(this.game, this, mapObject.x, mapObject.y, mapObject.sizeX, mapObject.sizeY, mapObject.image));
         } else if (mapObject.image === "tree" || mapObject.image === "tree2") {
             storedMapObjects.push(

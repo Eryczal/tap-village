@@ -105,9 +105,13 @@ class CardStats extends Element {
         this.game.strokeText(this.description, this.TEXT_X, this.ICON_Y, this.TEXT_SIZE, "#000", "left", "top");
         this.game.writeText(this.description, this.TEXT_X, this.ICON_Y, this.TEXT_SIZE, "#fff", "left", "top");
 
+        this.game.ctx.shadowColor = this.game.playerManager.cards[this.cardId].lvl >= 5 ? "#eebb3399" : "rgba(34, 34, 34, 0.6)";
+        this.game.ctx.shadowBlur = this.width / 10;
         this.game.ctx.fillStyle = this.bgColor;
         this.game.ctx.fillRect(this.ICON_X, this.ICON_Y, this.ICON_SIZE, this.ICON_SIZE);
         this.game.ctx.drawImage(this.game.assetsManager.images[cards[this.cardId].image + "Card"], this.ICON_X, this.ICON_Y, this.ICON_SIZE, this.ICON_SIZE);
+        this.game.ctx.shadowColor = "rgba(0, 0, 0, 0)";
+        this.game.ctx.shadowBlur = 0;
 
         this.game.strokeText(this.cardRarityText, this.TEXT_X, this.CARD_RARITY_Y, this.TEXT_SIZE, "#000", "left", "top");
         this.game.writeText(this.cardRarityText, this.TEXT_X, this.CARD_RARITY_Y, this.TEXT_SIZE, "#fff", "left", "top");
