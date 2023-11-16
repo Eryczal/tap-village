@@ -132,25 +132,25 @@ class CardStats extends Element {
 
             if (currentStop === cardStop) {
                 gradient.addColorStop(currentStop, color);
-                gradient.addColorStop(currentStop, color + "33");
-                gradient.addColorStop(nextStop ? nextStop : 1, color + "33");
+                gradient.addColorStop(currentStop, color + "66");
+                gradient.addColorStop(nextStop ? nextStop : 1, color + "66");
             }
 
             if (cardStop > currentStop && cardStop < nextStop) {
                 gradient.addColorStop(currentStop, color);
                 gradient.addColorStop(cardStop, color);
-                gradient.addColorStop(cardStop, color + "33");
-                gradient.addColorStop(nextStop, color + "33");
+                gradient.addColorStop(cardStop, color + "66");
+                gradient.addColorStop(nextStop, color + "66");
             } else if (cardStop > currentStop && cardStop > nextStop) {
                 gradient.addColorStop(currentStop, color);
                 gradient.addColorStop(nextStop, color);
             } else if (cardStop < currentStop && cardStop < nextStop) {
-                gradient.addColorStop(currentStop, color + "33");
-                gradient.addColorStop(nextStop, color + "33");
+                gradient.addColorStop(currentStop, color + "66");
+                gradient.addColorStop(nextStop, color + "66");
             } else if (cardStop > currentStop && cardStop === nextStop) {
                 gradient.addColorStop(currentStop, color);
                 gradient.addColorStop(nextStop, color);
-                gradient.addColorStop(nextStop, color + "33");
+                gradient.addColorStop(nextStop, color + "66");
             }
         }
 

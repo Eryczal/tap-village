@@ -3,6 +3,7 @@ import { database as db, ref, set, get } from "../../firebase.js";
 import { buildings } from "../data/buildings.js";
 import { cards } from "../data/cards.js";
 import { offers } from "../data/offers.js";
+import { prestigeLevels } from "../data/prestigeLevels.js";
 
 class Building extends Element {
     constructor(game, buildingId, posX, posY) {
@@ -360,6 +361,37 @@ class TraderBuilding extends Building {
     }
 }
 
+class MonumentBuilding extends Building {
+    constructor(game, buildingId, posX, posY, prestigeLvl = 0, prestigeProgress = 0, storedGems = 0) {
+        super(game, buildingId, posX, posY);
+
+        this.prestigeLvl = prestigeLvl;
+        this.prestigeProgress = prestigeProgress;
+        this.prestigeObject = prestigeLevels.find((value) => this.prestigeLvl >= value.minLvl && this.prestigeLvl <= value.maxLvl);
+
+        this.storedGems = 0;
+    }
+
+    addPrestige() {
+        this.prestigeProgress++;
+
+        if (this.prestigeProgress >= this.prestigeObject.amountNeeded) {
+            this.prestigeProgress = 0;
+            this.prestigeLvl++;
+            this.prestigeObject = prestigeLevels.find((value) => this.prestigeLvl >= value.minLvl && this.prestigeLvl <= value.maxLvl);
+        }
+
+        this.game.buildingsManager.saveBuilding(this.position);
+    }
+
+    takeGems() {
+        this.game.playerManager.gem += this.storedGems;
+        this.storedGems = 0;
+
+        this.game.buildingsManager.saveBuilding(this.position);
+    }
+}
+
 class BuildingsManager {
     constructor(game) {
         this.game = game;
@@ -437,6 +469,18 @@ class BuildingsManager {
                                 building.posX,
                                 building.posY,
                                 building.offers
+                            );
+                            break;
+
+                        case 9:
+                            this.buildings[building.position] = new MonumentBuilding(
+                                this.game,
+                                building.buildingId,
+                                building.posX,
+                                building.posY,
+                                building.prestigeLvl,
+                                building.prestigeProgress,
+                                building.storedGems
                             );
                             break;
 
@@ -519,6 +563,10 @@ class BuildingsManager {
                 this.buildings.push(new TraderBuilding(this.game, buildingId, posX, posY));
                 break;
 
+            case 9:
+                this.buildings.push(new MonumentBuilding(this.game, buildingId, posX, posY));
+                break;
+
             default:
                 this.buildings.push(new Building(this.game, buildingId, posX, posY));
                 break;
@@ -549,10 +597,15 @@ class BuildingsManager {
                 buildingStore.workersSpeed = building.workersSpeed;
                 buildingStore.workersSpeedCost = building.workersSpeedCost;
                 break;
-            case 5:
-                break;
+
             case 6:
                 buildingStore.offers = building.offers;
+                break;
+
+            case 9:
+                buildingStore.prestigeLvl = building.prestigeLvl;
+                buildingStore.prestigeProgress = building.prestigeProgress;
+                buildingStore.storedGems = building.storedGems;
                 break;
         }
 

@@ -146,6 +146,13 @@ class Game {
         if (this.time >= 1440) {
             this.time = 0;
             this.playerManager.gem++;
+
+            for (let building of this.buildingsManager.buildings) {
+                if (building.buildingId === 9) {
+                    building.storedGems += building.prestigeLvl;
+                    this.buildingsManager.saveBuilding(building.position);
+                }
+            }
         }
     }
 }

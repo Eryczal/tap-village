@@ -717,84 +717,42 @@ const buildings = [
             { cost: { wood: 157400, stone: 175400, gold: 169800 }, clicks: 200000 },
         ],
     },
-    // {
-    //     id: 9,
-    //     image: "monument",
-    //     name: "Pomnik",
-    //     description:
-    //         "Pomnik umożliwia wymianę dostępnych surowców na poziom prestiżu w pomniku. Poziom prestiżu w pomniku pokazuje bogactwo gracza. Pomnik dodatkowo co jakiś czas pozwala odebrać klejnoty.",
-    //     size: {
-    //         x: 3,
-    //         y: 3,
-    //     },
-    //     cost: {
-    //         wood: 1250,
-    //         stone: 750,
-    //         gold: 500,
-    //     },
-    //     cards: {},
-    //     maxPrestigeLvl: 3,
-    //     clicks: 750,
-    //     maxOnMap: 1,
-    //     upgrades: [
-    //         {
-    //             cost: { wood: 5, stone: 3, gold: 1 },
-    //             maxPrestigeLvl: 5,
-    //         },
-    //         {
-    //             cost: { wood: 15, stone: 7, gold: 5 },
-    //             maxPrestigeLvl: 10,
-    //         },
-    //         {
-    //             cost: { wood: 50, stone: 30, gold: 15 },
-    //             maxPrestigeLvl: 15,
-    //         },
-    //         {
-    //             cost: { wood: 180, stone: 135, gold: 60 },
-    //             maxPrestigeLvl: 20,
-    //         },
-    //         {
-    //             cost: { wood: 435, stone: 435, gold: 270 },
-    //             maxPrestigeLvl: 25,
-    //         },
-    //         {
-    //             cost: { wood: 890, stone: 1000, gold: 755 },
-    //             maxPrestigeLvl: 35,
-    //         },
-    //         {
-    //             cost: { wood: 1915, stone: 2010, gold: 1770 },
-    //             maxPrestigeLvl: 45,
-    //         },
-    //         {
-    //             cost: { wood: 3900, stone: 4250, gold: 4285 },
-    //             maxPrestigeLvl: 60,
-    //         },
-    //         {
-    //             cost: { wood: 9240, stone: 10560, gold: 9800 },
-    //             maxPrestigeLvl: 80,
-    //         },
-    //         {
-    //             cost: { wood: 19560, stone: 21440, gold: 22000 },
-    //             maxPrestigeLvl: 100,
-    //         },
-    //         {
-    //             cost: { wood: 33480, stone: 35560, gold: 41600 },
-    //             maxPrestigeLvl: 125,
-    //         },
-    //         {
-    //             cost: { wood: 55600, stone: 56800, gold: 61600 },
-    //             maxPrestigeLvl: 150,
-    //         },
-    //         {
-    //             cost: { wood: 94400, stone: 105200, gold: 101600 },
-    //             maxPrestigeLvl: 175,
-    //         },
-    //         {
-    //             cost: { wood: 314800, stone: 350800, gold: 339600 },
-    //             maxPrestigeLvl: 250,
-    //         },
-    //     ],
-    // },
+    {
+        id: 9,
+        image: "monument",
+        name: "Pomnik",
+        description:
+            "Pomnik pozwala poświęcać dostępne surowce na poziom prestiżu. Poziom prestiżu rośnie po odpowiedniej ilości ofiar. Po zwiększeniu poziomu prestiżu, pomnik będzie dawał więcej klejnotów.",
+        size: {
+            x: 3,
+            y: 3,
+        },
+        cost: {
+            wood: 1250,
+            stone: 750,
+            gold: 500,
+        },
+        cards: {},
+        maxPrestigeLvl: 3,
+        clicks: 750,
+        maxOnMap: 1,
+        upgrades: [
+            { cost: { wood: 5, stone: 3, gold: 1 }, clicks: 125 },
+            { cost: { wood: 15, stone: 7, gold: 5 }, clicks: 340 },
+            { cost: { wood: 50, stone: 30, gold: 15 }, clicks: 680 },
+            { cost: { wood: 180, stone: 135, gold: 60 }, clicks: 1240 },
+            { cost: { wood: 435, stone: 435, gold: 270 }, clicks: 2000 },
+            { cost: { wood: 890, stone: 1000, gold: 755 }, clicks: 3240 },
+            { cost: { wood: 1915, stone: 2010, gold: 1770 }, clicks: 5240 },
+            { cost: { wood: 3900, stone: 4250, gold: 4285 }, clicks: 8400 },
+            { cost: { wood: 9240, stone: 10560, gold: 9800 }, clicks: 13800 },
+            { cost: { wood: 19560, stone: 21440, gold: 22000 }, clicks: 24600 },
+            { cost: { wood: 33480, stone: 35560, gold: 41600 }, clicks: 42600 },
+            { cost: { wood: 55600, stone: 56800, gold: 61600 }, clicks: 85000 },
+            { cost: { wood: 94400, stone: 105200, gold: 101600 }, clicks: 200000 },
+            { cost: { wood: 314800, stone: 350800, gold: 339600 }, clicks: 400000 },
+        ],
+    },
 
     //budynek dekoracyjny pozwala stawiać dekoracje na mapie
     //budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach

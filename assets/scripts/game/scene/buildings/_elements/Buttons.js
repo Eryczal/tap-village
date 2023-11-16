@@ -127,13 +127,13 @@ class UpgradeCost extends BuyButton {
         super(
             game,
             parent.x,
-            parent.y - parent.height / 1.5,
+            parent.y - parent.height * 0.7,
             parent.width,
-            parent.height / 1.5,
+            parent.height * 0.7,
             parent,
             `%i0 ${parent.cost.wood} %i1 ${parent.cost.stone} %i2 ${parent.cost.gold}`,
             ["woodIcon", "stoneIcon", "goldIcon"],
-            (parent.height / 1.5) * 0.8,
+            parent.height * 0.7 * 0.8,
             3
         );
 
