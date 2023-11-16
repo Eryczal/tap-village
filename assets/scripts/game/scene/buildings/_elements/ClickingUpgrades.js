@@ -93,17 +93,17 @@ class BuildingButton extends BuyButton {
             gold: Math.ceil(this.cost.gold - (this.cost.gold * cards[10].upgrades[this.game.playerManager.cards[10].lvl]) / 100),
         };
 
-        this.colors = [
-            this.game.playerManager.wood >= this.actualCost.wood ? "#3f3" : "#f33",
-            this.game.playerManager.stone >= this.actualCost.stone ? "#3f3" : "#f33",
-            this.game.playerManager.gold >= this.actualCost.gold ? "#3f3" : "#f33",
-        ];
+        this.updateColors();
 
         this.updateText(`%i0 ${this.actualCost.wood} %i1 ${this.actualCost.stone} %i2 ${this.actualCost.gold}`, ["woodIcon", "stoneIcon", "goldIcon"]);
 
         this.updateTexts?.();
 
         this.onHover(mouseX, mouseY);
+    }
+
+    unload() {
+        clearTimeout(this.updateTimeout);
     }
 
     onHover(mouseX, mouseY) {
@@ -135,6 +135,18 @@ class BuildingButton extends BuyButton {
             this.game.strokeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
             this.game.writeText("Wymaga ulepszenia budynku", this.x + this.width / 2, this.y + this.height / 2, this.height / 2);
         }
+    }
+
+    updateColors() {
+        this.colors = [
+            this.game.playerManager.wood >= this.actualCost.wood ? "#3f3" : "#f33",
+            this.game.playerManager.stone >= this.actualCost.stone ? "#3f3" : "#f33",
+            this.game.playerManager.gold >= this.actualCost.gold ? "#3f3" : "#f33",
+        ];
+
+        this.updateTimeout = setTimeout(() => {
+            this.updateColors();
+        }, 1000);
     }
 }
 

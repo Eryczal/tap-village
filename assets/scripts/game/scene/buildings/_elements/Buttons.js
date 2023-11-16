@@ -86,6 +86,10 @@ class UpgradeButton extends BackButton {
         }
     }
 
+    unload() {
+        this.upgradeCost.unload();
+    }
+
     onRightClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.game.playerManager.gem === "max") {
             if (this.game.constructionManager.constructionState === null) {
@@ -137,11 +141,11 @@ class UpgradeCost extends BuyButton {
             3
         );
 
-        this.colors = [
-            this.game.playerManager.wood >= this.parent.cost.wood ? "#3f3" : "#f33",
-            this.game.playerManager.stone >= this.parent.cost.stone ? "#3f3" : "#f33",
-            this.game.playerManager.gold >= this.parent.cost.gold ? "#3f3" : "#f33",
-        ];
+        this.updateColors();
+    }
+
+    unload() {
+        clearTimeout(this.updateTimeout);
     }
 
     draw() {
@@ -165,6 +169,18 @@ class UpgradeCost extends BuyButton {
         this.y = this.parent.y - this.parent.height / 1.5;
         this.width = this.parent.width;
         this.height = this.parent.height / 1.5;
+    }
+
+    updateColors() {
+        this.colors = [
+            this.game.playerManager.wood >= this.parent.cost.wood ? "#3f3" : "#f33",
+            this.game.playerManager.stone >= this.parent.cost.stone ? "#3f3" : "#f33",
+            this.game.playerManager.gold >= this.parent.cost.gold ? "#3f3" : "#f33",
+        ];
+
+        this.updateTimeout = setTimeout(() => {
+            this.updateColors();
+        }, 1000);
     }
 }
 

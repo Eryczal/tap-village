@@ -26,6 +26,7 @@ class TakeGemsButton extends BuyButton {
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.game.buildingsManager.clickedBuilding.storedGems > 0) {
             this.game.buildingsManager.clickedBuilding.takeGems();
+            this.updateText(`Zbierz klejnoty ( ${game.buildingsManager.clickedBuilding.storedGems} %i0 )`, ["gemIcon"]);
         }
     }
 }
@@ -57,6 +58,10 @@ class SacrificeButton extends BuyButton {
         } else {
             this.text = "Wymaga ulepszenia budynku";
         }
+    }
+
+    unload() {
+        this.sacrificeCost.unload();
     }
 
     draw() {
@@ -114,11 +119,11 @@ class SacrificeCost extends BuyButton {
             3
         );
 
-        this.colors = [
-            this.game.playerManager.wood >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
-            this.game.playerManager.stone >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
-            this.game.playerManager.gold >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
-        ];
+        this.updateColors();
+    }
+
+    unload() {
+        clearTimeout(this.updateTimeout);
     }
 
     draw() {
@@ -142,6 +147,18 @@ class SacrificeCost extends BuyButton {
         this.y = this.parent.y - this.parent.height / 1.5;
         this.width = this.parent.width;
         this.height = this.parent.height / 1.5;
+    }
+
+    updateColors() {
+        this.colors = [
+            this.game.playerManager.wood >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
+            this.game.playerManager.stone >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
+            this.game.playerManager.gold >= this.parent.building.prestigeObject.cost ? "#3f3" : "#f33",
+        ];
+
+        this.updateTimeout = setTimeout(() => {
+            this.updateColors();
+        }, 1000);
     }
 }
 
