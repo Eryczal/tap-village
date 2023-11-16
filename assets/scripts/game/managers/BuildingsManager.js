@@ -369,7 +369,7 @@ class MonumentBuilding extends Building {
         this.prestigeProgress = prestigeProgress;
         this.prestigeObject = prestigeLevels.find((value) => this.prestigeLvl >= value.minLvl && this.prestigeLvl <= value.maxLvl);
 
-        this.storedGems = 0;
+        this.storedGems = storedGems;
     }
 
     addPrestige() {

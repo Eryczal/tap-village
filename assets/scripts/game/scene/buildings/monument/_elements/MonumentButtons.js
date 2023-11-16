@@ -26,7 +26,7 @@ class TakeGemsButton extends BuyButton {
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.game.buildingsManager.clickedBuilding.storedGems > 0) {
             this.game.buildingsManager.clickedBuilding.takeGems();
-            this.updateText(`Zbierz klejnoty ( ${game.buildingsManager.clickedBuilding.storedGems} %i0 )`, ["gemIcon"]);
+            this.updateText(`Zbierz klejnoty ( ${this.game.buildingsManager.clickedBuilding.storedGems} %i0 )`, ["gemIcon"]);
         }
     }
 }

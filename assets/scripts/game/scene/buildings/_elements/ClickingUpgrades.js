@@ -102,14 +102,11 @@ class BuildingButton extends BuyButton {
         this.onHover(mouseX, mouseY);
     }
 
-    unload() {
-        clearTimeout(this.updateTimeout);
-    }
-
     onHover(mouseX, mouseY) {
         super.onHover(mouseX, mouseY);
 
         if (this.isMouseOver(mouseX, mouseY)) {
+            this.updateColors();
             this.updateText(`%i0 ${this.actualCost.wood} %i1 ${this.actualCost.stone} %i2 ${this.actualCost.gold}`, ["woodIcon", "stoneIcon", "goldIcon"]);
         }
 
@@ -143,10 +140,6 @@ class BuildingButton extends BuyButton {
             this.game.playerManager.stone >= this.actualCost.stone ? "#3f3" : "#f33",
             this.game.playerManager.gold >= this.actualCost.gold ? "#3f3" : "#f33",
         ];
-
-        this.updateTimeout = setTimeout(() => {
-            this.updateColors();
-        }, 1000);
     }
 }
 
