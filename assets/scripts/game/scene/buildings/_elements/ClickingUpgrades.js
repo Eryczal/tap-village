@@ -109,6 +109,10 @@ class BuildingButton extends BuyButton {
     onHover(mouseX, mouseY) {
         super.onHover(mouseX, mouseY);
 
+        if (this.isMouseOver(mouseX, mouseY)) {
+            this.updateText(`%i0 ${this.actualCost.wood} %i1 ${this.actualCost.stone} %i2 ${this.actualCost.gold}`, ["woodIcon", "stoneIcon", "goldIcon"]);
+        }
+
         return this.isMouseOver(mouseX, mouseY);
     }
 
