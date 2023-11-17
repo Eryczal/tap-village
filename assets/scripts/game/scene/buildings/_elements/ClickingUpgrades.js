@@ -23,6 +23,9 @@ class BuildingButton extends BuyButton {
             4
         );
 
+        this.yNum = y;
+
+        this.menu = menu;
         this.MENU_SIZE = menu.MENU_SIZE;
 
         this.offset = canvas.width / 200;
@@ -140,6 +143,14 @@ class BuildingButton extends BuyButton {
             this.game.playerManager.stone >= this.actualCost.stone ? "#3f3" : "#f33",
             this.game.playerManager.gold >= this.actualCost.gold ? "#3f3" : "#f33",
         ];
+    }
+
+    onResize() {
+        this.x = (this.game.canvas.width - this.menu.MENU_SIZE) / 2 - this.game.canvas.width / 6 / 2 + this.menu.MENU_SIZE;
+        this.y = this.game.canvas.height / 6 + (this.yNum * this.game.canvas.width) / 36;
+        this.width = this.game.canvas.width / 6;
+        this.height = this.game.canvas.width / 36;
+        this.size = this.game.canvas.width / 78;
     }
 }
 
@@ -658,6 +669,12 @@ class Workers extends BuildingButton {
             }
         }
     }
+
+    onResize() {
+        super.onResize();
+
+        this.x += this.width * 1.2;
+    }
 }
 
 class WorkersSpeed extends BuildingButton {
@@ -762,6 +779,12 @@ class WorkersSpeed extends BuildingButton {
                 }
             }
         }
+    }
+
+    onResize() {
+        super.onResize();
+
+        this.x += this.width * 1.2;
     }
 }
 

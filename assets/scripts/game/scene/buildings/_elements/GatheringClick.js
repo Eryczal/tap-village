@@ -6,6 +6,7 @@ class GatheringClick extends Element {
     constructor(game, menu) {
         super(game);
 
+        this.menu = menu;
         this.MENU_SIZE = menu.MENU_SIZE;
 
         this.width = this.game.canvas.width / 6;
@@ -73,6 +74,21 @@ class GatheringClick extends Element {
             }
             this.cIconSize = this.game.canvas.width / 20;
         }
+    }
+
+    onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+
+        this.width = this.game.canvas.width / 6;
+        this.height = this.game.canvas.width / 6;
+
+        this.x = this.MENU_SIZE + this.width / 4;
+        this.y = this.game.canvas.height / 2 - this.height / 2;
+
+        this.iconSize = this.game.canvas.width / 18;
+        this.cIconSize = this.game.canvas.width / 18;
+        this.iconX = this.x + this.width / 2 - this.iconSize / 2;
+        this.iconY = this.y + this.height / 2 - this.iconSize / 2;
     }
 }
 
