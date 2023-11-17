@@ -12,6 +12,10 @@ class Offers extends Element {
         }
     }
 
+    unload() {
+        this.game.buildingsManager.saveBuilding(this.game.buildingsManager.clickedBuilding.position);
+    }
+
     draw() {
         this.offers.forEach((offer) => offer.draw());
     }
