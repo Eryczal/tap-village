@@ -8,7 +8,7 @@ class ArchitectShopButton extends BuyButton {
 
         if (!this.hasLvl()) {
             this.color = "#ccc";
-            this.notAllowedText = "Wymaga ulepszenia budynku";
+            this.notAllowedText = `Wymaga ${architectObjects[this.parent.id].minLvl} poziomu`;
         }
 
         this.colors = [
