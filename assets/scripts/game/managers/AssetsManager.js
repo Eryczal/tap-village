@@ -100,6 +100,7 @@ const audioPath = {
     gather2: "assets/audio/sound/gather2.mp3",
     gather3: "assets/audio/sound/gather3.mp3",
 
+    buy: "assets/audio/sound/buy.mp3",
     trade: "assets/audio/sound/trade.mp3",
     card: "assets/audio/sound/card.mp3",
     upgrade: "assets/audio/sound/upgrade.mp3",

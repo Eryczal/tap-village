@@ -19,6 +19,7 @@ class ChestButton extends BuyButton {
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY) && this.canBuy()) {
             this.game.playerManager.coin -= chests[this.parent.id].cost - this.game.buildingsManager.clickedBuilding.lvl;
+            this.game.assetsManager.playAudio("buy", true);
 
             this.game.sceneManager.changeScene("chest", {
                 id: this.parent.id,

@@ -30,6 +30,7 @@ class BuildingShopButton extends BuyButton {
                     this.game.constructionManager.setConstruction(building.id);
                     this.game.sceneManager.changeScene("main");
 
+                    this.game.assetsManager.playAudio("buy", true);
                     this.game.playerManager.updatePlayerData("player");
                 }
             }

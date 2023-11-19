@@ -40,6 +40,7 @@ class ResourceShopButton extends BuyButton {
                     break;
             }
 
+            this.game.assetsManager.playAudio("buy", true);
             this.game.playerManager.updatePlayerData("player");
         }
     }
