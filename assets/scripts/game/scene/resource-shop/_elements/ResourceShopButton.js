@@ -5,13 +5,17 @@ class ResourceShopButton extends BuyButton {
     constructor(game, x, y, width, height, parent) {
         super(game, x, y, width, height, parent, `${resources[parent.resourceId].cost} %i0`, ["gemIcon"]);
 
+        this.updateColor();
+
+        this.clickable = this.canBuy();
+    }
+
+    updateColor() {
         if (this.canBuy()) {
             this.color = "#3f3";
         } else {
             this.color = "#f33";
         }
-
-        this.clickable = this.canBuy();
     }
 
     onClick(mouseX, mouseY) {
@@ -43,6 +47,8 @@ class ResourceShopButton extends BuyButton {
             this.game.assetsManager.playAudio("buy", true);
             this.game.playerManager.updatePlayerData("player");
         }
+
+        this.updateColor();
     }
 
     canBuy() {
