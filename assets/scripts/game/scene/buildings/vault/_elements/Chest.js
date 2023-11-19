@@ -52,8 +52,10 @@ class Chest extends Element {
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images[chests[this.id].image + "Chest"], this.x, this.y - this.scroll, this.ICON_SIZE, this.ICON_SIZE);
 
-        this.game.writeText(chests[this.id].name, this.MENU_SIZE + this.SIZE / 2, this.y - this.scroll, this.HEADING_SIZE, "#000", "center", "top");
-        this.game.writeText(this.description, this.x + this.ICON_SIZE * 1.2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#000", "left", "top");
+        this.game.strokeText(chests[this.id].name, this.MENU_SIZE + this.SIZE / 2, this.y - this.scroll, this.HEADING_SIZE, "#000", "center", "top");
+        this.game.writeText(chests[this.id].name, this.MENU_SIZE + this.SIZE / 2, this.y - this.scroll, this.HEADING_SIZE, "#fff", "center", "top");
+        this.game.strokeText(this.description, this.x + this.ICON_SIZE * 1.2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#000", "left", "top");
+        this.game.writeText(this.description, this.x + this.ICON_SIZE * 1.2, this.DESCRIPTION_Y - this.scroll, this.TEXT_SIZE, "#fff", "left", "top");
 
         this.chestButton.draw();
     }
