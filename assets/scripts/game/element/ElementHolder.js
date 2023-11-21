@@ -56,9 +56,45 @@ class ElementHolder {
         }
     }
 
+    onMouseDown(mouseX, mouseY) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onMouseDown(mouseX, mouseY);
+        }
+    }
+
+    onMouseDrag(mouseLastPos, event) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onMouseDrag(mouseLastPos, event);
+        }
+    }
+
+    onMouseUp(mouseX, mouseY) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onMouseUp(mouseX, mouseY);
+        }
+    }
+
     onScroll(event) {
         for (let elem in this.elements) {
             this.elements[elem]?.onScroll(event);
+        }
+    }
+
+    onPinchStart(values) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onPinchStart(values);
+        }
+    }
+
+    onPinch(values) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onPinch(values);
+        }
+    }
+
+    onPinchEnd(values) {
+        for (let elem in this.elements) {
+            this.elements[elem]?.onPinchEnd(values);
         }
     }
 

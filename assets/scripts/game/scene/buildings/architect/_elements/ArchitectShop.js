@@ -12,6 +12,7 @@ class ArchitectShop extends Element {
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
         this.OFFSET = this.SIZE * 0.05;
         this.scroll = 0;
+        this.iScroll = 0;
         this.objects = [];
         this.rows = [0];
     }
@@ -61,6 +62,27 @@ class ArchitectShop extends Element {
         for (let i = 0; i < this.objects.length; i++) {
             this.objects[i].onClick(mouseX, mouseY);
         }
+    }
+
+    onMouseDown(mouseX, mouseY) {
+        this.iScroll = this.scroll;
+    }
+
+    onMouseDrag(mouseLastPos, event) {
+        let sum = Math.floor(this.objects.length / this.MAX_PER_ROW) * this.objects[0].ICON_SIZE * this.MAX_PER_ROW;
+
+        if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
+            this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
+            this.scroll = Math.min(Math.max(0, this.scroll), sum);
+
+            for (let i = 0; i < this.objects.length; i++) {
+                this.objects[i].updateScroll(this.scroll);
+            }
+        }
+    }
+
+    onMouseUp(mouseX, mouseY) {
+        this.iScroll = this.scroll;
     }
 
     onScroll(event) {

@@ -132,6 +132,18 @@ class SceneManager {
     onScroll(event) {
         this.currentScene?.onScroll(event);
     }
+
+    onPinchStart(event) {
+        this.currentScene?.onPinchStart(event);
+    }
+
+    onPinch(event) {
+        this.currentScene?.onPinch(event);
+    }
+
+    onPinchEnd(event) {
+        this.currentScene?.onPinchEnd(event);
+    }
 }
 
 export { SceneManager };

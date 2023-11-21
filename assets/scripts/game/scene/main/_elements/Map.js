@@ -304,7 +304,13 @@ class Map extends Element {
 
         this.scrollable = false;
 
+        this.oldZoom = this.game.playerManager.preferedZoom;
         this.zoom = this.game.playerManager.preferedZoom;
+        this.zoomCenterPos = {
+            x: 0,
+            y: 0,
+        };
+        this.initialPinch = 0;
         this.MAX_ZOOM = 2;
         this.MIN_ZOOM = 0.6;
 
@@ -802,8 +808,13 @@ class Map extends Element {
                 y: event.clientY,
             };
 
-            this.mapScroll.x -= cursorPos.x * (zoomFactor - 1);
-            this.mapScroll.y -= cursorPos.y * (zoomFactor - 1);
+            this.oldMapScroll = {
+                x: this.mapScroll.x,
+                y: this.mapScroll.y,
+            };
+
+            this.mapScroll.x = cursorPos.x - (cursorPos.x - this.oldMapScroll.x) * zoomFactor;
+            this.mapScroll.y = cursorPos.y - (cursorPos.y - this.oldMapScroll.y) * zoomFactor;
 
             let maxScroll = {
                 x: Math.min(0, (this.TILE_SIZE * map[0].length - window.innerWidth + this.MENU_SIZE) * -1),
@@ -819,6 +830,47 @@ class Map extends Element {
 
             this.updateSizes();
         }
+    }
+
+    onPinchStart(values) {
+        this.initialPinch = Math.hypot(values.x0 - values.x1, values.y0 - values.y1);
+        this.oldZoom = this.zoom;
+        this.oldMapScroll = {
+            x: this.mapScroll.x,
+            y: this.mapScroll.y,
+        };
+        this.zoomCenterPos = {
+            x: (values.x0 + values.x1) / 2,
+            y: (values.y0 + values.y1) / 2,
+        };
+    }
+
+    onPinch(values) {
+        let pinch = Math.hypot(values.x0 - values.x1, values.y0 - values.y1);
+        this.zoom = this.oldZoom - (this.initialPinch - pinch) / 1000;
+        this.zoom = Math.max(this.MIN_ZOOM, Math.min(this.MAX_ZOOM, this.zoom));
+
+        let zoomFactor = this.zoom / this.oldZoom;
+
+        this.mapScroll.x = this.zoomCenterPos.x - (this.zoomCenterPos.x - this.oldMapScroll.x) * zoomFactor;
+        this.mapScroll.y = this.zoomCenterPos.y - (this.zoomCenterPos.y - this.oldMapScroll.y) * zoomFactor;
+
+        let maxScroll = {
+            x: Math.min(0, (this.TILE_SIZE * map[0].length - window.innerWidth + this.MENU_SIZE) * -1),
+            y: (this.TILE_SIZE * map.length - window.innerHeight) * -1,
+        };
+
+        this.mapScroll.x = Math.max(maxScroll.x, Math.min(0, this.mapScroll.x));
+        this.mapScroll.y = Math.max(maxScroll.y, Math.min(0, this.mapScroll.y));
+
+        this.game.playerManager.preferedZoom = this.zoom;
+        this.TILE_SIZE = (this.game.canvas.width / 32) * this.zoom;
+
+        this.updateSizes();
+    }
+
+    onPinchEnd(values) {
+        this.oldZoom = this.zoom;
     }
 
     onHover(mouseX, mouseY) {

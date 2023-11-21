@@ -39,13 +39,19 @@ class Scene {
         this.elementsHolder.onClick(mouseX, mouseY);
     }
 
-    onMouseDrag() {}
+    onMouseDrag(mouseLastPos, event) {
+        this.elementsHolder.onMouseDrag(mouseLastPos, event);
+    }
 
     onMouseMove() {}
 
-    onMouseDown() {}
+    onMouseDown(mouseX, mouseY) {
+        this.elementsHolder.onMouseDown(mouseX, mouseY);
+    }
 
-    onMouseUp() {}
+    onMouseUp(mouseX, mouseY) {
+        this.elementsHolder.onMouseUp(mouseX, mouseY);
+    }
 
     onRightClick(mouseX, mouseY) {
         this.elementsHolder.onRightClick(mouseX, mouseY);
@@ -53,6 +59,18 @@ class Scene {
 
     onScroll(event) {
         this.elementsHolder.onScroll(event);
+    }
+
+    onPinchStart(values) {
+        this.elementsHolder.onPinchStart(values);
+    }
+
+    onPinch(values) {
+        this.elementsHolder.onPinch(values);
+    }
+
+    onPinchEnd(values) {
+        this.elementsHolder.onPinchEnd(values);
     }
 }
 

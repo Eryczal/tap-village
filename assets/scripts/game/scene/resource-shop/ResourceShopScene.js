@@ -21,10 +21,6 @@ class ResourceShopScene extends Scene {
 
         super.init();
     }
-
-    onScroll(event) {
-        this.elementsHolder.elements.resourcesShop.onScroll(event);
-    }
 }
 
 export { ResourceShopScene };

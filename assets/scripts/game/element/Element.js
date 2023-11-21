@@ -27,7 +27,19 @@ class Element {
 
     onRightClick() {}
 
+    onMouseDown() {}
+
+    onMouseDrag() {}
+
+    onMouseUp() {}
+
     onScroll() {}
+
+    onPinchStart() {}
+
+    onPinch() {}
+
+    onPinchEnd() {}
 
     isMouseOver(mouseX, mouseY) {
         return !(this.y + this.height < mouseY || this.y > mouseY || this.x + this.width < mouseX || this.x > mouseX);

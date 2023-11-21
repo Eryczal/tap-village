@@ -12,6 +12,7 @@ class BuildingsShop extends Element {
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
         this.OFFSET = this.SIZE * 0.05;
         this.scroll = 0;
+        this.iScroll = 0;
         this.rows = [0];
     }
 
@@ -70,6 +71,27 @@ class BuildingsShop extends Element {
         for (let i = 0; i < buildings.length; i++) {
             this[buildings[i].image].onRightClick(mouseX, mouseY);
         }
+    }
+
+    onMouseDown(mouseX, mouseY) {
+        this.iScroll = this.scroll;
+    }
+
+    onMouseDrag(mouseLastPos, event) {
+        let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + 200, 200);
+
+        if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
+            this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
+            this.scroll = Math.min(Math.max(0, this.scroll), sum);
+
+            for (let i = 0; i < buildings.length; i++) {
+                this[buildings[i].image].updateScroll(this.scroll);
+            }
+        }
+    }
+
+    onMouseUp(mouseX, mouseY) {
+        this.iScroll = this.scroll;
     }
 
     onScroll(event) {
