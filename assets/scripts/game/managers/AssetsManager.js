@@ -2,6 +2,7 @@ const imagesPath = {
     grassTile: "assets/images/tiles/grass.png",
     grassTile2: "assets/images/tiles/grass2.png",
     grassTile3: "assets/images/tiles/grass3.png",
+    grassTile4: "assets/images/tiles/grass4.png",
 
     woodIcon: "assets/images/icons/wood.png",
     stoneIcon: "assets/images/icons/stone.png",
