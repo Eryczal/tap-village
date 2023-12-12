@@ -606,7 +606,6 @@ class Map extends Element {
 
     getTileImage(id, y, x) {
         let num = ((Math.abs(Math.sin(x) * y * Math.cos(y) * (x + y)) % 4) + 1) | 0;
-        console.log(num);
         return this.game.assetsManager.images["grassTile" + (num > 1 ? num : "")];
     }
 
