@@ -5,6 +5,7 @@ class BuildingName extends Element {
     constructor(game, menu) {
         super(game);
 
+        this.menu = menu;
         this.MENU_SIZE = menu.MENU_SIZE;
         this.SCREEN_SIZE = this.game.canvas.width - this.MENU_SIZE;
     }
@@ -33,6 +34,11 @@ class BuildingName extends Element {
         );
         this.game.strokeText("Poziom " + building.lvl, this.SCREEN_SIZE / 2 + this.MENU_SIZE, this.game.canvas.height / 9, this.game.canvas.height / 27);
         this.game.writeText("Poziom " + building.lvl, this.SCREEN_SIZE / 2 + this.MENU_SIZE, this.game.canvas.height / 9, this.game.canvas.height / 27);
+    }
+
+    onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+        this.SCREEN_SIZE = this.game.canvas.width - this.MENU_SIZE;
     }
 }
 

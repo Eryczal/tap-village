@@ -6,6 +6,7 @@ class BackButton extends Element {
     constructor(game, menu) {
         super(game);
 
+        this.menu = menu;
         this.MENU_SIZE = menu.MENU_SIZE;
 
         this.width = this.game.canvas.width / 4;
@@ -30,6 +31,8 @@ class BackButton extends Element {
     }
 
     onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+
         this.width = this.game.canvas.width / 4;
         this.height = this.game.canvas.width / 24;
 
@@ -101,9 +104,14 @@ class UpgradeButton extends BackButton {
     }
 
     onResize() {
+        super.onResize();
+
         this.y = this.game.canvas.height - this.game.canvas.height / 8 - this.height * 1.2;
 
-        this.upgradeCost.onResize();
+        this.offset = this.game.canvas.width / 200;
+        this.iconY = this.y - this.height / 3 - this.height / 4;
+
+        this.upgradeCost = new UpgradeCost(this.game, this);
     }
 
     draw() {
@@ -162,13 +170,6 @@ class UpgradeCost extends BuyButton {
                 this.game.ctx.drawImage(element.value, this.x + element.x, this.y + this.height * 0.2, this.height * 0.6, this.height * 0.6);
             }
         });
-    }
-
-    onResize() {
-        this.x = this.parent.x;
-        this.y = this.parent.y - this.parent.height / 1.5;
-        this.width = this.parent.width;
-        this.height = this.parent.height / 1.5;
     }
 
     updateColors() {
