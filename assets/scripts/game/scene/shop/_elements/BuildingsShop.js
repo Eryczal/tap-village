@@ -106,10 +106,15 @@ class BuildingsShop extends Element {
     }
 
     onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+        this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+        this.OFFSET = this.SIZE * 0.05;
+        for (let i = 0; i < this.rows.length; i++) {
+            this.rows[i] = 0;
+        }
         for (let i = 0; i < buildings.length; i++) {
             this[buildings[i].image].onResize();
         }
-        this.MENU_SIZE = this.menu.MENU_SIZE;
     }
 }
 

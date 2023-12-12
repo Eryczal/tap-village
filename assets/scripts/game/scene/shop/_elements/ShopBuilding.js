@@ -172,13 +172,45 @@ class ShopBuilding extends Element {
     }
 
     onResize() {
+        this.x = ((this.parent.SIZE - this.parent.OFFSET * 2) / this.parent.MAX_PER_ROW) * this.column + this.parent.MENU_SIZE + this.parent.OFFSET;
+        this.size = this.parent.SIZE / this.parent.MAX_PER_ROW;
         this.ICON_SIZE = this.game.canvas.width / 50;
         this.MAX_IMAGE_SIZE = this.ICON_SIZE * 5;
         this.IMAGE_SIZE_X = buildings[this.id].size.x * this.ICON_SIZE;
         this.IMAGE_SIZE_Y = buildings[this.id].size.y * this.ICON_SIZE;
         this.TEXT_SPACING = this.game.canvas.height / 100;
         this.ICON_SPACING = this.game.canvas.height / 50;
+        this.TEXT_HEADING_SIZE = this.game.canvas.height / 20;
+        this.TEXT_SIZE = this.game.canvas.height / 35;
+
+        this.buildingDescription = this.game.wrapText(buildings[this.id].description, this.size * 0.8, this.TEXT_SIZE);
+        this.HEADER_Y = this.y + this.MAX_IMAGE_SIZE;
+        this.DESCRIPTION_Y = this.HEADER_Y + this.TEXT_HEADING_SIZE + this.TEXT_SPACING;
+        this.DESCRIPTION_HEIGHT =
+            this.game.writeText(
+                this.buildingDescription,
+                this.x + this.size / 2,
+                this.DESCRIPTION_Y - this.scroll,
+                this.TEXT_SIZE,
+                "transparent",
+                "center",
+                "top"
+            ).lines * this.TEXT_SIZE;
+        this.RESOURCE_Y = this.DESCRIPTION_Y + this.DESCRIPTION_HEIGHT + this.TEXT_SPACING * 2;
         this.height = this.RESOURCE_Y + this.ICON_SIZE + this.ICON_SPACING + this.size / 12 - this.y;
+
+        this.buyButton = new BuildingShopButton(
+            this.game,
+            this.x + this.size / 2 - this.size / 4,
+            this.RESOURCE_Y + this.ICON_SIZE + this.ICON_SPACING,
+            this.size / 2,
+            this.size / 12,
+            this
+        );
+
+        if (this.height > this.parent.rows[this.row]) {
+            this.parent.rows[this.row] = this.height;
+        }
 
         this.updatePosition();
     }
