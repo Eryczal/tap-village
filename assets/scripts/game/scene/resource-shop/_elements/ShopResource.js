@@ -21,7 +21,7 @@ class ShopResource extends Element {
         this.ICON_SIZE = this.game.canvas.width / 20;
         this.TEXT_SIZE = this.game.canvas.width / 30;
 
-        this.y = this.row * this.ICON_SIZE * 4 + 200;
+        this.y = this.row * this.ICON_SIZE * 4 + this.parent.HEADER_SIZE * 2;
 
         switch (this.type) {
             case 0:
@@ -191,9 +191,30 @@ class ShopResource extends Element {
     }
 
     onResize() {
+        this.x = ((this.parent.SIZE - this.parent.OFFSET * 2) / this.parent.MAX_PER_ROW) * this.column + this.parent.MENU_SIZE + this.parent.OFFSET;
+        this.size = this.parent.SIZE / this.parent.MAX_PER_ROW;
+
         this.ICON_SIZE = this.game.canvas.width / 20;
-        this.IMAGE_SIZE_X = this.ICON_SIZE;
-        this.IMAGE_SIZE_Y = this.ICON_SIZE;
+        this.TEXT_SIZE = this.game.canvas.width / 30;
+
+        this.y = this.row * this.ICON_SIZE * 4 + this.parent.HEADER_SIZE * 2;
+
+        this.height = this.ICON_SIZE * 3;
+
+        this.buyButton = new ResourceShopButton(
+            this.game,
+            this.x + this.size / 2 - this.size / 4,
+            this.y + this.ICON_SIZE * 3,
+            this.size / 2,
+            this.size / 12,
+            this
+        );
+
+        if (this.height > this.parent.rows[this.row]) {
+            this.parent.rows[this.row] = this.height;
+        }
+
+        this.updateScroll(this.scroll);
     }
 }
 
