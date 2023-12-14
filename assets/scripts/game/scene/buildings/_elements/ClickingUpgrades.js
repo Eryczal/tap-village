@@ -151,6 +151,8 @@ class BuildingButton extends BuyButton {
         this.width = this.game.canvas.width / 6;
         this.height = this.game.canvas.width / 36;
         this.size = this.game.canvas.width / 78;
+
+        this.updateTexts?.();
     }
 }
 
