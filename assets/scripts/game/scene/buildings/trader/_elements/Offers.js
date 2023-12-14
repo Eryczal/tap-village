@@ -27,12 +27,19 @@ class Offers extends Element {
     onHover(mouseX, mouseY) {
         this.offers.forEach((offer) => offer.onHover(mouseX, mouseY));
     }
+
+    onResize() {
+        for (let i = 0; i < this.offers.length; i++) {
+            this.offers[i].onResize();
+        }
+    }
 }
 
 class Offer extends Element {
     constructor(game, num, menu, offer) {
         super(game);
 
+        this.menu = menu;
         this.MENU_SIZE = menu.MENU_SIZE;
         this.SCENE_SIZE = this.game.canvas.width - menu.MENU_SIZE;
 
@@ -150,6 +157,39 @@ class Offer extends Element {
             this.x +
             this.width / 2 -
             (this.reward.width * 1.2 + this.game.writeText(this.offer.reward, 0, 0, this.reward.width, "transparent").sizes[0].width) / 2;
+    }
+
+    onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+        this.SCENE_SIZE = this.game.canvas.width - this.menu.MENU_SIZE;
+
+        this.width = this.game.canvas.width / 6;
+        this.height = this.game.canvas.width / 6;
+
+        this.MARGIN_SIZE = (this.SCENE_SIZE - 3 * this.width) / 4;
+
+        this.x = (this.game.canvas.width / 6 + this.MARGIN_SIZE) * this.num + this.MENU_SIZE + this.MARGIN_SIZE;
+        this.y = this.game.canvas.height / 2 - this.height / 2;
+
+        this.resource = {
+            icon: this.offer.type + "Icon",
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 4,
+            width: this.width / 6,
+            height: this.height / 6,
+        };
+
+        this.resource.x -= (this.resource.width * 1.2 + this.game.writeText(this.offer.amount, 0, 0, this.resource.width, "transparent").sizes[0].width) / 2;
+
+        this.reward = {
+            icon: "coinIcon",
+            x: this.x + this.width / 2,
+            y: this.y + (this.height / 4) * 3 - this.height / 6,
+            width: this.width / 6,
+            height: this.height / 6,
+        };
+
+        this.reward.x -= (this.reward.width * 1.2 + this.game.writeText(this.offer.reward, 0, 0, this.reward.width, "transparent").sizes[0].width) / 2;
     }
 }
 
