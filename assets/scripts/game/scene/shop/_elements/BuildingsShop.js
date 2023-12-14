@@ -10,6 +10,7 @@ class BuildingsShop extends Element {
         this.MENU_SIZE = menu.MENU_SIZE;
         this.MAX_PER_ROW = 4;
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+        this.HEADER_SIZE = this.SIZE / 24;
         this.OFFSET = this.SIZE * 0.05;
         this.scroll = 0;
         this.iScroll = 0;
@@ -40,8 +41,8 @@ class BuildingsShop extends Element {
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, canvas.height);
 
-        this.game.strokeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#000", "center", "top");
-        this.game.writeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#fff", "center", "top");
+        this.game.strokeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, this.HEADER_SIZE, this.HEADER_SIZE, "#000", "center", "top");
+        this.game.writeText("Budynki", this.SIZE / 2 + this.MENU_SIZE, this.HEADER_SIZE, this.HEADER_SIZE, "#fff", "center", "top");
 
         this.game.ctx.save();
         this.game.ctx.beginPath();
@@ -78,7 +79,7 @@ class BuildingsShop extends Element {
     }
 
     onMouseDrag(mouseLastPos, event) {
-        let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + 200, 200);
+        let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + this.HEADER_SIZE * 2, this.HEADER_SIZE * 2);
 
         if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
             this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
@@ -95,7 +96,7 @@ class BuildingsShop extends Element {
     }
 
     onScroll(event) {
-        let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + 200, 200);
+        let sum = this.rows.slice(0, -1).reduce((a, b) => a + b + this.HEADER_SIZE * 2, this.HEADER_SIZE * 2);
 
         this.scroll += event.deltaY;
         this.scroll = Math.min(Math.max(0, this.scroll), sum);
@@ -108,10 +109,13 @@ class BuildingsShop extends Element {
     onResize() {
         this.MENU_SIZE = this.menu.MENU_SIZE;
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+        this.HEADER_SIZE = this.SIZE / 24;
         this.OFFSET = this.SIZE * 0.05;
+
         for (let i = 0; i < this.rows.length; i++) {
             this.rows[i] = 0;
         }
+
         for (let i = 0; i < buildings.length; i++) {
             this[buildings[i].image].onResize();
         }

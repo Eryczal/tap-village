@@ -216,7 +216,7 @@ class ShopBuilding extends Element {
     }
 
     updatePosition() {
-        this.y = this.parent.rows.slice(0, this.row).reduce((a, b) => a + b + 200, 200);
+        this.y = this.parent.rows.slice(0, this.row).reduce((a, b) => a + b + this.parent.HEADER_SIZE * 2, this.parent.HEADER_SIZE * 2);
         this.HEADER_Y = this.y + this.MAX_IMAGE_SIZE;
         this.DESCRIPTION_Y = this.HEADER_Y + this.TEXT_HEADING_SIZE + this.TEXT_SPACING;
         this.RESOURCE_Y = this.y + this.parent.rows[this.row] - this.size / 5;
