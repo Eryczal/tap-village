@@ -635,8 +635,8 @@ class Map extends Element {
                 };
 
                 let maxScroll = {
-                    x: (this.TILE_SIZE * map[0].length - window.innerWidth + this.MENU_SIZE) * -1,
-                    y: (this.TILE_SIZE * map.length - window.innerHeight) * -1,
+                    x: (this.TILE_SIZE * map[0].length - window.innerWidth * this.game.pixelRatio + this.MENU_SIZE) * -1,
+                    y: (this.TILE_SIZE * map.length - window.innerHeight * this.game.pixelRatio) * -1,
                 };
 
                 this.mapScroll.x = Math.max(Math.min(mapPosition.x, 0), maxScroll.x);

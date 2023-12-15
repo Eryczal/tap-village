@@ -63,7 +63,7 @@ class Game {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.imageSmoothingEnabled = false;
 
