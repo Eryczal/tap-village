@@ -10,6 +10,7 @@ class ArchitectShop extends Element {
         this.MENU_SIZE = menu.MENU_SIZE;
         this.MAX_PER_ROW = 4;
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+        this.HEADER_SIZE = this.SIZE / 24;
         this.OFFSET = this.SIZE * 0.05;
         this.scroll = 0;
         this.iScroll = 0;
@@ -37,8 +38,8 @@ class ArchitectShop extends Element {
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.shop, this.MENU_SIZE, 0, this.SIZE, canvas.height);
 
-        this.game.strokeText("Obiekty", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#000", "center", "top");
-        this.game.writeText("Obiekty", this.SIZE / 2 + this.MENU_SIZE, this.SIZE / 24, this.SIZE / 24, "#fff", "center", "top");
+        this.game.strokeText("Obiekty", this.SIZE / 2 + this.MENU_SIZE, this.HEADER_SIZE, this.HEADER_SIZE, "#000", "center", "top");
+        this.game.writeText("Obiekty", this.SIZE / 2 + this.MENU_SIZE, this.HEADER_SIZE, this.HEADER_SIZE, "#fff", "center", "top");
 
         this.game.ctx.save();
         this.game.ctx.beginPath();
@@ -97,10 +98,16 @@ class ArchitectShop extends Element {
     }
 
     onResize() {
+        this.MENU_SIZE = this.menu.MENU_SIZE;
+        this.SIZE = this.game.canvas.width - this.MENU_SIZE;
+        this.HEADER_SIZE = this.SIZE / 24;
+        this.OFFSET = this.SIZE * 0.05;
+        for (let i = 0; i < this.rows.length; i++) {
+            this.rows[i] = 0;
+        }
         for (let i = 0; i < this.objects.length; i++) {
             this.objects[i].onResize();
         }
-        this.MENU_SIZE = this.menu.MENU_SIZE;
     }
 }
 
