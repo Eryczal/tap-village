@@ -973,6 +973,23 @@ class Map extends Element {
 
     onResize() {
         this.MENU_SIZE = this.menu.MENU_SIZE;
+        this.TILE_SIZE = (this.game.canvas.width / 32) * this.game.playerManager.preferedZoom;
+        this.oldZoom = this.game.playerManager.preferedZoom;
+        this.zoom = this.game.playerManager.preferedZoom;
+        this.zoomCenterPos = {
+            x: 0,
+            y: 0,
+        };
+        this.oldMapScroll = {
+            x: this.game.playerManager.lastMapPos.x,
+            y: this.game.playerManager.lastMapPos.y,
+        };
+
+        this.mapScroll = {
+            x: this.game.playerManager.lastMapPos.x,
+            y: this.game.playerManager.lastMapPos.y,
+        };
+        this.updateSizes();
     }
 
     createMapObjects() {
