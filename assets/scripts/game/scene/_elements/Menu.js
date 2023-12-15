@@ -11,6 +11,7 @@ class Menu extends Element {
             this.backButton = new BackButton(game, this);
             this.resourcesButton = new ResourcesButton(game, this);
             this.buildingsButton = new BuildingsButton(game, this);
+            this.settingsButton = new SettingsButton(game, this);
         } else {
             this.button = new Button(game, this);
         }
@@ -22,6 +23,7 @@ class Menu extends Element {
         this.backButton?.draw();
         this.resourcesButton?.draw();
         this.buildingsButton?.draw();
+        this.settingsButton?.draw();
     }
 
     onResize() {
@@ -30,6 +32,7 @@ class Menu extends Element {
         this.backButton?.onResize();
         this.resourcesButton?.onResize();
         this.buildingsButton?.onResize();
+        this.settingsButton?.onResize();
     }
 
     onHover(mouseX, mouseY) {
@@ -37,6 +40,7 @@ class Menu extends Element {
         this.backButton?.onHover(mouseX, mouseY);
         this.resourcesButton?.onHover(mouseX, mouseY);
         this.buildingsButton?.onHover(mouseX, mouseY);
+        this.settingsButton?.onHover(mouseX, mouseY);
     }
 
     onClick(mouseX, mouseY) {
@@ -46,6 +50,7 @@ class Menu extends Element {
         this.backButton?.onClick(mouseX, mouseY);
         this.resourcesButton?.onClick(mouseX, mouseY);
         this.buildingsButton?.onClick(mouseX, mouseY);
+        this.settingsButton?.onClick(mouseX, mouseY);
     }
 }
 
@@ -68,8 +73,8 @@ class Button extends Element {
 
     draw() {
         this.game.ctx.drawImage(this.game.assetsManager.images.shopButton, this.x, this.y, this.width, this.height);
-        this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6);
-        this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.6);
+        this.game.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.5);
+        this.game.writeText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.height * 0.5);
     }
 
     onResize() {
@@ -89,8 +94,6 @@ class Button extends Element {
 class BackButton extends Button {
     constructor(game, menu) {
         super(game, menu, "Cofnij", 1);
-
-        this.y = game.canvas.height - this.height;
     }
 
     onClick(mouseX, mouseY) {
@@ -104,8 +107,6 @@ class BackButton extends Button {
 class ResourcesButton extends Button {
     constructor(game, menu) {
         super(game, menu, "Zasoby", 2);
-
-        this.y = game.canvas.height - this.height * 2;
     }
 
     onClick(mouseX, mouseY) {
@@ -119,14 +120,25 @@ class ResourcesButton extends Button {
 class BuildingsButton extends Button {
     constructor(game, menu) {
         super(game, menu, "Budynki", 3);
-
-        this.y = game.canvas.height - this.height * 3;
     }
 
     onClick(mouseX, mouseY) {
         if (this.isMouseOver(mouseX, mouseY)) {
             this.game.assetsManager.playAudio("click", true);
             this.game.sceneManager.changeScene("shop");
+        }
+    }
+}
+
+class SettingsButton extends Button {
+    constructor(game, menu) {
+        super(game, menu, "Ustawienia", 4);
+    }
+
+    onClick(mouseX, mouseY) {
+        if (this.isMouseOver(mouseX, mouseY)) {
+            this.game.assetsManager.playAudio("click", true);
+            this.game.sceneManager.changeScene("settings");
         }
     }
 }
