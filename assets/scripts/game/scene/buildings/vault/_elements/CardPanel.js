@@ -11,6 +11,7 @@ class CardPanel extends Element {
         this.MAX_PER_ROW = 6;
         this.SIZE = this.game.canvas.width - this.MENU_SIZE;
         this.scroll = 0;
+        this.iScroll = 0;
         this.cards = [];
     }
 
@@ -56,17 +57,25 @@ class CardPanel extends Element {
         }
     }
 
+    onMouseDown(mouseX, mouseY) {
+        this.iScroll = this.scroll;
+    }
+
     onMouseDrag(mouseLastPos, event) {
         let sum = Math.floor(this.cards.length / this.MAX_PER_ROW - 1) * (this.SIZE / this.MAX_PER_ROW) + 200;
 
         if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
-            this.scroll -= (event.clientY - mouseLastPos.y) / 20;
+            this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
             this.scroll = Math.min(Math.max(0, this.scroll), sum);
 
             for (let i = 0; i < this.cards.length; i++) {
                 this.cards[i].updateScroll(this.scroll);
             }
         }
+    }
+
+    onMouseUp(mouseX, mouseY) {
+        this.iScroll = this.scroll;
     }
 
     onScroll(event) {

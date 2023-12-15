@@ -20,17 +20,25 @@ class ChestPanel extends Element {
         }
     }
 
+    onMouseDown(mouseX, mouseY) {
+        this.iScroll = this.scroll;
+    }
+
     onMouseDrag(mouseLastPos, event) {
         let sum = this.chestSizes.slice(0, -2).reduce((a, b) => a + b + 200, 200);
 
         if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
-            this.scroll -= (event.clientY - mouseLastPos.y) / 20;
+            this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
             this.scroll = Math.min(Math.max(0, this.scroll), sum);
 
             for (let i = 0; i < this.chests.length; i++) {
                 this.chests[i].updateScroll(this.scroll);
             }
         }
+    }
+
+    onMouseUp(mouseX, mouseY) {
+        this.iScroll = this.scroll;
     }
 
     onScroll(event) {
