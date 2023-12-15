@@ -1,7 +1,7 @@
-import { BuyButton } from "../../_elements/BuyButton.js";
+import { Button } from "../../_elements/Button.js";
 import { buildings } from "../../../data/buildings.js";
 
-class BuildingShopButton extends BuyButton {
+class BuildingShopButton extends Button {
     constructor(game, x, y, width, height, parent) {
         super(game, x, y, width, height, parent);
 

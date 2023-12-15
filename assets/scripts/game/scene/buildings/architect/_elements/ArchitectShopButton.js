@@ -1,7 +1,7 @@
-import { BuyButton } from "../../../_elements/BuyButton.js";
+import { Button } from "../../../_elements/Button.js";
 import { architectObjects } from "../../../../data/architectObjects.js";
 
-class ArchitectShopButton extends BuyButton {
+class ArchitectShopButton extends Button {
     constructor(game, x, y, width, height, parent) {
         let cost = architectObjects[parent.id].cost;
         super(game, x, y, width, height, parent, `%i0 ${cost.wood} %i1 ${cost.stone} %i2 ${cost.gold}`, ["woodIcon", "stoneIcon", "goldIcon"], height / 2, 3);

@@ -1,6 +1,6 @@
 import { Element } from "../../element/Element.js";
 
-class BuyButton extends Element {
+class Button extends Element {
     constructor(game, x, y, width, height, parent, text = "Kup", images = false, size = height * 0.8, textMargin = 1) {
         super(game);
 
@@ -87,4 +87,4 @@ class BuyButton extends Element {
     }
 }
 
-export { BuyButton };
+export { Button };

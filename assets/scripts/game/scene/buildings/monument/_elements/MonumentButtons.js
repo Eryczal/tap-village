@@ -1,6 +1,6 @@
-import { BuyButton } from "../../../_elements/BuyButton.js";
+import { Button } from "../../../_elements/Button.js";
 
-class TakeGemsButton extends BuyButton {
+class TakeGemsButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -31,7 +31,7 @@ class TakeGemsButton extends BuyButton {
     }
 }
 
-class SacrificeButton extends BuyButton {
+class SacrificeButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -104,7 +104,7 @@ class SacrificeButton extends BuyButton {
     }
 }
 
-class SacrificeCost extends BuyButton {
+class SacrificeCost extends Button {
     constructor(game, parent) {
         super(
             game,

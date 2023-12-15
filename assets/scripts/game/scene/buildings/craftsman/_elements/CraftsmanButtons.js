@@ -1,6 +1,6 @@
-import { BuyButton } from "../../../_elements/BuyButton.js";
+import { Button } from "../../../_elements/Button.js";
 
-class ChangePositionButton extends BuyButton {
+class ChangePositionButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -24,7 +24,7 @@ class ChangePositionButton extends BuyButton {
     }
 }
 
-class RemoveObjectButton extends BuyButton {
+class RemoveObjectButton extends Button {
     constructor(game, menu) {
         super(
             game,

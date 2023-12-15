@@ -1,7 +1,7 @@
-import { BuyButton } from "../../_elements/BuyButton.js";
+import { Button } from "../../_elements/Button.js";
 import { auth, signOut } from "../../../../firebase.js";
 
-class ChangeMusicButton extends BuyButton {
+class ChangeMusicButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -29,7 +29,7 @@ class ChangeMusicButton extends BuyButton {
     }
 }
 
-class ChangeSoundButton extends BuyButton {
+class ChangeSoundButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -57,7 +57,7 @@ class ChangeSoundButton extends BuyButton {
     }
 }
 
-class FullScreenButton extends BuyButton {
+class FullScreenButton extends Button {
     constructor(game, menu) {
         super(
             game,
@@ -81,7 +81,7 @@ class FullScreenButton extends BuyButton {
     }
 }
 
-class LogOffButton extends BuyButton {
+class LogOffButton extends Button {
     constructor(game, menu) {
         super(
             game,

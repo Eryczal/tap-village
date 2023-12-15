@@ -1,5 +1,5 @@
 import { Element } from "../../../element/Element.js";
-import { BuyButton } from "../../_elements/BuyButton.js";
+import { Button } from "../../_elements/Button.js";
 import { buildings } from "../../../data/buildings.js";
 
 class BackButton extends Element {
@@ -134,7 +134,7 @@ class UpgradeButton extends BackButton {
     }
 }
 
-class UpgradeCost extends BuyButton {
+class UpgradeCost extends Button {
     constructor(game, parent) {
         super(
             game,

@@ -1,10 +1,9 @@
-import { Element } from "../../../element/Element.js";
-import { BuyButton } from "../../_elements/BuyButton.js";
+import { Button } from "../../_elements/Button.js";
 import { buildings } from "../../../data/buildings.js";
 import { cards } from "../../../data/cards.js";
 import { MineBuilding, QuarryBuilding, SawmillBuilding, WorkshopBuilding } from "../../../managers/BuildingsManager.js";
 
-class BuildingButton extends BuyButton {
+class BuildingButton extends Button {
     constructor(game, menu, text, stat, y = 0) {
         if (game.buildingsManager.clickedBuilding.buildingId === 4 && stat !== "workersSpeed") {
             y -= y > 0 ? 2 : 0;

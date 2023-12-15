@@ -1,7 +1,7 @@
-import { BuyButton } from "../../../_elements/BuyButton.js";
+import { Button } from "../../../_elements/Button.js";
 import { chests } from "../../../../data/chests.js";
 
-class ChestButton extends BuyButton {
+class ChestButton extends Button {
     constructor(game, x, y, width, height, parent) {
         super(game, x, y, width, height, parent, `${chests[parent.id].cost - game.buildingsManager.clickedBuilding.lvl} %i0`, ["coinIcon"]);
 

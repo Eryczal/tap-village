@@ -1,7 +1,7 @@
-import { BuyButton } from "../../_elements/BuyButton.js";
+import { Button } from "../../_elements/Button.js";
 import { resources } from "../../../data/resources.js";
 
-class ResourceShopButton extends BuyButton {
+class ResourceShopButton extends Button {
     constructor(game, x, y, width, height, parent) {
         super(game, x, y, width, height, parent, `${resources[parent.resourceId].cost} %i0`, ["gemIcon"]);
 
