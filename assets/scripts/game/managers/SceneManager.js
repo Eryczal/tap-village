@@ -11,6 +11,7 @@ import { CardScene } from "../scene/buildings/vault/card/CardScene.js";
 import { CraftsmanScene } from "../scene/buildings/craftsman/CraftsmanScene.js";
 import { ArchitectScene } from "../scene/buildings/architect/ArchitectScene.js";
 import { MonumentScene } from "../scene/buildings/monument/MonumentScene.js";
+import { SettingsScene } from "../scene/settings/SettingsScene.js";
 
 class SceneManager {
     constructor(game) {
@@ -37,6 +38,10 @@ class SceneManager {
         switch (scene) {
             case "main":
                 this.currentScene = new MainScene(this.game);
+                break;
+
+            case "settings":
+                this.currentScene = new SettingsScene(this.game);
                 break;
 
             case "resources":

@@ -14,6 +14,9 @@ class Game {
 
         this.time = 600;
         this.timeTimer = setInterval(() => this.changeTime(), 60);
+
+        this.music = true;
+        this.sound = true;
     }
 
     get ctx() {

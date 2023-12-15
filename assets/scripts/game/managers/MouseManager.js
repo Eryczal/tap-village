@@ -151,8 +151,7 @@ class MouseManager {
             this.firstClick = false;
 
             if (this.touch) {
-                let elem = document.documentElement;
-                elem.requestFullscreen();
+                document.documentElement.requestFullscreen();
             }
         }
         this.game.sceneManager.onClick(event.clientX, event.clientY);

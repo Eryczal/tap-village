@@ -131,6 +131,11 @@ class AssetsManager {
         this.playingMusic = false;
         this.musicCheckTimeout = null;
         this.playingAmbience = "";
+
+        this.dayMusicLength = 2;
+        this.nightMusicLength = 1;
+        this.dawnMusicLength = 2;
+        this.duskMusicLength = 2;
     }
 
     async loadAssets() {
@@ -182,27 +187,30 @@ class AssetsManager {
     }
 
     playAudio(audio, reset = false, callback) {
-        if (this.audioAllowed === true && typeof this.audio[audio] !== "undefined") {
-            if (reset === true) {
-                this.audio[audio].currentTime = 0;
-            }
-            this.audio[audio].play();
+        if (this.game.sound === true) {
+            if (this.audioAllowed === true && typeof this.audio[audio] !== "undefined") {
+                if (reset === true) {
+                    this.audio[audio].currentTime = 0;
+                }
+                this.audio[audio].play();
 
-            if (typeof callback === "function") {
-                this.audio[audio].onended = callback;
-            } else {
-                this.audio[audio].onended = null;
+                if (typeof callback === "function") {
+                    this.audio[audio].onended = callback;
+                } else {
+                    this.audio[audio].onended = null;
+                }
             }
         }
     }
 
     playAmbience() {
         let time = this.game.time;
-        if (time >= 600 && time < 1080) {
+        if (time >= 600 && time < 1080 && this.game.sound === true) {
             this.selectAmbience("birds");
-        } else if (time >= 1320 || time < 360) {
+        } else if ((time >= 1320 || time < 360) && this.game.sound === true) {
             this.selectAmbience("crickets");
         } else {
+            console.log("setTimeout Ambience");
             setTimeout(() => this.playAmbience(), 5000);
         }
     }
@@ -215,20 +223,33 @@ class AssetsManager {
         };
     }
 
+    turnOffAmbience() {
+        if (this.playingAmbience !== "") {
+            this.audio[this.playingAmbience].onended = null;
+            this.audio[this.playingAmbience].pause();
+            this.audio[this.playingAmbience].currentTime = 0;
+            this.playingAmbience = "";
+            setTimeout(() => this.playAmbience(), 5000);
+        }
+    }
+
     playRandomMusic() {
         let time = this.game.time;
-        if (!this.playingMusic) {
+        if (!this.playingMusic && this.game.music === true) {
             if (time >= 480 && time < 1200) {
-                this.selectRandomMusic(2, "dayMusic");
+                this.selectRandomMusic(this.dayMusicLength, "dayMusic");
             } else if (time >= 1320 || time < 360) {
-                this.selectRandomMusic(1, "nightMusic");
+                this.selectRandomMusic(this.nightMusicLength, "nightMusic");
             } else if (time >= 360 && time < 480) {
-                this.selectRandomMusic(2, "dawnMusic");
+                this.selectRandomMusic(this.dawnMusicLength, "dawnMusic");
             } else if (time >= 1200 && time < 1320) {
-                this.selectRandomMusic(2, "duskMusic");
+                this.selectRandomMusic(this.duskMusicLength, "duskMusic");
             } else {
                 setTimeout(() => this.playRandomMusic(), 5000);
             }
+        } else if (this.game.music === false) {
+            console.log("setTimeout Music");
+            setTimeout(() => this.playRandomMusic(), 5000);
         }
     }
 
@@ -274,6 +295,31 @@ class AssetsManager {
         } else {
             setTimeout(() => this.turnDownVolume(music), 200);
         }
+    }
+
+    turnOffMusic() {
+        for (let i = 1; i <= this.dayMusicLength; i++) {
+            this.audio["dayMusic" + i].onended = null;
+            this.audio["dayMusic" + i].pause();
+            this.audio["dayMusic" + i].currentTime = 0;
+        }
+        for (let i = 1; i <= this.nightMusicLength; i++) {
+            this.audio["nightMusic" + i].onended = null;
+            this.audio["nightMusic" + i].pause();
+            this.audio["nightMusic" + i].currentTime = 0;
+        }
+        for (let i = 1; i <= this.dawnMusicLength; i++) {
+            this.audio["dawnMusic" + i].onended = null;
+            this.audio["dawnMusic" + i].pause();
+            this.audio["dawnMusic" + i].currentTime = 0;
+        }
+        for (let i = 1; i <= this.duskMusicLength; i++) {
+            this.audio["duskMusic" + i].onended = null;
+            this.audio["duskMusic" + i].pause();
+            this.audio["duskMusic" + i].currentTime = 0;
+        }
+        this.playingMusic = false;
+        setTimeout(() => this.playRandomMusic(), 5000);
     }
 }
 
