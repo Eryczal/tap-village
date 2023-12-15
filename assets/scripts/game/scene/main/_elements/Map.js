@@ -676,6 +676,11 @@ class Map extends Element {
             let tileX = Math.floor((mouseX - this.mapScroll.x - this.MENU_SIZE) / this.TILE_SIZE);
             let tileY = Math.floor((mouseY - this.mapScroll.y) / this.TILE_SIZE);
 
+            if (this.game.mobile === true) {
+                this.selectedTile.x = tileX;
+                this.selectedTile.y = tileY;
+            }
+
             if (this.game.sceneManager.currentScene?.data?.changePosition === true) {
                 let id = this.game.buildingsManager.getClickedBuilding(mouseX, mouseY);
                 if (typeof id !== "number") {
@@ -719,12 +724,14 @@ class Map extends Element {
                     this.game.playerManager.stone >= obj.cost.stone &&
                     this.game.playerManager.gold >= obj.cost.gold
                 ) {
-                    this.game.playerManager.wood -= obj.cost.wood;
-                    this.game.playerManager.stone -= obj.cost.stone;
-                    this.game.playerManager.gold -= obj.cost.gold;
-                    obj.x = this.selectedTile.x;
-                    obj.y = this.selectedTile.y;
-                    this.handleCreateObject(obj, true);
+                    if (this.checkElementPos(obj.id, "object")) {
+                        this.game.playerManager.wood -= obj.cost.wood;
+                        this.game.playerManager.stone -= obj.cost.stone;
+                        this.game.playerManager.gold -= obj.cost.gold;
+                        obj.x = this.selectedTile.x;
+                        obj.y = this.selectedTile.y;
+                        this.handleCreateObject(obj, true);
+                    }
                 }
                 return;
             }
