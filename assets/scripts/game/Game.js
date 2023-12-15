@@ -17,6 +17,7 @@ class Game {
 
         this.music = true;
         this.sound = true;
+        this.mobile = false;
     }
 
     get ctx() {

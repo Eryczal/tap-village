@@ -44,7 +44,9 @@ class BuildingButton extends BuyButton {
 
         this.updateValues(0, 0, false);
 
-        this.state = 0;
+        if (this.game.mobile === false) {
+            this.state = 0;
+        }
     }
 
     updateValues(mouseX, mouseY, save = true) {
@@ -195,7 +197,7 @@ class GatheringPower extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.gatheringPower < this.maxStat) {
                 this.state = 1;
             } else {
@@ -296,7 +298,7 @@ class GatheringChance extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.gatheringChance < this.maxStat) {
                 this.state = 1;
             } else {
@@ -384,7 +386,7 @@ class BuildingPower extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.buildingPower < this.maxStat) {
                 this.state = 1;
             } else {
@@ -461,7 +463,7 @@ class CriticPower extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.criticalPower < this.maxStat) {
                 this.state = 1;
             } else {
@@ -553,7 +555,7 @@ class CriticChance extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.criticalChance < this.maxStat) {
                 this.state = 1;
             } else {
@@ -633,7 +635,7 @@ class Workers extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.workers < this.maxStat) {
                 this.state = 1;
             } else {
@@ -715,7 +717,7 @@ class WorkersSpeed extends BuildingButton {
     }
 
     onHover(mouseX, mouseY) {
-        if (super.onHover(mouseX, mouseY)) {
+        if (super.onHover(mouseX, mouseY) || this.game.mobile) {
             if (this.workersSpeed > this.maxStat) {
                 this.state = 1;
             } else {

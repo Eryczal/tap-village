@@ -152,6 +152,7 @@ class MouseManager {
 
             if (this.touch) {
                 document.documentElement.requestFullscreen();
+                this.game.mobile = true;
             }
         }
         this.game.sceneManager.onClick(event.clientX, event.clientY);
