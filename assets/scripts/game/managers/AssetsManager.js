@@ -27,7 +27,6 @@ const imagesPath = {
     craftsman: "assets/images/buildings/craftsman.png",
     craftsmanBackground: "assets/images/buildings/craftsman-bg.png",
     architect: "assets/images/buildings/architect.png",
-    architectBackground: "assets/images/buildings/architect-bg.png",
     monument: "assets/images/buildings/monument.png",
     monumentBackground: "assets/images/buildings/monument-bg.png",
 

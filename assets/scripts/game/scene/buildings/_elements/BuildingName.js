@@ -13,13 +13,15 @@ class BuildingName extends Element {
     draw() {
         let building = this.game.buildingsManager.clickedBuilding;
 
-        this.game.ctx.drawImage(
-            this.game.assetsManager.images[buildings[building.buildingId].image + "Background"],
-            this.MENU_SIZE,
-            0,
-            this.SCREEN_SIZE,
-            this.game.canvas.height
-        );
+        if (buildings[building.buildingId].image !== "architect") {
+            this.game.ctx.drawImage(
+                this.game.assetsManager.images[buildings[building.buildingId].image + "Background"],
+                this.MENU_SIZE,
+                0,
+                this.SCREEN_SIZE,
+                this.game.canvas.height
+            );
+        }
         this.game.strokeText(
             buildings[building.buildingId].name,
             this.SCREEN_SIZE / 2 + this.MENU_SIZE,
