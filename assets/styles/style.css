@@ -52,11 +52,6 @@ form label {
     font-size: 1.2rem;
 }
 
-label:has(+ input:focus) {
-    color: #66f;
-    text-shadow: 0 0 0.2em #fff;
-}
-
 input {
     background-color: #daa386;
     border: 2px solid #78523f;
@@ -74,7 +69,7 @@ input:hover {
 
 input:focus {
     outline: none;
-    border: 2px solid #66f;
+    border: 2px solid #eee;
 }
 
 input:last-of-type {
@@ -82,6 +77,8 @@ input:last-of-type {
 }
 
 button {
+    color: #fff;
+    text-shadow: 0 0 0.2em #000;
     background-color: #daa386;
     border: 2px solid #78523f;
     cursor: pointer;
@@ -94,12 +91,10 @@ button:hover {
     transform: scale(1.1);
     background-color: #78523f;
     border: 2px solid #624535;
-    color: #fff;
 }
 
 button:active {
     background-color: #624535;
-    color: #fff;
 }
 
 hr {
@@ -114,6 +109,12 @@ hr {
 }
 
 #auth-link {
-    color: #ccf;
+    color: #624535;
+    text-shadow: 0 0 0.2em #fff;
+    font-size: 1.2rem;
     cursor: pointer;
+}
+
+#auth-link:hover {
+    text-decoration: underline;
 }
