@@ -70,7 +70,7 @@ class ArchitectShop extends Element {
     }
 
     onMouseDrag(mouseLastPos, event) {
-        let sum = Math.floor(this.objects.length / this.MAX_PER_ROW) * this.objects[0].ICON_SIZE * this.MAX_PER_ROW;
+        let sum = Math.floor(this.objects.length / this.MAX_PER_ROW + 1) * this.objects[0].ICON_SIZE * this.MAX_PER_ROW;
 
         if (Math.abs(mouseLastPos.y - event.clientY) > 7) {
             this.scroll = this.iScroll - (event.clientY - mouseLastPos.y);
