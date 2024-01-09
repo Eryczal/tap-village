@@ -92,6 +92,7 @@ class Offer extends Element {
             this.resource.width,
             this.resource.height
         );
+
         this.game.strokeText(
             this.offer.amount,
             this.resource.x + this.resource.width * 1.2,
@@ -109,7 +110,11 @@ class Offer extends Element {
             "left"
         );
 
+        this.game.strokeText("↓", this.x + this.width / 2, this.y + this.height / 2, this.resource.width * 0.8, "#000", "center", "middle", "Impact");
+        this.game.writeText("↓", this.x + this.width / 2, this.y + this.height / 2, this.resource.width * 0.8, "#fff", "center", "middle", "Impact");
+
         this.game.ctx.drawImage(this.game.assetsManager.images[this.reward.icon], this.reward.x, this.reward.y, this.reward.width, this.reward.height);
+
         this.game.strokeText(
             this.offer.reward,
             this.reward.x + this.reward.width * 1.2,
