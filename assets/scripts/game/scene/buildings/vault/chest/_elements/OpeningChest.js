@@ -52,8 +52,8 @@ class OpeningChest extends Element {
             this.headerOpacity = 0;
             this.y = this.iY + this.ICON_SIZE / 2;
             this.flipProgress = 0;
-            this.iconWidth = this.flipProgress < 0.5 ? this.ICON_SIZE * (1 - this.flipProgress * 2) : this.ICON_SIZE * ((this.flipProgress - 0.5) * 2);
-            this.img = this.flipProgress < 0.5 ? this.game.assetsManager.images[this.drop.image + "Card"] : this.game.assetsManager.images.cardBack;
+            this.iconWidth = this.ICON_SIZE;
+            this.img = this.game.assetsManager.images[this.drop.image + "Card"];
             this.progress = this.ICON_SIZE;
             this.endAnimation();
         } else {
