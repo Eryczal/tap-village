@@ -628,7 +628,6 @@ const buildings = [
             stone: 30,
             gold: 10,
         },
-        cards: {},
         clicks: 75,
         maxOnMap: 1,
         upgrades: [
@@ -663,7 +662,6 @@ const buildings = [
             stone: 250,
             gold: 200,
         },
-        cards: {},
         clicks: 500,
         maxOnMap: 1,
         upgrades: [
@@ -697,7 +695,6 @@ const buildings = [
             stone: 400,
             gold: 250,
         },
-        cards: {},
         clicks: 550,
         maxOnMap: 1,
         upgrades: [
@@ -732,7 +729,6 @@ const buildings = [
             stone: 750,
             gold: 500,
         },
-        cards: {},
         maxPrestigeLvl: 3,
         clicks: 750,
         maxOnMap: 1,
@@ -754,7 +750,6 @@ const buildings = [
         ],
     },
 
-    //budynek dekoracyjny pozwala stawiać dekoracje na mapie
     //budynek ekploracyjny - pozwala na eksplorację po różnych proceduralnie generowanych światach
     //lochy - mini gra 2d, gdzie jakiś potwór atakuje. gracz musi unikać strzałów potwora i strzelać do potworów
     //labolatorium - pozwala stale ulepszać niektóre umiejętności gracza za pomocą monet

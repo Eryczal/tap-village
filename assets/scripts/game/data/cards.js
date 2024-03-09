@@ -116,7 +116,6 @@ const cards = [
         rarity: 3,
         upgrades: [0, 1, 2, 5, 10, 20],
     },
-    //woodWorkersCard, stoneWorkersCard, goldWorkersCard
 ];
 
 export { cards };
