@@ -118,3 +118,9 @@ hr {
 #auth-link:hover {
     text-decoration: underline;
 }
+
+#error {
+    font-size: 1.2em;
+    color: #f00;
+    text-shadow: 0 0 0.1em #000, 0 0 0.2em #fff;
+}

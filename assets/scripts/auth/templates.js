@@ -13,6 +13,8 @@ const loginTemplate = `
       </label>
       <input type="password" id="password">
 
+      <p id="error"></p>
+
       <hr>
 
       <button id="auth-button">Zaloguj</button>
@@ -43,6 +45,8 @@ const registerTemplate = `
         <span>Powtórz hasło: </span>
       </label>
       <input type="password" id="repeat-password">
+
+      <p id="error"></p>
 
       <hr>
 

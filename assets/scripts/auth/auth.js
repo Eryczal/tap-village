@@ -1,8 +1,16 @@
 import { auth, set, ref, get, child, database, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "../firebase.js";
-
 import { loginTemplate, registerTemplate } from "./templates.js";
-
 import { initGame } from "../game/Game.js";
+
+const errors = {
+    "auth/invalid-email": "Adres email jest niepoprawny",
+    "auth/internal-error": "Wystąpił błąd",
+    "auth/email-already-in-use": "Wybrany adres email jest zajęty",
+    "auth/weak-password": "Hasło jest zbyt słabe",
+    "auth/wrong-password": "Nieprawidłowe hasło",
+    "auth/user-not-found": "Nie znaleziono takiego użytkownika",
+    "auth/different-password": "Hasła nie są takie same",
+};
 
 auth.onAuthStateChanged((user) => {
     if (!user) {
@@ -33,6 +41,8 @@ async function loginHandler(event) {
         }
     } catch (err) {
         console.error(err.message);
+
+        document.getElementById("error").innerText = errors[err.code] || "Wystąpił błąd";
     }
 }
 
@@ -54,8 +64,12 @@ async function registerHandler(event) {
                 last_login: Date.now(),
             });
         } catch (err) {
-            console.error(err.message);
+            console.log(err.code);
+
+            document.getElementById("error").innerText = errors[err.code] || "Wystąpił błąd";
         }
+    } else {
+        document.getElementById("error").innerText = errors["auth/different-password"];
     }
 }
 
